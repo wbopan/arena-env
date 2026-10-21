@@ -121,6 +121,9 @@ class Model:
             self.usage.setdefault("providers", {})[prov] = self.usage.get("providers", {}).get(prov, 0) + 1
         content = ch["message"].get("content") or ""
         calls = ch["message"].get("tool_calls") or []
+        if not content.strip():
+            with self._lock:
+                self.usage.setdefault("empty_raw", []).append(json.dumps(ch)[:600])
         if calls and not content.strip():
             # The provider parsed a <tool_call> block out of the reply. The arena would see the raw
             # text (an invalid reply); keep it as text so strict parsing fails and lenient parsing
