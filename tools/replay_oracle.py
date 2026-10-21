@@ -42,7 +42,7 @@ def main() -> int:
                                   "content": content})
             if not res["observation"].get("success", True):
                 print("write failed:", res["observation"].get("error"))
-    res = step(sess, {"action_type": "exec", "command": "cd /root && bash /oracle/solve.sh 2>&1 | tail -20"})
+    res = step(sess, {"action_type": "exec", "command": f"cd {obs.get('task_path', '/root')} && bash /oracle/solve.sh 2>&1 | tail -20"})
     obs = res["observation"]
     print("solve.sh output:\n" + obs.get("output", "")[-1500:])
     res = step(sess, {"action_type": "evaluate"})

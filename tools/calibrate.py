@@ -298,6 +298,7 @@ def main():
     ap.add_argument("--tasks", required=True, help="comma-separated task ids (<name>--<variant>) or @file")
     ap.add_argument("--image-prefix", default="arena-task/")
     ap.add_argument("--image-tag", default="local")
+    ap.add_argument("--image", help="one image that serves every task (overrides prefix/tag)")
     ap.add_argument("--episodes", type=int, default=4)
     ap.add_argument("--parallel", type=int, default=4)
     ap.add_argument("--base-url", default="https://openrouter.ai/api/v1")
@@ -326,7 +327,7 @@ def main():
 
     def job(task_id):
         name = task_id.split("--")[0]
-        c = Container(f"{args.image_prefix}{name}:{args.image_tag}", host_net=args.host_net)
+        c = Container(args.image or f"{args.image_prefix}{name}:{args.image_tag}", host_net=args.host_net)
         try:
             with schema_lock:
                 if name not in schema_cache:

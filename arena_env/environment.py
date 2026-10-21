@@ -1,8 +1,8 @@
 """
-One task per image, behind the tbench2_env interface.
+Tasks behind the tbench2_env interface.
 
-The image is a task's own environment image with this server layered on top
-(see tools/build_task.py). The agent works as root in the task's working
+An image serves one task built around its own environment image (see
+tools/build_task.py) or many compact tasks that share one image (tools/build_mini.py). The agent works as root in the task's working
 directory, exactly as the task's author intended. ``reset`` restores that
 directory from a snapshot taken at build time, so every episode starts from
 the same files. ``evaluate`` stages the verifier (held only in the server's
@@ -38,6 +38,7 @@ LOGS_DIR = Path("/logs/verifier")
 MAX_ACTIONS = int(os.environ.get("ARENA_MAX_ACTIONS", "32"))
 EXEC_TIMEOUT_S = float(os.environ.get("ARENA_EXEC_TIMEOUT_S", "90"))
 EVAL_TIMEOUT_S = float(os.environ.get("ARENA_EVAL_TIMEOUT_S", "100"))
+GEN_TIMEOUT_S = float(os.environ.get("ARENA_GEN_TIMEOUT_S", "60"))
 HEAD_CHARS = 3000
 TAIL_CHARS = 1000
 SESSION_ID = "tb2-session"
@@ -46,16 +47,23 @@ UNSUPPORTED = {"write", "view", "wait", "kill"}
 _LOCK = threading.Lock()
 
 
-class TaskBundle:
-    """The task as shipped in the image, with the verifier moved into memory."""
+class Task:
+    """One task as shipped in the image, with its verifier moved into memory.
 
-    def __init__(self, task_dir: Path = TASK_DIR):
+    The working directory is reset either from ``snapshot.tar`` (an image built around the
+    task's own environment) or by running ``gen_data.py`` in an empty directory (compact
+    tasks that share one image).
+    """
+
+    def __init__(self, task_dir: Path):
         meta = json.loads((task_dir / "task.json").read_text(encoding="utf-8"))
         self.name: str = meta["name"]
         self.workdir: Path = Path(meta.get("workdir", "/root"))
         self.instructions: dict[str, str] = meta["instructions"]
         self.default_variant: str = meta.get("default_variant", "n")
         self.snapshot: Path = task_dir / "snapshot.tar"
+        gen = task_dir / "gen_data.py"
+        self.gen: Path | None = gen if gen.is_file() else None
         verifier_dir = task_dir / "verifier"
         self.verifier_tar: bytes = b""
         if verifier_dir.is_dir():
@@ -71,26 +79,66 @@ class TaskBundle:
     def instruction(self, variant: str) -> str:
         return self.instructions.get(variant) or self.instructions[self.default_variant]
 
-    def parse_task_id(self, task_id: str | None) -> tuple[str, str]:
+    def restore_workdir(self) -> None:
+        wd = self.workdir
+        for p in (VERIFIER_STAGE, LOGS_DIR):
+            shutil.rmtree(p, ignore_errors=True)
+        if wd.exists():
+            for child in wd.iterdir():
+                if child.is_dir() and not child.is_symlink():
+                    shutil.rmtree(child, ignore_errors=True)
+                else:
+                    child.unlink(missing_ok=True)
+        wd.mkdir(parents=True, exist_ok=True)
+        if self.snapshot.is_file():
+            with tarfile.open(self.snapshot) as tar:
+                tar.extractall("/", numeric_owner=True)
+        elif self.gen is not None:
+            status, out, _ = run_shell(f"python3 {self.gen}", wd, GEN_TIMEOUT_S)
+            if status != 0:
+                raise RuntimeError(f"gen_data.py failed ({status}): {out[-500:]}")
+
+
+class TaskSet:
+    """The tasks this image serves: one under /opt/arena/task, or many under /opt/arena/tasks."""
+
+    def __init__(self, arena_dir: Path = ARENA_DIR):
+        self.tasks: dict[str, Task] = {}
+        single = arena_dir / "task"
+        many = arena_dir / "tasks"
+        if (single / "task.json").is_file():
+            t = Task(single)
+            self.tasks[t.name] = t
+        if many.is_dir():
+            for d in sorted(many.iterdir()):
+                if (d / "task.json").is_file():
+                    t = Task(d)
+                    self.tasks[t.name] = t
+        if not self.tasks:
+            raise RuntimeError(f"no task under {arena_dir}")
+        self.default: Task = next(iter(self.tasks.values()))
+
+    def parse_task_id(self, task_id: str | None) -> tuple[Task, str]:
         if not task_id:
-            return self.name, self.default_variant
+            return self.default, self.default.default_variant
         name, sep, variant = task_id.partition("--")
-        if name != self.name:
-            raise ValueError(f"this image serves task {self.name!r}, not {name!r}")
-        variant = variant if sep else self.default_variant
-        if variant not in self.instructions:
-            raise ValueError(f"unknown variant {variant!r} for task {self.name!r}")
-        return name, variant
+        task = self.tasks.get(name)
+        if task is None:
+            raise ValueError(f"this image does not serve task {name!r}")
+        variant = variant if sep else task.default_variant
+        if variant not in task.instructions:
+            raise ValueError(f"unknown variant {variant!r} for task {name!r}")
+        return task, variant
 
 
-_BUNDLE: TaskBundle | None = None
+_SET: TaskSet | None = None
 
 
-def bundle() -> TaskBundle:
-    global _BUNDLE
-    if _BUNDLE is None:
-        _BUNDLE = TaskBundle()
-    return _BUNDLE
+def bundle() -> TaskSet:
+    global _SET
+    if _SET is None:
+        _SET = TaskSet()
+    return _SET
 
 
 def cap_output(text: str) -> str:
@@ -137,20 +185,22 @@ class ArenaEnvironment(Environment):
 
     def __init__(self):
         super().__init__()
-        self._bundle = bundle()
+        self._set = bundle()
+        self._task: Task = self._set.default
         self._episode: dict | None = None
         self._state = Tbench2State(episode_id=None, step_count=0)
 
     # ----- OpenEnv interface -------------------------------------------------
 
     def reset(self, seed=None, episode_id=None, task_id=None, **kwargs) -> Tbench2Observation:
-        name, variant = self._bundle.parse_task_id(task_id or kwargs.get("task_name"))
+        task, variant = self._set.parse_task_id(task_id or kwargs.get("task_name"))
+        self._task = task
         with _LOCK:
-            self._restore_workdir()
+            task.restore_workdir()
         self._episode = {
-            "task_id": f"{name}--{variant}",
+            "task_id": f"{task.name}--{variant}",
             "variant": variant,
-            "instruction": self._bundle.instruction(variant),
+            "instruction": task.instruction(variant),
             "actions": 0,
             "done": False,
         }
@@ -158,7 +208,7 @@ class ArenaEnvironment(Environment):
             episode_id=episode_id or str(uuid4()),
             step_count=0,
             task_id=self._episode["task_id"],
-            task_path=str(self._bundle.workdir),
+            task_path=str(self._task.workdir),
             session_id=SESSION_ID,
             terminal_ready=True,
         )
@@ -188,7 +238,7 @@ class ArenaEnvironment(Environment):
             if not action.command.strip():
                 error = "exec needs a command"
             else:
-                status, output, secs = run_shell(action.command, self._bundle.workdir, EXEC_TIMEOUT_S)
+                status, output, secs = run_shell(action.command, self._task.workdir, EXEC_TIMEOUT_S)
                 info = {"exit_code": status}
                 if status != 0:
                     error = f"command exited with status {status}"
@@ -213,29 +263,12 @@ class ArenaEnvironment(Environment):
 
     # ----- helpers -------------------------------------------------------------
 
-    def _restore_workdir(self) -> None:
-        wd = self._bundle.workdir
-        for p in (VERIFIER_STAGE, LOGS_DIR):
-            shutil.rmtree(p, ignore_errors=True)
-        if self._bundle.snapshot.is_file():
-            if wd.exists():
-                for child in wd.iterdir():
-                    if child.is_dir() and not child.is_symlink():
-                        shutil.rmtree(child, ignore_errors=True)
-                    else:
-                        child.unlink(missing_ok=True)
-            wd.mkdir(parents=True, exist_ok=True)
-            with tarfile.open(self._bundle.snapshot) as tar:
-                tar.extractall("/", numeric_owner=True)
-        else:
-            wd.mkdir(parents=True, exist_ok=True)
-
     def _write_file(self, file_path: str, content: str) -> tuple[str, str]:
         if not file_path:
             return "", "write_file needs file_path"
         target = Path(file_path)
         if not target.is_absolute():
-            target = self._bundle.workdir / target
+            target = self._task.workdir / target
         real = Path(os.path.realpath(target))
         for forbidden in (ARENA_DIR, VERIFIER_STAGE, LOGS_DIR):
             if real == forbidden or forbidden in real.parents:
@@ -248,17 +281,17 @@ class ArenaEnvironment(Environment):
         return f"Wrote {len(content)} characters to {target}", ""
 
     def _grade(self) -> tuple[float, str]:
-        if not self._bundle.verifier_tar:
+        if not self._task.verifier_tar:
             return 0.0, "no verifier in this image"
         with _LOCK:
             shutil.rmtree(VERIFIER_STAGE, ignore_errors=True)
             shutil.rmtree(LOGS_DIR, ignore_errors=True)
             VERIFIER_STAGE.mkdir(parents=True)
             LOGS_DIR.mkdir(parents=True)
-            with tarfile.open(fileobj=io.BytesIO(self._bundle.verifier_tar)) as tar:
+            with tarfile.open(fileobj=io.BytesIO(self._task.verifier_tar)) as tar:
                 tar.extractall(VERIFIER_STAGE)
             status, output, secs = run_shell(
-                f"bash {VERIFIER_STAGE}/test.sh", self._bundle.workdir, EVAL_TIMEOUT_S
+                f"bash {VERIFIER_STAGE}/test.sh", self._task.workdir, EVAL_TIMEOUT_S
             )
             reward_file = LOGS_DIR / "reward.txt"
             reward = 0.0
@@ -305,7 +338,7 @@ class ArenaEnvironment(Environment):
             success=success,
             error=error,
             task_id=ep.get("task_id", ""),
-            task_path=str(self._bundle.workdir),
+            task_path=str(self._task.workdir),
             session_id=SESSION_ID,
             action_type=action_type,
             info=payload,
