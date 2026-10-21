@@ -60,7 +60,7 @@ def collect_skills(skills_dir: Path, limit: int = 60000) -> str:
 
 
 def ask(base_url: str, key: str, model: str, prompt: str) -> str:
-    body = {"model": model, "messages": [{"role": "user", "content": prompt}], "max_tokens": 4000, "temperature": 0.3}
+    body = {"model": model, "messages": [{"role": "user", "content": prompt}], "max_tokens": 9000, "temperature": 0.3}
     req = urllib.request.Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(body).encode(),
                                  headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=600) as r:
