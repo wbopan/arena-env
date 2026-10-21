@@ -44,6 +44,7 @@ def main():
     ap.add_argument("--episodes", type=int, default=4)
     ap.add_argument("--parallel", type=int, default=4)
     ap.add_argument("--only", help="comma-separated task names")
+    ap.add_argument("--rm-image", action="store_true", help="remove the task image after screening it (disk)")
     ap.add_argument("rest", nargs=argparse.REMAINDER, help="extra calibrate.py args")
     args = ap.parse_args()
     args.rest = [a for a in args.rest if a != "--"]
@@ -68,6 +69,8 @@ def main():
                     print(f"  {tid:44s} {r['solved']}/{r['n']} ends={r['ends']}", flush=True)
             else:
                 print("  no summary (see log)", flush=True)
+            if args.rm_image and s.exists():
+                subprocess.run(["docker", "rmi", f"arena-task/{task}:local"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         if done and not todo:
             break
         if not todo:
