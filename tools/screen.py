@@ -33,9 +33,20 @@ def variants(task: str, image: str | None = None) -> list[str]:
     return [f"{task}--{v}" for v in meta["instructions"]]
 
 
+MAX_PULL_GB = 2.5  # compressed size; bigger images are left for a host with disk to spare
+
+
 def ghcr_pull(task: str, tag: str) -> bool:
-    """Pull the task image from GHCR and tag it arena-task/<task>:local. False if it is not published yet."""
+    """Pull the task image from GHCR and tag it arena-task/<task>:local. False if it is not published yet or too big."""
     ref = f"{GHCR}/{task}:{tag}"
+    m = subprocess.run(["docker", "manifest", "inspect", ref], text=True, capture_output=True)
+    if m.returncode != 0:
+        return False
+    size = sum(l["size"] for l in json.loads(m.stdout).get("layers", [])) / 1e9
+    if size > MAX_PULL_GB:
+        print(f"  skip {task}: {size:.1f} GB compressed", flush=True)
+        (ROOT / "cal" / "skipped_big.txt").open("a").write(f"{task}\t{size:.1f}\n")
+        return False
     if subprocess.run(["docker", "pull", "-q", ref], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
         return False
     subprocess.run(["docker", "tag", ref, f"arena-task/{task}:local"], check=True)
@@ -84,7 +95,10 @@ def main():
             tasks, done = built_tasks()
         if args.only:
             tasks = [t for t in tasks if t in args.only.split(",")]
-        todo = [t for t in tasks if not (out_root / t / "summary.json").exists() and (args.ghcr or image_exists(t))]
+        skipped = set()
+        if (ROOT / "cal" / "skipped_big.txt").exists():
+            skipped = {l.split("\t")[0] for l in (ROOT / "cal" / "skipped_big.txt").read_text().splitlines()}
+        todo = [t for t in tasks if not (out_root / t / "summary.json").exists() and t not in skipped and (args.ghcr or image_exists(t))]
         progressed = False
         for task in todo:
             if args.ghcr:
