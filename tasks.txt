@@ -1,0 +1,2 @@
+# tasks to build (one per line); the order has no meaning
+invoice-fraud-detection

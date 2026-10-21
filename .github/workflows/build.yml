@@ -1,0 +1,95 @@
+name: build images
+
+on:
+  workflow_dispatch:
+    inputs:
+      tasks:
+        description: "space-separated task names (empty: every task in tasks.txt)"
+        default: ""
+      tag:
+        description: "image tag"
+        default: "v1"
+  push:
+    branches: [main]
+    paths: [arena_env/**, runtime/**, tools/**, notes/**, tasks.txt, .github/workflows/build.yml]
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io/${{ github.repository }}
+  DATASET: benchflow/skillsbench
+  DATASET_REV: be2a6ce2cb1f4ff67ce937307cade0c5a0477a13
+
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.meta.outputs.image }}
+      tasks: ${{ steps.meta.outputs.tasks }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        run: |
+          echo "image=${REGISTRY}/runtime:${GITHUB_SHA::12}" >> "$GITHUB_OUTPUT"
+          if [ -n "${{ github.event.inputs.tasks }}" ]; then
+            list='${{ github.event.inputs.tasks }}'
+          else
+            list=$(grep -v '^#' tasks.txt | tr '\n' ' ')
+          fi
+          echo "tasks=$(echo $list | tr ' ' '\n' | grep . | jq -R . | jq -sc .)" >> "$GITHUB_OUTPUT"
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: runtime/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.image }},${{ env.REGISTRY }}/runtime:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  tasks:
+    needs: runtime
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 12
+      matrix:
+        task: ${{ fromJson(needs.runtime.outputs.tasks) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q pyyaml "huggingface_hub[cli]"
+      - name: fetch task
+        run: |
+          hf download "$DATASET" --repo-type dataset --revision "$DATASET_REV" \
+            --include "${{ matrix.task }}/*" --local-dir src
+      - name: build context
+        run: |
+          digest=notes/${{ matrix.task }}.md; hint=notes/${{ matrix.task }}.hint.md
+          args=""
+          [ -f "$digest" ] && args="$args --digest $digest"
+          [ -f "$hint" ] && args="$args --hint $hint"
+          python tools/build_task.py "src/${{ matrix.task }}" "build/${{ matrix.task }}" \
+            --runtime "${{ needs.runtime.outputs.image }}" $args
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: build/${{ matrix.task }}
+          platforms: linux/amd64
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ matrix.task }}:${{ github.event.inputs.tag || 'v1' }}
