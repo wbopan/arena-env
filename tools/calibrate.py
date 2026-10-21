@@ -21,6 +21,7 @@ Usage:
 
 import argparse
 import json
+import re
 import random
 import socket
 import subprocess
@@ -76,6 +77,44 @@ def parse_lenient(text: str):
                     obj = obj["arguments"]
                 return obj
     return None
+
+
+LONG_KEYS = ("command", "content")
+
+
+def parse_repair(text: str):
+    """Screening aid: parse replies whose only fault is a long string value with raw newlines or
+    unescaped double quotes (what a policy learns to avoid in the first GRPO steps). The value of
+    the first long key is taken verbatim up to the closing `"` of the object and re-escaped."""
+    text = (text or "").strip()
+    text = re.sub(r"^\s*<[a-z_]+>\s*", "", text)
+    text = re.sub(r"(\s*</?[a-z_]+>\s*)+$", "", text).strip()
+    start = text.find("{")
+    if start < 0 or not text.rstrip().endswith("}"):
+        return None
+    text = text[start:]
+    for key in LONG_KEYS:
+        m = re.search(r'"%s"\s*:\s*"' % key, text)
+        if not m:
+            continue
+        head, rest = text[:m.end()], text[m.end():]
+        # the value ends at the last `"` that is followed by `}` or by `, "key":`
+        ends = [mm.start() for mm in re.finditer(r'"\s*(?:\}\s*$|,\s*"[a-z_]+"\s*:)', rest)]
+        if not ends:
+            continue
+        for e in ends:
+            value, tail = rest[:e], rest[e:]
+            fixed = head + json.dumps(value.replace('\\"', '"'))[1:-1] + tail
+            try:
+                obj = json.loads(fixed, strict=False)
+            except json.JSONDecodeError:
+                continue
+            return obj if isinstance(obj, dict) else None
+    try:
+        obj = json.loads(text, strict=False)
+        return obj if isinstance(obj, dict) else None
+    except json.JSONDecodeError:
+        return None
 
 
 class Model:
@@ -172,7 +211,7 @@ class Container:
         subprocess.run(["docker", "rm", "-f", self.cid], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def play(url, model, tok, schema, task_id, budgets, lenient=False):
+def play(url, model, tok, schema, task_id, budgets, lenient=False, repair=False):
     """lenient=True takes the first JSON object in a reply (what a policy that has
     learned the reply format would have sent); the strict verdict is kept in ep["strict_end"]."""
     comp_budget, ctx_budget, max_calls = budgets
@@ -212,9 +251,15 @@ def play(url, model, tok, schema, task_id, budgets, lenient=False):
                 if action is not None:
                     ep["lenient_turns"] = ep.get("lenient_turns", 0) + 1
                     ep.setdefault("strict_end", "invalid_reply")
+            if action is None and repair:
+                action = parse_repair(reply)
+                if action is not None:
+                    ep["repair_turns"] = ep.get("repair_turns", 0) + 1
+                    ep.setdefault("strict_end", "invalid_reply")
             if action is None:
                 ep["end"] = "empty_reply" if not reply.strip() else "invalid_reply"
                 ep["lenient_would_parse"] = int(parse_lenient(reply) is not None)
+                ep["repair_would_parse"] = int(parse_repair(reply) is not None)
                 data = s.step(FINISH_ACTION)
                 break
             if set(action) == {"action"} and isinstance(action["action"], dict):
@@ -266,6 +311,7 @@ def main():
     ap.add_argument("--max-calls", type=int, default=32)
     ap.add_argument("--out", required=True)
     ap.add_argument("--lenient", action="store_true", help="accept the first JSON object in a reply")
+    ap.add_argument("--repair", action="store_true", help="also repair raw newlines / unescaped quotes in long string values (screening aid)")
     ap.add_argument("--host-net", action="store_true", help="run containers with --network host (no bridge egress)")
     args = ap.parse_args()
     if args.tasks.startswith("@"):
@@ -286,7 +332,7 @@ def main():
                 if name not in schema_cache:
                     with urllib.request.urlopen(f"{c.url}/schema", timeout=15) as r:
                         schema_cache[name] = json.load(r)["action"]
-            return play(c.url, model, tok, schema_cache[name], task_id, budgets, args.lenient)
+            return play(c.url, model, tok, schema_cache[name], task_id, budgets, args.lenient, args.repair)
         finally:
             c.close()
 
