@@ -79,6 +79,7 @@ def main():
     ap.add_argument("--episodes", type=int, default=4)
     ap.add_argument("--parallel", type=int, default=4)
     ap.add_argument("--only", help="comma-separated task names")
+    ap.add_argument("--variants", help="comma-separated variant letters to play (default: all in the image)")
     ap.add_argument("--rm-image", action="store_true", help="remove the task image after screening it (disk)")
     ap.add_argument("--ghcr", metavar="TAG", help="pull images ghcr.io/wbopan/arena-env/<task>:TAG for the tasks in tasks.txt instead of using local builds")
     ap.add_argument("rest", nargs=argparse.REMAINDER, help="extra calibrate.py args")
@@ -108,6 +109,8 @@ def main():
                 continue  # rebuilt or removed meanwhile; picked up on the next pass
             progressed = True
             ids = variants(task, f"arena-task/{task}:local" if args.ghcr else None)
+            if args.variants:
+                ids = [i for i in ids if i.rsplit("--", 1)[1] in args.variants.split(",")]
             cmd = [sys.executable, str(HERE / "calibrate.py"), "--tasks", ",".join(ids),
                    "--episodes", str(args.episodes), "--parallel", str(args.parallel),
                    "--tokenizer", str(ROOT / "tokenizer.json"), "--out", str(out_root / task)] + args.rest
