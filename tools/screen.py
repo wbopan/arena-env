@@ -24,6 +24,11 @@ def variants(task: str) -> list[str]:
     return [f"{task}--{v}" for v in meta["instructions"]]
 
 
+def image_exists(task: str) -> bool:
+    return subprocess.run(["docker", "image", "inspect", f"arena-task/{task}:local"],
+                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+
+
 def built_tasks() -> tuple[list[str], bool]:
     tasks, done = [], False
     p = ROOT / "build" / "summary.tsv"
@@ -54,7 +59,7 @@ def main():
         tasks, done = built_tasks()
         if args.only:
             tasks = [t for t in tasks if t in args.only.split(",")]
-        todo = [t for t in tasks if not (out_root / t / "summary.json").exists()]
+        todo = [t for t in tasks if not (out_root / t / "summary.json").exists() and image_exists(t)]
         for task in todo:
             ids = variants(task)
             cmd = [sys.executable, str(HERE / "calibrate.py"), "--tasks", ",".join(ids),
@@ -64,6 +69,8 @@ def main():
             with open(out_root / f"{task}.log", "w") as log:
                 subprocess.run(cmd, stdout=log, stderr=subprocess.STDOUT)
             s = out_root / task / "summary.json"
+            if s.exists() and not json.loads(s.read_text())["tasks"]:
+                s.unlink()  # every episode failed on infrastructure: screen it again later
             if s.exists():
                 for tid, r in json.loads(s.read_text())["tasks"].items():
                     print(f"  {tid:44s} {r['solved']}/{r['n']} ends={r['ends']}", flush=True)
