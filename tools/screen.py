@@ -24,7 +24,7 @@ GHCR = "ghcr.io/wbopan/arena-env"
 
 def variants(task: str, image: str | None = None) -> list[str]:
     p = ROOT / "build" / task / "arena" / "task.json"
-    if p.exists():
+    if image is None and p.exists():
         meta = json.loads(p.read_text())
     else:  # pulled image: read the task.json baked into it
         out = subprocess.run(["docker", "run", "--rm", "--entrypoint", "cat", image, "/opt/arena/task/task.json"],
@@ -107,7 +107,7 @@ def main():
             elif not image_exists(task):
                 continue  # rebuilt or removed meanwhile; picked up on the next pass
             progressed = True
-            ids = variants(task, f"arena-task/{task}:local")
+            ids = variants(task, f"arena-task/{task}:local" if args.ghcr else None)
             cmd = [sys.executable, str(HERE / "calibrate.py"), "--tasks", ",".join(ids),
                    "--episodes", str(args.episodes), "--parallel", str(args.parallel),
                    "--tokenizer", str(ROOT / "tokenizer.json"), "--out", str(out_root / task)] + args.rest
