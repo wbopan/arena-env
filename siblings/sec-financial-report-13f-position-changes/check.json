@@ -1,0 +1,14 @@
+{
+ "name": "sec-financial-report-13f-position-changes",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "2025-q2/COVERPAGE.tsv": 562,
+  "2025-q2/INFOTABLE.tsv": 8942,
+  "2025-q3/COVERPAGE.tsv": 562,
+  "2025-q3/INFOTABLE.tsv": 9149
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

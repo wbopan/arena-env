@@ -1,0 +1,11 @@
+{
+ "name": "grid-dispatch-operator-lambda-dispatch",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "network.json": 2016
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

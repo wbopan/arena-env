@@ -1,0 +1,12 @@
+{
+ "name": "ada-bathroom-plan-repair-violation-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "ada_bath_plan.dxf": 1983,
+  "ada_rules.json": 730
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

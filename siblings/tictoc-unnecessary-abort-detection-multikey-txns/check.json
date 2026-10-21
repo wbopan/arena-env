@@ -1,0 +1,12 @@
+{
+ "name": "tictoc-unnecessary-abort-detection-multikey-txns",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "aborts.tsv": 4647,
+  "writes.tsv": 7953
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

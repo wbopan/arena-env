@@ -1,0 +1,7 @@
+{
+ "name": "financial-modeling-qa-tiered-commission-report",
+ "source": "financial-modeling-qa",
+ "category": "finance-economics",
+ "workdir": "/root/work",
+ "instruction": "A broker needs a per-client report of trading charges.\n\nInputs:\n- /root/work/data.xlsx contains sheet `Trades` with columns `trade_id`, `client`, `side` (BUY or SELL), `quantity`, and `price` (USD).\n- /root/work/background.pdf contains the firm's commission schedule. It defines the notional tiers and rates, the minimum commission, and an extra regulatory fee that applies to SELL trades.\n\nTask:\n1. For every trade, compute notional = quantity x price, rounded to cents.\n2. Find the tier that contains the notional. That tier's rate applies to the entire notional, so this is not a marginal schedule. Tier lower bounds are inclusive.\n3. Apply the minimum commission as described in the PDF.\n4. Add the regulatory fee if the trade is a SELL.\n5. Round each trade's total charge (commission + regulatory fee) to 2 decimals.\n6. Sum the rounded charges per client.\n\nOutput: write /root/work/commissions.csv. Use a header row `client,trades,total_charges` followed by one row per client, sorted alphabetically by client:\n- `trades`: the integer count of that client's trades\n- `total_charges`: the sum of the rounded per-trade charges in USD, written with exactly 2 decimals and no thousands separators or currency symbols"
+}

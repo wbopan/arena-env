@@ -1,0 +1,15 @@
+{
+ "name": "data-to-d3-line-chart-svg",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "data/indiv-stock/HRBR.csv": 1302,
+  "data/indiv-stock/NOVA.csv": 1895,
+  "data/indiv-stock/PINE.csv": 1608,
+  "data/indiv-stock/QRTZ.csv": 1941,
+  "data/indiv-stock/VTX.csv": 1613
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

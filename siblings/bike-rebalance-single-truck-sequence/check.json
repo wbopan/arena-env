@@ -1,0 +1,11 @@
+{
+ "name": "bike-rebalance-single-truck-sequence",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "truck.json": 1130
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

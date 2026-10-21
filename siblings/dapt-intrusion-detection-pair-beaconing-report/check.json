@@ -1,0 +1,11 @@
+{
+ "name": "dapt-intrusion-detection-pair-beaconing-report",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "traffic.csv": 8740
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

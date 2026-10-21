@@ -1,0 +1,12 @@
+{
+ "name": "lab-unit-harmonization-wide-range-repair",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "lab_reference.csv": 286,
+  "labs_wide.csv": 3759
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

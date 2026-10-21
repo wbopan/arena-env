@@ -1,0 +1,14 @@
+{
+ "name": "manufacturing-equipment-maintenance-preheat-ramp-conveyor",
+ "ok": false,
+ "gen": 0,
+ "inputs": {
+  "handbook.md": 1136,
+  "mes_log.csv": 171,
+  "thermocouples.csv": 15137
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 0,
+ "oracle_grade_out": "...F..                                                                   [100%]\n=================================== FAILURES ===================================\n_________________________________ test_ramp_ok _________________________________\n\nout = {'ramp_limit_c_per_s': 2.0, 'runs': [{'run_id': 'R01', 'tc_id': 'TC1', 'max_preheat_ramp_c_per_s': 2.08, 'ramp_ok': Fa...8, 'ramp_ok': False, ...}, {'run_id': 'R06', 'tc_id': 'TC1', 'max_preheat_ramp_c_per_s': 2.62, 'ramp_ok': False, ...}]}\nexp = {'R01': {'tc': 'TC1', 'ramp': np.float64(2.080000000000001), 'ramp_ok': np.False_, 'smin': 76.36363636363636, ...}, 'R...in': 65.45454545454545, ...}, 'R04': {'tc': None, 'ramp': None, 'ramp_ok': False, 'smin': 54.54545454545455, ...}, ...}\n\n    def test_ramp_ok(out, exp):\n        rows = runs_by_id(out)\n        for rid, e in exp.items():\n>           assert rows[rid]['ramp_ok'] is e['ramp_ok'], f'{rid}: ramp_ok should be {e[\"ramp_ok\"]}'\nE           AssertionError: R01: ramp_ok should be False\nE           assert False is np.False_\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/manufacturing-equipment-maintenance-preheat-ramp-conveyor/verifier/test_outputs.py:99: AssertionError\n=========================== short test summary info ============================\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/manufacturing-equipment-maintenance-preheat-ramp-conveyor/verifier/test_outputs.py::test_ramp_ok\n1 failed, 5 passed in 0.29s\n"
+}

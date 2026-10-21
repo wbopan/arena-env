@@ -1,0 +1,12 @@
+{
+ "name": "llm-prefix-cache-replay-lru-timestamp-order-csv",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "config.json": 72,
+  "trace.jsonl": 10191
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,11 @@
+{
+ "name": "grid-dispatch-operator-dc-line-loading",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "network.json": 4200
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

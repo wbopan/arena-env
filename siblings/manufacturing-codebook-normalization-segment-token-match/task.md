@@ -1,0 +1,20 @@
+Test-center engineers write free-text defect reasons that often pack several causes into one line. Normalize each piece against the product codebook.
+
+Inputs:
+- /root/work/logs.csv has the columns record_id, product_id, station and raw_reason_text.
+- /root/work/codebook.csv has the columns product_id, code, standard_label, keywords and station_scope. The keywords and station_scope fields are '|'-separated. An empty station_scope means the code is valid at every station.
+
+Procedure:
+1. Segmentation: split raw_reason_text at every occurrence of the characters `/`, `;`, `+` and `,`. Strip whitespace from each piece and discard empty pieces. The remaining pieces, in order, are segments S1, S2, and so on. segment_id is `<record_id>-S<i>`. span_text is the stripped piece.
+2. Tokens: lowercase the text, then take all maximal runs matching `[a-z0-9]+`.
+   - T is the token set of the segment.
+   - K is the token set of a code: the tokens of its standard_label plus the tokens of every keyword.
+3. Candidates: the codes of the record's product_id whose station_scope is empty or contains the record's station.
+4. score = |T intersect K| / |T|, or 0 if T is empty. Choose the candidate with the highest score. On a tie, choose the lexicographically smallest code.
+5. If there is no candidate, or the best score is < 0.5, set pred_code = `UNKNOWN` and leave pred_label empty. Otherwise, pred_code and pred_label are the chosen code and its standard_label.
+
+Output: /root/work/segments.csv.
+- Header, exactly: `segment_id,record_id,span_text,pred_code,pred_label,score`.
+- One row per segment, ordered by record (file order) and then by segment.
+- score is the best score rounded to 4 decimals. Report it for UNKNOWN rows too, using 0 when there is no candidate.
+- Write the file in standard CSV quoting.

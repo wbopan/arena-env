@@ -1,0 +1,11 @@
+{
+ "name": "fix-visual-stability-cls-session-windows",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "shifts.json": 9936
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,12 @@
+{
+ "name": "exoplanet-detection-period-bls-transit-ephemeris",
+ "ok": false,
+ "gen": 0,
+ "inputs": {
+  "tess_lc.txt": 14553
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 0,
+ "oracle_grade_out": "..F..                                                                    [100%]\n=================================== FAILURES ===================================\n_________________________________ test_period __________________________________\n\n    def test_period():\n        if not os.path.exists(OUT):\n            pytest.skip('missing')\n        P = reference()[0]\n        got = float(load()['period_days'])\n>       assert abs(got - P) < 0.005, (got, P)\nE       AssertionError: (2.97, 2.9649999999997836)\nE       assert 0.005000000000216609 < 0.005\nE        +  where 0.005000000000216609 = abs((2.97 - 2.9649999999997836))\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/exoplanet-detection-period-bls-transit-ephemeris/verifier/test_outputs.py:91: AssertionError\n=========================== short test summary info ============================\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/exoplanet-detection-period-bls-transit-ephemeris/verifier/test_outputs.py::test_period\n1 failed, 4 passed in 0.99s\n"
+}

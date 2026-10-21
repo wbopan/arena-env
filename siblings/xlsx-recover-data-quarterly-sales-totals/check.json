@@ -1,0 +1,11 @@
+{
+ "name": "xlsx-recover-data-quarterly-sales-totals",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "sales_incomplete.xlsx": 5287
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

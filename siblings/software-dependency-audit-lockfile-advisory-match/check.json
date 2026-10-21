@@ -1,0 +1,12 @@
+{
+ "name": "software-dependency-audit-lockfile-advisory-match",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "advisories.json": 11294,
+  "package-lock.json": 8389
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

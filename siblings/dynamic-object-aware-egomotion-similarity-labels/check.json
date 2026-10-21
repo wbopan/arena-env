@@ -1,0 +1,12 @@
+{
+ "name": "dynamic-object-aware-egomotion-similarity-labels",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "meta.json": 18,
+  "tracks.csv": 8952
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

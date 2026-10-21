@@ -1,0 +1,11 @@
+{
+ "name": "econ-detrending-correlation-monthly-lead-lag",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "indicators.csv": 6759
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

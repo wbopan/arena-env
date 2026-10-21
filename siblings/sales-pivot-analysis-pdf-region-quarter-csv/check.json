@@ -1,0 +1,12 @@
+{
+ "name": "sales-pivot-analysis-pdf-region-quarter-csv",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "stores.xlsx": 5067,
+  "transactions.pdf": 5981
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

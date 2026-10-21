@@ -1,0 +1,11 @@
+{
+ "name": "shock-analysis-supply-investment-potential-gdp",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "shock_inputs.xlsx": 6472
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

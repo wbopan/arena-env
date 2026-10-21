@@ -1,0 +1,13 @@
+{
+ "name": "manufacturing-fjsp-optimization-greedy-downtime-repair",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "baseline_solution.json": 1867,
+  "downtime.csv": 88,
+  "instance.txt": 228
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

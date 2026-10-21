@@ -1,0 +1,12 @@
+{
+ "name": "reserves-at-risk-calc-country-rar-csv",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "gold_monthly.csv": 377,
+  "reserves.xlsx": 7220
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

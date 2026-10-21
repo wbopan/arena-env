@@ -1,0 +1,11 @@
+{
+ "name": "fix-build-agentops-ci-log-triage",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "ci_log.txt": 15250
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

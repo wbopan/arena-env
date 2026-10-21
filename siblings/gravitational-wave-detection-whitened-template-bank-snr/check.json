@@ -1,0 +1,12 @@
+{
+ "name": "gravitational-wave-detection-whitened-template-bank-snr",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "data.npy": 16512,
+  "templates.npy": 6272
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

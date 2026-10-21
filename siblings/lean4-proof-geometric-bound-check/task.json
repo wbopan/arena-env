@@ -1,0 +1,7 @@
+{
+ "name": "lean4-proof-geometric-bound-check",
+ "source": "lean4-proof",
+ "category": "mathematics-or-formal-reasoning",
+ "workdir": "/root/work",
+ "instruction": "# Exact bound checks for geometric partial-sum sequences\n\nBefore attempting Lean proofs of the form `S n ≤ B` for all `n`, we want to know which claims are actually true.\n\n## Input\n\nThe file `/root/work/sequences.csv` has the columns `id,s0,a,r,bound`. Each value is an exact rational written as `p/q`, and may be negative.\n\nEach row defines a sequence:\n\n- S_0 = s0\n- S_{n+1} = S_n + a * r^(n+1), for every natural number n\n\nIn every row, a > 0 and 0 < r < 1.\n\nThe row's claim is: S_n ≤ bound for all n ≥ 0.\n\n## What to compute\n\nFor each row, compute:\n\n- `limit`: the exact limit of S_n as n tends to infinity.\n- `holds`: `true` if the claim holds for every n ≥ 0, otherwise `false`.\n- `first_violation`: the smallest n ≥ 0 with S_n > bound. Leave it empty when `holds` is `true`.\n\nUse exact rational arithmetic. Floating point is not acceptable, because some bounds lie exactly at, or extremely close to, the critical values.\n\n## Output\n\nWrite `/root/work/bounds_report.csv`.\n\n- The header must be exactly `id,limit,holds,first_violation`.\n- There must be one row per input row, in the same order as the input.\n- `limit` must be written as `p/q` in lowest terms with q ≥ 1. Integers use q = 1, for example `2/1`.\n- `holds` must be lowercase `true` or `false`.\n- `first_violation` must be a plain decimal integer, or empty."
+}

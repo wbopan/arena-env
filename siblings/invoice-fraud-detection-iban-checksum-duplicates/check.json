@@ -1,0 +1,12 @@
+{
+ "name": "invoice-fraud-detection-iban-checksum-duplicates",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "invoices.pdf": 12597,
+  "vendors.csv": 188
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,18 @@
+A dice tournament has been recorded and you need to tally the head-to-head results.
+
+Inputs:
+- /root/work/data.xlsx contains sheet `Games` with columns `Game`, `Die1`, `Die2`, `Die3`. There is one row per game, and each die is a face value from 1 to 6. The rows are NOT in game-number order.
+- /root/work/background.pdf contains the official scoring rules. It defines how a single throw of three dice is converted into a game score, and how a match is decided.
+
+Task:
+- Player 1 played every odd-numbered game and Player 2 played every even-numbered game.
+- Games are paired by game number into matches: game 1 vs game 2, game 3 vs game 4, and so on.
+- Score each game using the rules in the PDF. Then decide each match: the higher score wins, and equal scores are ties.
+
+Output: write /root/work/answer.json containing a single JSON object with exactly these integer fields:
+- `player1_wins`: the number of matches won by Player 1
+- `player2_wins`: the number of matches won by Player 2
+- `ties`: the number of tied matches
+- `difference`: player1_wins minus player2_wins
+
+Example shape: {"player1_wins": 10, "player2_wins": 8, "ties": 2, "difference": 2}

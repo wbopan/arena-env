@@ -1,0 +1,7 @@
+{
+ "name": "sales-pivot-analysis-region-band-pivot",
+ "source": "sales-pivot-analysis",
+ "category": "office-white-collar",
+ "workdir": "/root/work",
+ "instruction": "# Regional Revenue Pivot Report\n\nThe workbook `/root/work/sales.xlsx` contains one sheet, `Orders`, with the columns `OrderID`, `Region`, `Rep`, `Units` and `UnitPrice`. Each row is one sales order.\n\nCreate a new workbook at `/root/work/region_report.xlsx` with exactly these three sheets.\n\n1. **`SourceData`**\n   - Row 1 is the header: `OrderID, Region, Rep, Units, UnitPrice, Revenue, SizeBand`, in that order.\n   - Below it, write one row per order, in the original order.\n   - `Revenue` = Units x UnitPrice, rounded to 2 decimals.\n   - `SizeBand` is `Small` if Units < 10, `Medium` if 10 <= Units <= 49, and `Large` if Units >= 50.\n\n2. **`Revenue by Region`**\n   - This sheet contains a real Excel pivot table, not static values.\n   - The pivot cache source is the `SourceData` sheet. Its range runs from A1 to the last data row in column G.\n   - Rows: `Region`.\n   - Columns: `SizeBand`.\n   - Values: Sum of `Revenue`, using the sum aggregation.\n\n3. **`Region Totals`**\n   - A plain static table with the header `Region, Revenue` in row 1.\n   - Below it, write one row per distinct region.\n   - `Revenue` is the total of that region's `Revenue` values, rounded to 2 decimals.\n   - Sort the rows by Revenue in descending order.\n\nStore all numbers as numeric cells, not text."
+}

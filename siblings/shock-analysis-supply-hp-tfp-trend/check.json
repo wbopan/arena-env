@@ -1,0 +1,11 @@
+{
+ "name": "shock-analysis-supply-hp-tfp-trend",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "macro_data.xlsx": 6141
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

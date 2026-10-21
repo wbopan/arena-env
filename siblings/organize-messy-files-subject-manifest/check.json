@@ -1,0 +1,25 @@
+{
+ "name": "organize-messy-files-subject-manifest",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "inbox/doc_799.docx": 36792,
+  "inbox/doc_981.pdf": 2598,
+  "inbox/draft_144.pdf": 2105,
+  "inbox/draft_505.pdf": 1565,
+  "inbox/draft_782.pptx": 30187,
+  "inbox/file_245.docx": 36755,
+  "inbox/file_295.docx": 36770,
+  "inbox/file_408.docx": 36785,
+  "inbox/file_542.pdf": 2021,
+  "inbox/notes_276.pptx": 31094,
+  "inbox/notes_327.pdf": 1603,
+  "inbox/scan_177.pptx": 29304,
+  "inbox/scan_789.pdf": 2087,
+  "inbox/scan_808.pptx": 30244,
+  "inbox/scan_810.docx": 36788
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

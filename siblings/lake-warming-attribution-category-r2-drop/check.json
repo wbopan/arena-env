@@ -1,0 +1,14 @@
+{
+ "name": "lake-warming-attribution-category-r2-drop",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "climate.csv": 1457,
+  "hydrology.csv": 929,
+  "land_cover.csv": 657,
+  "water_temperature.csv": 411
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

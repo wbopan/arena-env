@@ -1,0 +1,12 @@
+{
+ "name": "energy-unit-commitment-feasibility-screening",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "candidates.json": 9988,
+  "case.json": 1689
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

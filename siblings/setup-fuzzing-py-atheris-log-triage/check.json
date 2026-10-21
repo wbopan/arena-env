@@ -1,0 +1,16 @@
+{
+ "name": "setup-fuzzing-py-atheris-log-triage",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "logs/csvkit_mini.log": 4222,
+  "logs/msgpack_py.log": 3562,
+  "logs/tomlparse.log": 4328,
+  "logs/ujson_lite.log": 5835,
+  "logs/urlnorm.log": 5629,
+  "logs/yamlish.log": 4474
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

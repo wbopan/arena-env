@@ -1,0 +1,17 @@
+Classify the peak flood severity of Michigan stream gages for April 1-7, 2025.
+
+Inputs in `/root/work`:
+- `gage_height_iv.rdb`: USGS instantaneous gage-height data in tab-separated RDB format. Lines starting with `#` are comments. The first non-comment line holds the column names (`agency_cd, site_no, datetime, tz_cd, 00065, 00065_cd`). The second non-comment line is the RDB field-format line. `00065` is gage height in feet. Readings with an empty `00065` value are missing and must be ignored. `datetime` is local time, formatted `YYYY-MM-DD HH:MM`.
+- `nws_thresholds.csv`: NWS flood stages in feet, with columns `usgs id, location name, state, action stage, flood stage, moderate flood stage, major flood stage`. Each data row has one extra trailing empty field that has no header. A value of `-9999` means the threshold is not defined.
+
+Report only stations that have gage data and a defined flood stage. For each such station:
+- Aggregate the readings to daily maxima by calendar date.
+- `peak_stage_ft` is the highest daily maximum, rounded to 2 decimals.
+- `peak_date` is the date of that peak (`YYYY-MM-DD`). If there is a tie, use the earliest date.
+- `severity` is the category of the peak: `major`, `moderate`, `minor` (the flood stage), `action`, or `normal`. Test the categories in that order and pick the first whose defined threshold is less than or equal to the peak. Undefined thresholds are skipped.
+- `flood_days` is the number of days whose daily maximum is greater than or equal to the flood stage.
+
+Write `/root/work/flood_severity.json` as follows:
+`{"stations": [{"station_id": "04101800", "peak_stage_ft": ..., "peak_date": "...", "severity": "...", "flood_days": ...}, ...]}`
+
+Sort the list by `station_id`. Write `station_id` as an 8-digit string.

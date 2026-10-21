@@ -1,0 +1,11 @@
+{
+ "name": "react-performance-debugging-cls-session-windows",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "layout_shifts.jsonl": 7883
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,12 @@
+{
+ "name": "civ6-adjacency-optimizer-layout-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "layouts.json": 1149,
+  "map.json": 12083
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

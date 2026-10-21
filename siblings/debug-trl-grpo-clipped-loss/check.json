@@ -1,0 +1,18 @@
+{
+ "name": "debug-trl-grpo-clipped-loss",
+ "ok": false,
+ "gen": 0,
+ "inputs": {
+  "advantages.npy": 192,
+  "logits.npy": 4736,
+  "mask.npy": 512,
+  "old_logprobs.npy": 512,
+  "ref_logprobs.npy": 512,
+  "tokens.npy": 512
+ },
+ "blank_reward": 0,
+ "oracle_exit": 1,
+ "oracle_out": "Traceback (most recent call last):\n  File \"/tmp/solve.py\", line 3, in <module>\n    from scipy.special import log_softmax\nModuleNotFoundError: No module named 'scipy'\n",
+ "oracle_reward": 0,
+ "oracle_grade_out": "load()\n            ^^^^^^\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py:76: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def load():\n>       with open(OUT) as f:\n             ^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/work/loss.json'\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py:56: FileNotFoundError\n_______________________________ test_total_loss ________________________________\n\n    def test_total_loss():\n>       d = load()\n            ^^^^^^\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py:83: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def load():\n>       with open(OUT) as f:\n             ^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/work/loss.json'\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py:56: FileNotFoundError\n______________________________ test_clip_fraction ______________________________\n\n    def test_clip_fraction():\n>       d = load()\n            ^^^^^^\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py:89: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def load():\n>       with open(OUT) as f:\n             ^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/root/work/loss.json'\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py:56: FileNotFoundError\n=========================== short test summary info ============================\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py::test_exists_and_keys\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py::test_seq_logprobs\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py::test_policy_loss_and_kl\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py::test_total_loss\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/debug-trl-grpo-clipped-loss/verifier/test_outputs.py::test_clip_fraction\n5 failed in 0.08s\n"
+}

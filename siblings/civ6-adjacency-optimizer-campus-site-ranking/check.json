@@ -1,0 +1,12 @@
+{
+ "name": "civ6-adjacency-optimizer-campus-site-ranking",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "city.json": 23,
+  "map.json": 9413
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

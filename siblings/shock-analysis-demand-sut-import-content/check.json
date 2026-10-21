@@ -1,0 +1,11 @@
+{
+ "name": "shock-analysis-demand-sut-import-content",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "sut.xlsx": 8227
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

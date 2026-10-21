@@ -1,0 +1,11 @@
+{
+ "name": "software-dependency-audit-trivy-csv-report",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "trivy_report.json": 16574
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

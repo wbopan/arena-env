@@ -1,0 +1,12 @@
+{
+ "name": "offer-letter-generator-placeholder-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "employee_data.json": 391,
+  "offer_letter_template.docx": 38609
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

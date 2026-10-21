@@ -1,0 +1,11 @@
+{
+ "name": "edit-pdf-redact-account-numbers",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "register.pdf": 5189
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,11 @@
+{
+ "name": "powerlifting-coef-calc-ipf-gl-points",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "meet.xlsx": 6849
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

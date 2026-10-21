@@ -1,0 +1,12 @@
+{
+ "name": "jax-computing-basics-logistic-grad-descent",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "config.json": 37,
+  "data.npz": 14214
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

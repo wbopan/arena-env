@@ -1,0 +1,11 @@
+{
+ "name": "lean4-proof-geometric-bound-check",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "sequences.csv": 1228
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

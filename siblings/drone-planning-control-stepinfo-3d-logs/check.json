@@ -1,0 +1,12 @@
+{
+ "name": "drone-planning-control-stepinfo-3d-logs",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "flights.csv": 14147,
+  "targets.json": 202
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

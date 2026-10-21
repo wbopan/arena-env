@@ -1,0 +1,7 @@
+{
+ "name": "edit-pdf-redact-account-numbers",
+ "source": "edit-pdf",
+ "category": "office-white-collar",
+ "workdir": "/root/work",
+ "instruction": "`/root/work/register.pdf` is a two-page account register produced by a records system. Each page has:\n- a title line\n- a column header line\n- one row per customer, giving a name, a 10-digit account number, a branch code and a balance\n- a footer containing an 8-digit batch number\n\nBefore the register is shared, mask every account number. Replace each 10-digit account number with six asterisks followed by its last four digits. For example, `4820019937` becomes `******9937`.\n\nThis must be a true redaction. The full original numbers must not be extractable anywhere from the output's text layer. Covering them visually is not enough.\n\nDo not mask or change anything else. Branch codes, balances, batch numbers, names, titles and footers must stay exactly as they are, in the same order and on the same pages.\n\nWrite the result to `/root/work/register_redacted.pdf`. It must be a valid PDF with the same number of pages as the input, and its text must stay real and extractable (no rasterized pages).\n\nThe output will be checked by extracting its text page by page. Ignoring differences in whitespace, each page must read line for line exactly like the original page, except that every account number is masked."
+}

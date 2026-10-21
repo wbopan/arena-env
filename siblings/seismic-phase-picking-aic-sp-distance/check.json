@@ -1,0 +1,15 @@
+{
+ "name": "seismic-phase-picking-aic-sp-distance",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "sta_ST01.npz": 13060,
+  "sta_ST02.npz": 13060,
+  "sta_ST03.npz": 13060,
+  "sta_ST04.npz": 13060,
+  "sta_ST05.npz": 13060
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,11 @@
+{
+ "name": "debug-trl-grpo-group-advantages",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "rewards.csv": 4291
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

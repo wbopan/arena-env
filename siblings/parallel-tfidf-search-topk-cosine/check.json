@@ -1,0 +1,12 @@
+{
+ "name": "parallel-tfidf-search-topk-cosine",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "corpus.jsonl": 13289,
+  "queries.json": 571
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

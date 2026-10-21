@@ -1,0 +1,15 @@
+{
+ "name": "fix-build-google-auto-effective-deps",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "api/pom.xml": 1378,
+  "core/pom.xml": 1292,
+  "pom.xml": 3661,
+  "processor/pom.xml": 1618,
+  "testing/pom.xml": 1674
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

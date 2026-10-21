@@ -1,0 +1,11 @@
+{
+ "name": "citation-check-required-fields",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "library.bib": 6326
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

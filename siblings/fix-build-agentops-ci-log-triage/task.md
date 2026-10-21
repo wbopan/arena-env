@@ -1,0 +1,17 @@
+A GitHub Actions job for a Python project failed. Its raw job log is at `/root/work/ci_log.txt`. Every line starts with an ISO-8601 timestamp token followed by one space. Ignore that first token.
+
+Analyze only the pytest *short test summary* section. This section consists of the lines after the line containing `short test summary info`, up to (not including) the next line that begins with `=`.
+
+Inside that section, an entry is a line beginning with `FAILED ` or `ERROR `, formatted as `<KIND> <nodeid> - <exception>`.
+
+- The exception type is the text of `<exception>` before its first `:`. Examples: `AssertionError`, `requests.exceptions.ConnectionError`.
+- The file of an entry is the part of the nodeid before the first `::`. If the nodeid has no `::`, the file is the whole nodeid (collection errors look like this).
+- Ignore lines starting with `FAILED`/`ERROR` anywhere else in the log, such as setup steps, captured output and trailers.
+
+Write `/root/work/ci_summary.json`, a JSON object with exactly these keys:
+
+- `failed`: number of FAILED entries (integer)
+- `errors`: number of ERROR entries (integer)
+- `by_exception`: object mapping each exception type to its number of entries, counting FAILED and ERROR entries together
+- `missing_modules`: sorted list of unique top-level package names, taken from `No module named '<name>'` in entries whose exception type is exactly `ModuleNotFoundError`. The top-level name is the part of `<name>` before the first `.`.
+- `worst_file`: the file with the most entries. Break ties by choosing the alphabetically smallest path.

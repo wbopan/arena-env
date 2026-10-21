@@ -1,0 +1,18 @@
+{
+ "name": "seismic-phase-picking-stalta-trigger",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "trace_00.npz": 15198,
+  "trace_01.npz": 15198,
+  "trace_02.npz": 15198,
+  "trace_03.npz": 15198,
+  "trace_04.npz": 15198,
+  "trace_05.npz": 15198,
+  "trace_06.npz": 15198,
+  "trace_07.npz": 15198
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,11 @@
+{
+ "name": "pptx-reference-formatting-italic-citation-index",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "slides.pptx": 40736
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

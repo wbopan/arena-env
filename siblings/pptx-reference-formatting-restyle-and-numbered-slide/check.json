@@ -1,0 +1,11 @@
+{
+ "name": "pptx-reference-formatting-restyle-and-numbered-slide",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "deck.pptx": 37512
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

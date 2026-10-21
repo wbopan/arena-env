@@ -1,0 +1,12 @@
+{
+ "name": "adaptive-cruise-control-drive-metrics",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "drive_log.csv": 9299,
+  "sim_config.yaml": 95
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

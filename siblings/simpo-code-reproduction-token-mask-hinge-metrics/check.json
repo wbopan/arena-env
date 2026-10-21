@@ -1,0 +1,11 @@
+{
+ "name": "simpo-code-reproduction-token-mask-hinge-metrics",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "tokens.npz": 12816
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

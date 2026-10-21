@@ -1,0 +1,11 @@
+{
+ "name": "powerlifting-coef-calc-dots-team-standings",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "lifters.csv": 1981
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

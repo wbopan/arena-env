@@ -1,0 +1,11 @@
+{
+ "name": "3d-scan-calc-ascii-centroid",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "part.stl": 10914
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

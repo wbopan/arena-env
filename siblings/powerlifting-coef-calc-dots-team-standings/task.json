@@ -1,0 +1,7 @@
+{
+ "name": "powerlifting-coef-calc-dots-team-standings",
+ "source": "powerlifting-coef-calc",
+ "category": "office-white-collar",
+ "workdir": "/root/work",
+ "instruction": "# Dots Team Competition Standings\n\nThe file `/root/work/lifters.csv` lists the lifters of a team meet. Its columns are:\n\n- Name (unique)\n- Team\n- Sex (M, F, Mx)\n- BodyweightKg, Best3SquatKg, Best3BenchKg, Best3DeadliftKg\n\nAn empty or negative lift means the lift was failed.\n\nCompute each lifter's Dots points:\n\n- **TotalKg:** squat + bench + deadlift. If any of the three lifts is empty or <= 0, the lifter bombed out and their Dots is 0.\n- **Dots formula:** Dots = TotalKg * 500 / (A*x^4 + B*x^3 + C*x^2 + D*x + E), where x is BodyweightKg clamped to the sex-specific range.\n- **Men (M and Mx):** A=-0.0000010930, B=0.0007391293, C=-0.1918759221, D=24.0900756, E=-307.75076. Clamp x to [40, 210].\n- **Women (F):** A=-0.0000010706, B=0.0005158568, C=-0.1126655495, D=13.6175032, E=-57.96288. Clamp x to [40, 150].\n\nScoring:\n\n- A team's score is the sum of the unrounded Dots of its 3 highest-scoring members.\n- Teams are ranked by score, highest first; rank 1 is the best team.\n\nWrite `/root/work/team_standings.json` as a JSON array with one object per team, ordered by rank. Each object has exactly these keys:\n\n- `rank` (integer, starting at 1)\n- `team` (string)\n- `score` (number rounded to 2 decimals)\n- `top_lifters` (list of the 3 counted member names, ordered by Dots descending)"
+}

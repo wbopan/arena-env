@@ -1,0 +1,11 @@
+{
+ "name": "reserves-at-risk-calc-gold-volatility-table",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "gold_prices.xlsx": 5541
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

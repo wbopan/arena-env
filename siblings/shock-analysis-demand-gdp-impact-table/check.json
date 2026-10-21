@@ -1,0 +1,12 @@
+{
+ "name": "shock-analysis-demand-gdp-impact-table",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "params.json": 257,
+  "weo.xlsx": 5229
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

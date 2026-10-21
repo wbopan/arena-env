@@ -1,0 +1,11 @@
+{
+ "name": "latex-formula-extraction-pdf-numbered-equations",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "tech_note.pdf": 4184
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

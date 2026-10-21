@@ -1,0 +1,15 @@
+{
+ "name": "enterprise-information-search-mrr-authors-reviewers",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "DATA/employees.json": 2168,
+  "DATA/products/CoFoAIX.json": 6841,
+  "DATA/products/CoachForce.json": 10935,
+  "DATA/products/DealDesk.json": 2373,
+  "DATA/products/PitchPilot.json": 3395
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

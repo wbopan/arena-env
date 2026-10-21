@@ -1,0 +1,13 @@
+{
+ "name": "manufacturing-fjsp-optimization-baseline-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "baseline_solution.json": 2242,
+  "downtime.csv": 55,
+  "instance.txt": 242
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,14 @@
+{
+ "name": "lean4-proof-sorry-taint-report",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "project/Basic.lean": 1387,
+  "project/Bounds.lean": 1423,
+  "project/Geom.lean": 1449,
+  "project/Tail.lean": 1464
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

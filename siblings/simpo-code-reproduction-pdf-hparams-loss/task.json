@@ -1,0 +1,7 @@
+{
+ "name": "simpo-code-reproduction-pdf-hparams-loss",
+ "source": "simpo-code-reproduction",
+ "category": "software-engineering",
+ "workdir": "/root/work",
+ "instruction": "# Reproduce the SimPO loss from a paper excerpt\n\nYou are reproducing the loss computation of an NLP paper. The relevant excerpt of the paper is at `/root/work/paper.pdf`. It defines the length-normalized implicit reward, the label-smoothed SimPO objective, and the final hyperparameters (`beta`, `gamma`, `label_smoothing`). Use exactly the formula and hyperparameter values given in the PDF.\n\nInput batch: `/root/work/batch.npz` contains four 1-D arrays of equal length N:\n- `chosen_logps_sum`: summed token log-probabilities of the chosen (preferred) response under the policy\n- `rejected_logps_sum`: summed token log-probabilities of the rejected response\n- `chosen_len`, `rejected_len`: number of response tokens of each response\n\nIndex i of every array belongs to the same preference pair.\n\nFor every pair compute the chosen reward, the rejected reward and the per-example SimPO loss (no reduction / no averaging over the batch).\n\nOutput: save a NumPy archive to `/root/work/loss.npz` with these keys, each a float64 array of shape (N,) in the original pair order:\n- `losses`: per-example loss\n- `chosen_rewards`: reward of the chosen response\n- `rejected_rewards`: reward of the rejected response\n\nNatural logarithms are used throughout. Values must match a reference implementation within a relative tolerance of 1e-5."
+}

@@ -1,0 +1,20 @@
+{
+ "name": "radar-vital-signs-fmcw-range-bin-breathing",
+ "ok": false,
+ "gen": 0,
+ "inputs": {
+  "cap_01.bin": 16384,
+  "cap_01.json": 287,
+  "cap_02.bin": 16384,
+  "cap_02.json": 287,
+  "cap_03.bin": 16384,
+  "cap_03.json": 287,
+  "cap_04.bin": 16384,
+  "cap_04.json": 287
+ },
+ "blank_reward": 0,
+ "oracle_exit": 1,
+ "oracle_out": "Traceback (most recent call last):\n  File \"/tmp/solve.py\", line 3, in <module>\n    from scipy.signal import welch\nModuleNotFoundError: No module named 'scipy'\n",
+ "oracle_reward": 0,
+ "oracle_grade_out": "exists()\nE        +    where exists = PosixPath('/root/work/range_results.csv').exists\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py:36: AssertionError\n________________________ ERROR at setup of test_range_m ________________________\n\n    @pytest.fixture(scope='module')\n    def rows():\n>       assert OUT.exists(), 'range_results.csv not found'\nE       AssertionError: range_results.csv not found\nE       assert False\nE        +  where False = exists()\nE        +    where exists = PosixPath('/root/work/range_results.csv').exists\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py:36: AssertionError\n____________________ ERROR at setup of test_breathing_rate _____________________\n\n    @pytest.fixture(scope='module')\n    def rows():\n>       assert OUT.exists(), 'range_results.csv not found'\nE       AssertionError: range_results.csv not found\nE       assert False\nE        +  where False = exists()\nE        +    where exists = PosixPath('/root/work/range_results.csv').exists\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py:36: AssertionError\n=================================== FAILURES ===================================\n_______________________________ test_file_exists _______________________________\n\n    def test_file_exists():\n>       assert OUT.exists()\nE       AssertionError: assert False\nE        +  where False = exists()\nE        +    where exists = PosixPath('/root/work/range_results.csv').exists\n\n/tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py:44: AssertionError\n=========================== short test summary info ============================\nFAILED ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py::test_file_exists\nERROR ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py::test_all_ids\nERROR ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py::test_range_bin\nERROR ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py::test_range_m\nERROR ../../tmp/claude-0/-home-user-world-bench/733171cd-d0fc-5a37-94be-460239ce1d11/scratchpad/siblings/radar-vital-signs-fmcw-range-bin-breathing/verifier/test_outputs.py::test_breathing_rate\n1 failed, 4 errors in 0.73s\n"
+}

@@ -1,0 +1,11 @@
+{
+ "name": "dialogue-parser-script-to-json",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "script.txt": 5881
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

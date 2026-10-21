@@ -1,0 +1,11 @@
+{
+ "name": "exceltable-in-ppt-table-reconciliation",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "budget.pptx": 18787
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

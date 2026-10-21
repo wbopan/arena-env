@@ -1,0 +1,22 @@
+# Department headcount and payroll drift
+
+HR archived its employee roster as a PDF and has kept editing the live spreadsheet since then. Management wants a department-level view of what changed.
+
+Inputs:
+- `/root/work/roster_backup.pdf` is the old roster. Each data row reads `ID | Name | Department | Salary | Start Date`, with ` | ` separators. IDs look like `EMP00042`. Salaries are annual USD, formatted like `$72,500`. Every page also has a title, a header row and a footer.
+- `/root/work/roster_current.xlsx` is the current roster. It has a sheet `Employees` with columns `Employee ID`, `Name`, `Department` and `Annual Salary` (integer USD).
+
+For every department that appears in either file, compute:
+- `headcount_old` / `headcount_new`: the number of employees in that department in the PDF / spreadsheet (0 if absent).
+- `payroll_old` / `payroll_new`: the sum of annual salaries in that department (0 if absent).
+- `payroll_change`: payroll_new - payroll_old.
+
+Also compute:
+- `transfers`: the number of employee IDs present in both files whose department differs.
+- `net_headcount_change`: total employees in the spreadsheet minus total employees in the PDF.
+
+Write `/root/work/dept_summary.json` in this form:
+```json
+{"departments": [{"department": "Engineering", "headcount_old": 10, "headcount_new": 11, "payroll_old": 950000, "payroll_new": 1012000, "payroll_change": 62000}], "transfers": 3, "net_headcount_change": 2}
+```
+Sort `departments` by department name ascending. All numbers are integers, in whole dollars. Spell department names exactly as they appear in the source files.

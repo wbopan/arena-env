@@ -1,0 +1,11 @@
+{
+ "name": "python-scala-translation-signature-mapper",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "api.py": 1923
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

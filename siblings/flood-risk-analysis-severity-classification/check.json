@@ -1,0 +1,12 @@
+{
+ "name": "flood-risk-analysis-severity-classification",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "gage_height_iv.rdb": 12580,
+  "nws_thresholds.csv": 519
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,22 @@
+{
+ "name": "pddl-tpp-planning-plan-validation",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "domain.pddl": 1682,
+  "plans/plan_01.txt": 1802,
+  "plans/plan_02.txt": 1864,
+  "plans/plan_03.txt": 1803,
+  "plans/plan_04.txt": 870,
+  "plans/plan_05.txt": 1836,
+  "plans/plan_06.txt": 1805,
+  "plans/plan_07.txt": 1802,
+  "plans/plan_08.txt": 1802,
+  "plans/plan_09.txt": 1802,
+  "plans/plan_10.txt": 1739,
+  "problem.pddl": 1913
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

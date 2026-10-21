@@ -1,0 +1,12 @@
+{
+ "name": "adaptive-cruise-control-pid-replay",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "acc_config.yaml": 247,
+  "sensor_log.csv": 7184
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

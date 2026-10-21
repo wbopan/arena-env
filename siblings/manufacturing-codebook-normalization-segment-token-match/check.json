@@ -1,0 +1,12 @@
+{
+ "name": "manufacturing-codebook-normalization-segment-token-match",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "codebook.csv": 887,
+  "logs.csv": 2374
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

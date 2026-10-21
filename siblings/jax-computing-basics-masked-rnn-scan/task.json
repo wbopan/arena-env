@@ -1,0 +1,7 @@
+{
+ "name": "jax-computing-basics-masked-rnn-scan",
+ "source": "jax-computing-basics",
+ "category": "software-engineering",
+ "workdir": "/root/work",
+ "instruction": "# Masked RNN scan over a padded batch\n\nInputs in `/root/work`:\n\n- `seq.npy`: float64 array of shape (B, T, D), a batch of B input sequences padded to length T.\n- `lengths.npy`: int64 array of shape (B,). This is the number of valid time steps of each sequence, with 1 <= length <= T.\n- `rnn_params.npz`: float64 arrays with these keys:\n  - `Wx` (D, H): input-to-hidden weights.\n  - `Wh` (H, H): hidden-to-hidden weights.\n  - `b` (H,): bias.\n  - `h0` (B, H): initial hidden state of each sequence.\n\nRun a vanilla tanh RNN over time, scanning each sequence independently from t = 0:\n\n    h_t = tanh(x_t @ Wx + h_{t-1} @ Wh + b),   with h_{-1} = h0[i]\n\nHere `x_t` is the row vector `seq[i, t]`. The products are row-vector times matrix, so `Wx` maps D to H and `Wh` maps H to H.\n\nMasking convention: for sequence i, only time steps `t < lengths[i]` are valid. At padded positions (`t >= lengths[i]`) the output must be exactly 0.0. Padding never influences valid outputs.\n\nOutput: save the hidden-state sequence to `/root/work/hseq.npy`.\n\n- Shape: (B, T, H).\n- Dtype: float64.\n- Entry `[i, t]` is `h_t` for sequence i at valid steps, and all zeros at padded steps.\n- Values are not rounded. They must match the exact recurrence to within 1e-6 absolute."
+}

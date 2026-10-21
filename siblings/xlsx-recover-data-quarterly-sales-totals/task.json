@@ -1,0 +1,7 @@
+{
+ "name": "xlsx-recover-data-quarterly-sales-totals",
+ "source": "xlsx-recover-data",
+ "category": "finance-economics",
+ "workdir": "/root/work",
+ "instruction": "# Recover missing cells in a sales grid\n\nThe file `/root/work/sales_incomplete.xlsx` has one sheet, `Quarterly Sales`, which occupies the range A1:F10.\n\n- Row 1 holds the headers `Region`, `Q1`, `Q2`, `Q3`, `Q4` and `Total`.\n- Rows 2-9 hold eight regions.\n- Row 10 is labeled `Total`.\n- Every number is an integer sales amount in USD thousands.\n\nThe grid follows these accounting rules:\n\n- In each row 2-10, column F equals the sum of columns B-E in that row.\n- In each column B-F, row 10 equals the sum of rows 2-9.\n- Cell F10 is the grand total and satisfies both rules.\n\nSome cells in B2:F10 contain the text `???` in place of a number. The constraints above determine every missing value uniquely. Some missing values can only be determined after other missing values have been recovered.\n\n## Output\n\nCreate `/root/work/sales_recovered.xlsx` with these properties:\n\n- It has the same sheet name (`Quarterly Sales`) and the same layout as the input.\n- Every cell that did not contain `???` keeps exactly its original value, including labels and headers.\n- Each `???` is replaced by its recovered integer value.\n- Recovered values are stored as numeric cell values. Text strings and Excel formulas are not accepted.\n- No `???` remains anywhere in the workbook.\n\nAfter recovery, every row and column constraint listed above must hold exactly."
+}

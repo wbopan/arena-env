@@ -1,0 +1,12 @@
+{
+ "name": "offer-letter-generator-conditional-fill",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "employee_data.json": 587,
+  "offer_letter_template.docx": 38476
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,7 @@
+{
+ "name": "drone-planning-control-motor-allocation",
+ "source": "drone-planning-control",
+ "category": "industrial-physical-systems",
+ "workdir": "/root/work",
+ "instruction": "# Quadrotor motor allocation with saturation\n\n`/root/work/system_params.yaml` contains these parameters:\n\n- `mass` and `gravity`\n- `cT`: thrust coefficient, N/rpm^2\n- `cQ`: torque coefficient, N*m/rpm^2\n- `arm_length`: arm length d, in m\n- `rpm_min` and `rpm_max`\n\n`/root/work/commands.csv` has columns `id,F,Mx,My,Mz`. These are the desired total thrust (N) and body moments (N*m).\n\nThe X-frame allocation matrix A maps squared motor speeds `s = [w1^2, w2^2, w3^2, w4^2]` to `[F, Mx, My, Mz]`:\n\n- row F: `cT, cT, cT, cT`\n- row Mx: `0, d*cT, 0, -d*cT`\n- row My: `-d*cT, 0, d*cT, 0`\n- row Mz: `-cQ, cQ, -cQ, cQ`\n\nFor each command:\n\n1. Solve `A s = [F, Mx, My, Mz]` for s.\n2. Set any negative entries of s to 0.\n3. Take the square root to get the unconstrained rpm of each motor.\n4. Clip to `[rpm_min, rpm_max]` to get the motor rpm.\n5. Compute the actually produced `[F, Mx, My, Mz] = A (rpm^2)`, using the clipped rpm.\n\nA command is saturated if any motor's unconstrained rpm is strictly below `rpm_min` or strictly above `rpm_max`.\n\nWrite `/root/work/motor_output.csv` with the header `id,rpm1,rpm2,rpm3,rpm4,F_act,Mx_act,My_act,Mz_act,saturated`. Include one row per command, in ascending id order. Round rpm values to 3 decimals and forces/moments to 6 decimals. Write `saturated` as the integer 0 or 1."
+}

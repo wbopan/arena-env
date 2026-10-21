@@ -1,0 +1,11 @@
+{
+ "name": "syzkaller-ppdev-syzlang-header-to-const",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "zq.h": 1543
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

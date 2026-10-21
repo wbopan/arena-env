@@ -1,0 +1,12 @@
+{
+ "name": "enterprise-information-search-slack-doc-review-csv",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "DATA/employees.csv": 849,
+  "DATA/slack.json": 14810
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

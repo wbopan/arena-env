@@ -1,0 +1,12 @@
+{
+ "name": "video-silence-remover-opening-edit-report",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "energies.json": 4227,
+  "pauses.json": 1117
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

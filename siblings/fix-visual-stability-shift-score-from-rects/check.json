@@ -1,0 +1,11 @@
+{
+ "name": "fix-visual-stability-shift-score-from-rects",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "frames.json": 7310
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

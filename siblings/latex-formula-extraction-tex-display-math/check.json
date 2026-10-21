@@ -1,0 +1,11 @@
+{
+ "name": "latex-formula-extraction-tex-display-math",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "paper.tex": 2658
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

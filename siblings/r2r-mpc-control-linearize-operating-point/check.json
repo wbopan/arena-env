@@ -1,0 +1,11 @@
+{
+ "name": "r2r-mpc-control-linearize-operating-point",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "system_config.json": 304
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

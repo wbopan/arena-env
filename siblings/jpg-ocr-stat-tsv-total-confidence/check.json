@@ -1,0 +1,19 @@
+{
+ "name": "jpg-ocr-stat-tsv-total-confidence",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "ocr/r01.tsv": 2347,
+  "ocr/r02.tsv": 1928,
+  "ocr/r03.tsv": 2309,
+  "ocr/r04.tsv": 1932,
+  "ocr/r05.tsv": 2035,
+  "ocr/r06.tsv": 2035,
+  "ocr/r07.tsv": 2384,
+  "ocr/r08.tsv": 2195,
+  "ocr/r09.tsv": 2537
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

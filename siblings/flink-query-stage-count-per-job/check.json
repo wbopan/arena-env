@@ -1,0 +1,12 @@
+{
+ "name": "flink-query-stage-count-per-job",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "data/job_events.csv.gz": 785,
+  "data/task_events.csv.gz": 8863
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

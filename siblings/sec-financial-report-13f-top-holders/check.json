@@ -1,0 +1,12 @@
+{
+ "name": "sec-financial-report-13f-top-holders",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "2025-q3/COVERPAGE.tsv": 1024,
+  "2025-q3/INFOTABLE.tsv": 15095
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

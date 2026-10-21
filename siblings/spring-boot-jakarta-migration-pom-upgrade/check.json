@@ -1,0 +1,11 @@
+{
+ "name": "spring-boot-jakarta-migration-pom-upgrade",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "pom.xml": 3721
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

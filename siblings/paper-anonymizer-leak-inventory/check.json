@@ -1,0 +1,13 @@
+{
+ "name": "paper-anonymizer-leak-inventory",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "paper1.pdf": 4040,
+  "paper2.pdf": 3898,
+  "paper3.pdf": 3905
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

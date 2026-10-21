@@ -1,0 +1,14 @@
+{
+ "name": "paratransit-routing-plan-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "config.json": 102,
+  "plan.json": 713,
+  "requests.json": 4153,
+  "t_matrix.csv": 4848
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

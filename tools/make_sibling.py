@@ -62,7 +62,10 @@ def ask(base_url: str, key: str, model: str, prompt: str) -> str:
         choice = json.load(r)["choices"][0]
     if choice.get("finish_reason") == "length":
         raise ValueError("reply cut at max_tokens")
-    return choice["message"]["content"]
+    content = choice["message"].get("content")
+    if not content:
+        raise ValueError(f"empty reply (finish_reason {choice.get('finish_reason')!r})")
+    return content
 
 
 def parse_json(text: str) -> dict:
@@ -122,7 +125,7 @@ def main() -> int:
             obj = parse_json(reply)
             sibs = obj["siblings"]
         except Exception as exc:
-            (args.out / f"{d.name}.failed.txt").write_text(repr(exc) + "\n\n" + reply)
+            (args.out / f"{d.name}.failed.txt").write_text(repr(exc) + "\n\n" + (reply or ""))
             return f"{d.name}: FAILED {exc!r}"
         names = []
         for s in sibs:

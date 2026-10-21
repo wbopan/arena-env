@@ -1,0 +1,12 @@
+{
+ "name": "financial-modeling-qa-dice-match-tally",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "background.pdf": 1825,
+  "data.xlsx": 8585
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

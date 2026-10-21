@@ -1,0 +1,11 @@
+{
+ "name": "data-to-d3-bubble-node-spec",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "data/stock-descriptions.csv": 3310
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

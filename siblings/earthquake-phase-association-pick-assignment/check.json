@@ -1,0 +1,13 @@
+{
+ "name": "earthquake-phase-association-pick-assignment",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "events.csv": 334,
+  "picks.csv": 7990,
+  "stations.csv": 369
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

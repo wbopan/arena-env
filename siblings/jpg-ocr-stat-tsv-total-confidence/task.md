@@ -1,0 +1,27 @@
+Tesseract has already been run on a batch of scanned receipt images. For each image `rNN.jpg`, its word-level output (the `image_to_data` TSV format) is stored in `/root/work/ocr/rNN.tsv`. The tab-separated columns are: level, page_num, block_num, par_num, line_num, word_num, left, top, width, height, conf, text. The rows are NOT in reading order.
+
+For each TSV file, do the following.
+
+1. Keep only word rows (level 5) whose conf is >= 30 and whose text is not blank. Low-confidence words are OCR noise.
+2. Rebuild the text lines. Group the kept words by (block_num, par_num, line_num) and sort the words in each group by word_num. Join them with single spaces. Order the lines by (block_num, par_num, line_num), compared numerically.
+3. Find the total amount using these keyword groups, from highest to lowest priority:
+   - (1) `GRAND TOTAL`
+   - (2) `TOTAL RM`, `TOTAL: RM`
+   - (3) `TOTAL AMOUNT`
+   - (4) `TOTAL`, `AMOUNT DUE`
+
+   Rules for finding the total:
+   - Matching is a case-insensitive substring test.
+   - Skip any line that contains `SUBTOTAL`, `SUB TOTAL`, `TAX`, `GST`, `SST`, `DISCOUNT`, `CHANGE` or `CASH`.
+   - Use the highest-priority group that matches any line, and take the first matching line in reading order.
+   - The amount is the last match of the regex `\d{1,3}(?:,\d{3})+\.\d{2}|\d+\.\d{2}` on that line.
+   - If that line has no match, use the last match on the next line.
+   - If there is still no amount, or no line matches any keyword, the total is null.
+   - Remove commas and write the total as a string with exactly two decimals (e.g. `"1234.56"`).
+4. `word_count`: the number of kept words. `mean_conf`: the mean conf of the kept words, rounded to 2 decimals.
+
+Write `/root/work/receipt_summary.json`. It must be a JSON array sorted by filename, with one object per receipt and exactly these keys:
+- `filename` (e.g. `"r01.jpg"`)
+- `total` (string or null)
+- `word_count` (integer)
+- `mean_conf` (number)

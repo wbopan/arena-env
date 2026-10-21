@@ -1,0 +1,12 @@
+{
+ "name": "financial-modeling-qa-tiered-commission-report",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "background.pdf": 1795,
+  "data.xlsx": 7214
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

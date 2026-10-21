@@ -1,0 +1,12 @@
+{
+ "name": "citation-check-registry-crosscheck",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "refs.bib": 7262,
+  "registry.csv": 5372
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

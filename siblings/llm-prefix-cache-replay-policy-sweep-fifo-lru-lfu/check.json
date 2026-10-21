@@ -1,0 +1,12 @@
+{
+ "name": "llm-prefix-cache-replay-policy-sweep-fifo-lru-lfu",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "config.json": 122,
+  "trace.jsonl": 9528
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

@@ -1,0 +1,13 @@
+{
+ "name": "court-form-filling-itemized-claim-acroform",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "case.json": 287,
+  "claim_form_blank.pdf": 15404,
+  "expenses.csv": 531
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

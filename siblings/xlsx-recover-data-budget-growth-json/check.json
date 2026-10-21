@@ -1,0 +1,11 @@
+{
+ "name": "xlsx-recover-data-budget-growth-json",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "budget_incomplete.xlsx": 6666
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

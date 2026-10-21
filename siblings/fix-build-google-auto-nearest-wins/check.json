@@ -1,0 +1,12 @@
+{
+ "name": "fix-build-google-auto-nearest-wins",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "pom.xml": 1017,
+  "repository.json": 8594
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

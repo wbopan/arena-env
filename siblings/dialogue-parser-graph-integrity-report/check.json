@@ -1,0 +1,11 @@
+{
+ "name": "dialogue-parser-graph-integrity-report",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "dialogue.json": 5894
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

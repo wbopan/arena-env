@@ -1,0 +1,7 @@
+{
+ "name": "sales-pivot-analysis-pdf-region-quarter-csv",
+ "source": "sales-pivot-analysis",
+ "category": "office-white-collar",
+ "workdir": "/root/work",
+ "instruction": "# Region x Quarter Sales Matrix from a PDF Ledger\n\n## Inputs\n\n- `/root/work/transactions.pdf` is a multi-page ledger for calendar year 2024.\n  - Every page repeats a header line: `Date Store Category Amount`.\n  - Each transaction line holds:\n    - a date (`YYYY-MM-DD`)\n    - a store ID (such as `S03`)\n    - a one-word category\n    - an amount with two decimals\n  - Negative amounts are refunds. They must be included as-is, so they reduce the totals.\n- `/root/work/stores.xlsx`, sheet `Stores`, has the columns `StoreID`, `StoreName` and `Region`.\n  - Every store ID in the ledger appears in this sheet.\n\n## Task\n\nBuild a pivot of total Amount with region as rows and calendar quarter as columns:\n\n- Q1 = Jan-Mar\n- Q2 = Apr-Jun\n- Q3 = Jul-Sep\n- Q4 = Oct-Dec\n\n## Output\n\nWrite `/root/work/region_quarter.csv` as comma-separated text:\n\n- The header row is exactly `Region,Q1,Q2,Q3,Q4,Total`.\n- Write one row per distinct region found in `stores.xlsx`, sorted alphabetically.\n- `Total` is the sum of that region's four quarters.\n- The last row has `Grand Total` in the Region column. It holds column sums for Q1-Q4 and for Total.\n- Format every number with exactly 2 decimals and no thousands separators, for example `1234.50` or `-12.00`.\n- A region-quarter with no transactions is written as `0.00`."
+}

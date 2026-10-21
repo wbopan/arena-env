@@ -1,0 +1,11 @@
+{
+ "name": "azure-bgp-oscillation-route-leak-preference-cycles",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "preferences.json": 717
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

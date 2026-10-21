@@ -1,0 +1,12 @@
+{
+ "name": "pdf-excel-diff-department-drift",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "roster_backup.pdf": 4514,
+  "roster_current.xlsx": 6490
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

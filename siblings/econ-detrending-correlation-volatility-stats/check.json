@@ -1,0 +1,13 @@
+{
+ "name": "econ-detrending-correlation-volatility-stats",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cpi_monthly.csv": 10653,
+  "pce_nominal.xlsx": 6570,
+  "pfi_nominal.xlsx": 6501
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

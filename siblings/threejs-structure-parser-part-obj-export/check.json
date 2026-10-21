@@ -1,0 +1,11 @@
+{
+ "name": "threejs-structure-parser-part-obj-export",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "scene.json": 13478
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

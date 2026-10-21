@@ -1,0 +1,12 @@
+{
+ "name": "travel-planning-cuisine-shortlist",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cities.txt": 195,
+  "restaurants.csv": 10314
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

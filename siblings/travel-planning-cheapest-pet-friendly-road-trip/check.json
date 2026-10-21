@@ -1,0 +1,13 @@
+{
+ "name": "travel-planning-cheapest-pet-friendly-road-trip",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "accommodations.csv": 9302,
+  "cities.txt": 198,
+  "distance.csv": 2987
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

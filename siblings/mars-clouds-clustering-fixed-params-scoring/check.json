@@ -1,0 +1,12 @@
+{
+ "name": "mars-clouds-clustering-fixed-params-scoring",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "citsci.csv": 7084,
+  "expert.csv": 1279
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

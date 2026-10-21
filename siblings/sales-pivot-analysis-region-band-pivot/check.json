@@ -1,0 +1,11 @@
+{
+ "name": "sales-pivot-analysis-region-band-pivot",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "sales.xlsx": 9984
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

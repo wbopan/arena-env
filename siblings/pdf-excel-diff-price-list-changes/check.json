@@ -1,0 +1,12 @@
+{
+ "name": "pdf-excel-diff-price-list-changes",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "price_list_backup.pdf": 4224,
+  "price_list_current.xlsx": 6697
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

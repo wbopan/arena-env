@@ -1,0 +1,13 @@
+{
+ "name": "jax-computing-basics-masked-rnn-scan",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "lengths.npy": 168,
+  "rnn_params.npz": 1916,
+  "seq.npy": 3008
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

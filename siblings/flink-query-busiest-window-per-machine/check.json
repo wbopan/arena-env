@@ -1,0 +1,11 @@
+{
+ "name": "flink-query-busiest-window-per-machine",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "data/task_events.csv.gz": 9500
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

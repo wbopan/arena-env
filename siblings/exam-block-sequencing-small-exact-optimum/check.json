@@ -1,0 +1,13 @@
+{
+ "name": "exam-block-sequencing-small-exact-optimum",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "instance.json": 617,
+  "pair_counts.csv": 581,
+  "triplet_counts.csv": 1651
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

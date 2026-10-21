@@ -1,0 +1,14 @@
+{
+ "name": "exam-block-sequencing-metric-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "instance.json": 892,
+  "pair_counts.csv": 972,
+  "schedule.csv": 156,
+  "triplet_counts.csv": 5776
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

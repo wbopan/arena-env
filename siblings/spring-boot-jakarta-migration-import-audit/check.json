@@ -1,0 +1,27 @@
+{
+ "name": "spring-boot-jakarta-migration-import-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "src/README.txt": 68,
+  "src/main/java/com/example/app/config/DataConfig.java": 348,
+  "src/main/java/com/example/app/config/XaConfig.java": 494,
+  "src/main/java/com/example/app/dto/CreateUserRequest.java": 442,
+  "src/main/java/com/example/app/dto/OrderDto.java": 557,
+  "src/main/java/com/example/app/model/Order.java": 485,
+  "src/main/java/com/example/app/model/User.java": 376,
+  "src/main/java/com/example/app/model/User.java.bak": 42,
+  "src/main/java/com/example/app/repository/UserRepository.java": 496,
+  "src/main/java/com/example/app/service/CryptoService.java": 544,
+  "src/main/java/com/example/app/service/MailService.java": 368,
+  "src/main/java/com/example/app/service/UserService.java": 528,
+  "src/main/java/com/example/app/util/Tokens.java": 491,
+  "src/main/java/com/example/app/web/AuthFilter.java": 649,
+  "src/main/java/com/example/app/web/UserController.java": 444,
+  "src/test/java/com/example/app/service/UserServiceTest.java": 363,
+  "src/test/java/com/example/app/web/AuthFilterTest.java": 472
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

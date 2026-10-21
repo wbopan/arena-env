@@ -1,0 +1,7 @@
+{
+ "name": "r2r-mpc-control-saturated-receding-horizon",
+ "source": "r2r-mpc-control",
+ "category": "industrial-physical-systems",
+ "workdir": "/root/work",
+ "instruction": "# Receding-Horizon LQR Tension Regulation with Torque Limits\n\nA 3-section roll-to-roll line has already been linearized and discretized. The inputs are in `/root/work`:\n\n- `A.csv`: the 6x6 discrete state matrix. Comma-separated, no header.\n- `B.csv`: the 6x3 discrete input matrix. Comma-separated, no header.\n- `mpc_config.json`: contains `horizon_N`, `Q_diag` (6 values), `R_diag` (3 values), `x0` (6 values), `u_max`, and `steps`.\n\nThe state x is the deviation from the operating point, ordered as [T1, T2, T3, v1, v2, v3]. The input u is the torque deviation.\n\nThe controller works as follows. At every step k, it solves the finite-horizon LQR problem from the current state x_k. The cost is the sum over j = 0..N-1 of (x_j' Q x_j + u_j' R u_j), plus a terminal cost x_N' Q x_N, where Q = diag(Q_diag), R = diag(R_diag) and N = `horizon_N`. The controller applies only the first optimal input, clipped elementwise to [-u_max, u_max].\n\nThe plant evolves as x_{k+1} = A x_k + B u_k, where u_k is the clipped input. Simulate from x_0 = `x0` for k = 0 .. steps-1.\n\nWrite `/root/work/closed_loop.csv` with these specifications:\n\n- Header: `k,x_norm,u1,u2,u3`\n- One row per step, k = 0 .. steps-1.\n- `x_norm` is the Euclidean norm of x_k, the state before the input at step k is applied.\n- `u1..u3` are the applied, clipped inputs at step k.\n- Round all values to 6 decimals."
+}

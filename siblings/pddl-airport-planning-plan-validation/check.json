@@ -1,0 +1,20 @@
+{
+ "name": "pddl-airport-planning-plan-validation",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "domain.pddl": 923,
+  "plans/plan_01.txt": 200,
+  "plans/plan_02.txt": 200,
+  "plans/plan_03.txt": 183,
+  "plans/plan_04.txt": 187,
+  "plans/plan_05.txt": 234,
+  "plans/plan_06.txt": 200,
+  "plans/plan_07.txt": 200,
+  "plans/plan_08.txt": 216,
+  "problem.pddl": 1234
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

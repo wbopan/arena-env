@@ -1,0 +1,7 @@
+{
+ "name": "simpo-code-reproduction-token-mask-hinge-metrics",
+ "source": "simpo-code-reproduction",
+ "category": "software-engineering",
+ "workdir": "/root/work",
+ "instruction": "# SimPO hinge loss from token-level log-probs\n\nReproduce the `simpo_loss` step of a SimPO trainer, starting from token-level policy log-probabilities of a concatenated batch.\n\nInput: `/root/work/tokens.npz` with\n- `per_token_logps`: float32 array (2B, T), log-probability of each label token under the policy (already aligned with `labels`; no shifting needed)\n- `labels`: int array (2B, T); positions equal to -100 are prompt or padding and must be ignored\n\nRows 0..B-1 are the chosen responses and rows B..2B-1 the rejected responses; pair i consists of row i and row i+B.\n\nCompute:\n1. For each row, the average log-probability over the non-ignored positions.\n2. Rewards: `chosen_reward = beta * avg_chosen`, `rejected_reward = beta * avg_rejected`.\n3. `logits = (avg_chosen - avg_rejected) - gamma_beta_ratio`.\n4. Hinge loss per pair: `max(0, 1 - beta * logits)`.\n\nHyperparameters: `beta = 2.0`, `gamma_beta_ratio = 0.5`.\n\nOutput: write JSON to `/root/work/metrics.json` with keys:\n- `losses`: list of B per-pair losses in pair order\n- `mean_loss`: mean of `losses`\n- `reward_accuracy`: fraction of pairs with chosen_reward > rejected_reward\n- `reward_margin_mean`: mean of (chosen_reward - rejected_reward)\n- `chosen_rewards_mean`: mean of chosen_reward\n\nAll values are floats; round to 6 decimals. Values are compared with absolute tolerance 1e-5."
+}

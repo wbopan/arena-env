@@ -1,0 +1,12 @@
+{
+ "name": "edit-pdf-fill-onboarding-form",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "onboarding_form.pdf": 8639,
+  "update.txt": 308
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

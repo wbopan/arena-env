@@ -1,0 +1,17 @@
+{
+ "name": "multilingual-video-dubbing-track-assembly",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "segments.srt": 229,
+  "timeline.json": 43,
+  "tts/seg_1.wav": 15280,
+  "tts/seg_2.wav": 17890,
+  "tts/seg_3.wav": 11376,
+  "tts/seg_4.wav": 13192,
+  "tts/seg_5.wav": 15346
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

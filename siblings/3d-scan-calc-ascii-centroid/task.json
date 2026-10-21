@@ -1,0 +1,7 @@
+{
+ "name": "3d-scan-calc-ascii-centroid",
+ "source": "3d-scan-calc",
+ "category": "industrial-physical-systems",
+ "workdir": "/root/work",
+ "instruction": "`/root/work/part.stl` is an ASCII STL of a scanned part, with coordinates in millimetres. Besides the part itself, the file contains small pieces of scanning debris. The facets of all bodies are interleaved in arbitrary order.\n\nEach body is a closed surface with consistent outward orientation: vertex order is counter-clockwise when seen from outside. A vertex shared between facets is written with identical text in every facet.\n\nSplit the facets into connected components. Facets that share a vertex belong to the same component, applied transitively. The **main part** is the component with the largest enclosed volume. Every other component counts as debris.\n\nFor the main part, compute:\n- its enclosed volume, in cm³\n- its centroid, in mm: the centre of mass of the solid assuming uniform density, not the average of its vertices\n- its axis-aligned bounding box, in mm\n\nWrite `/root/work/part_props.json` with exactly these keys:\n\n```json\n{\n  \"volume_cm3\": 3.1416,\n  \"centroid_mm\": [x, y, z],\n  \"bbox_min_mm\": [xmin, ymin, zmin],\n  \"bbox_max_mm\": [xmax, ymax, zmax],\n  \"debris_count\": 4\n}\n```\n\nRound `volume_cm3` to 4 decimals and all mm coordinates to 3 decimals. `debris_count` is the integer number of components other than the main part.\n\nAccepted tolerances:\n- volume: 0.1% relative\n- centroid: 0.01 mm\n- bounding box: 0.002 mm"
+}

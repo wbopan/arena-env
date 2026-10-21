@@ -1,0 +1,12 @@
+{
+ "name": "azure-bgp-oscillation-route-leak-valley-free-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "propagations.json": 6734,
+  "relationships.csv": 1880
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}
