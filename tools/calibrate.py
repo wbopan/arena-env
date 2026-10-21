@@ -138,7 +138,9 @@ class Container:
         subprocess.run(["docker", "rm", "-f", self.cid], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def play(url, model, tok, schema, task_id, budgets):
+def play(url, model, tok, schema, task_id, budgets, lenient=False):
+    """lenient=True takes the first JSON object in a reply (what a policy that has
+    learned the reply format would have sent); the strict verdict is kept in ep["strict_end"]."""
     comp_budget, ctx_budget, max_calls = budgets
     ntok = lambda s: len(tok.encode(s).ids) + TEMPLATE_TOKENS  # noqa: E731
     messages = [{"role": "system", "content": system_prompt(schema)}]
@@ -171,6 +173,11 @@ def play(url, model, tok, schema, task_id, budgets):
                 data = s.step(FINISH_ACTION)
                 break
             action = parse_strict(reply)
+            if action is None and lenient:
+                action = parse_lenient(reply)
+                if action is not None:
+                    ep["lenient_turns"] = ep.get("lenient_turns", 0) + 1
+                    ep.setdefault("strict_end", "invalid_reply")
             if action is None:
                 ep["end"] = "empty_reply" if not reply.strip() else "invalid_reply"
                 ep["lenient_would_parse"] = int(parse_lenient(reply) is not None)
@@ -199,6 +206,7 @@ def play(url, model, tok, schema, task_id, budgets):
                 data = s.step(FINISH_ACTION)
                 break
     ep["reward"] = data.get("reward") or 0.0
+    ep.setdefault("strict_end", ep["end"])
     ep["n_calls"] = calls
     ep["completion_used"] = used
     ep["context_used"] = ctx
@@ -223,6 +231,7 @@ def main():
     ap.add_argument("--context-budget", type=int, default=8192)
     ap.add_argument("--max-calls", type=int, default=32)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--lenient", action="store_true", help="accept the first JSON object in a reply")
     args = ap.parse_args()
     if args.tasks.startswith("@"):
         tasks = [l.strip() for l in Path(args.tasks[1:]).read_text().splitlines() if l.strip() and not l.startswith("#")]
@@ -242,7 +251,7 @@ def main():
                 if name not in schema_cache:
                     with urllib.request.urlopen(f"{c.url}/schema", timeout=15) as r:
                         schema_cache[name] = json.load(r)["action"]
-            return play(c.url, model, tok, schema_cache[name], task_id, budgets)
+            return play(c.url, model, tok, schema_cache[name], task_id, budgets, args.lenient)
         finally:
             c.close()
 
@@ -270,6 +279,7 @@ def main():
         for e in eps:
             ends[e["end"]] = ends.get(e["end"], 0) + 1
         summary[t] = {"n": len(eps), "solved": sum(e["reward"] >= 1.0 for e in eps),
+                      "strict_ok": sum(e["strict_end"] == e["end"] for e in eps),
                       "mean": round(mean(e["reward"] for e in eps), 3),
                       "ends": ends, "calls": round(mean(e["n_calls"] for e in eps), 1),
                       "completion_used": round(mean(e["completion_used"] for e in eps))}
