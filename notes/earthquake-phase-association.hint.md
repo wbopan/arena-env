@@ -1,0 +1,4 @@
+1. Inspect cheaply with `head stations.csv` and a one-line obspy summary of the stream (stations, sampling rate, time span, max amplitude; scale by 1e10 if tiny). Check that `seisbench`, `gamma` and `pyproj` import.
+2. Pick with `sbm.PhaseNet.from_pretrained("original").classify(st, P_threshold≈0.3, S_threshold≈0.3)` and save the picks with id="NET.STA", lowercase type, prob and a timestamp.
+3. Project the stations to km with pyproj (z = -elevation/1000), then run `gamma.utils.association` with vp=6, vs=6/1.75, use_amplitude=False, dbscan eps from `estimate_eps`, and min_picks around 5.
+4. Merge events less than 3 s apart, then write `/root/results.csv` with a `time` column formatted `%Y-%m-%dT%H:%M:%S.%f` (no timezone). Sanity-check the event count and time range, and tune the thresholds if needed.

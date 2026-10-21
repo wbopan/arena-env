@@ -1,0 +1,4 @@
+1. Find the workbook and any local IMF file. Print the Answer sheet's non-empty cells and the headers and 2025 columns of the Value, Volume and Total Reserves sheets. If needed, download the IMF commodity Excel file and take the PGOLD series.
+2. With openpyxl, write dates and prices into Gold price A:B. Add formulas `C=LN(Bt/Bt-1)*100`, `D=STDEV(last 3 C)` and `E=STDEV(last 12 C)`. In Answer Step 1, link the latest D and E values and compute annualized = D×SQRT(12).
+3. For Step 2, link the 2025 values and add Volume-only countries as volume × `AVERAGE(Jan–Sep 2025 price)`, minding tonne/oz units. Exposure = value × vol/100. For Step 3, use INDEX/MATCH on Total Reserves, drop countries with no 2025 total, and compute RaR per the labels.
+4. Save to `/root/output/rar_result.xlsx`, run `recalc.py` until there are zero errors, then spot-check values with `data_only=True`.

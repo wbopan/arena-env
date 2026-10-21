@@ -1,0 +1,4 @@
+1. Inspect `package.json`, the API route files, the cart context/ProductCard, and the compare page with grep/sed. Never print whole files.
+2. In API routes, replace sequential awaits with `Promise.all`, check the cache before fetching, and move logging/delays off the response path (`after()` or fire-and-forget).
+3. On the compare page, `next/dynamic` the heavy advanced-tab component (keep `data-testid="advanced-content"`) and use direct lodash/icon imports or `optimizePackageImports`. For the cart, use a memoized context value, `useCallback` with functional setState, and `React.memo(ProductCard)`, keeping `performance.mark`.
+4. Run `npm run build`, then start the app and curl the API routes and pages. Run the skill's `measure.ts`, then `git diff` to confirm no `data-testid` or `performance.mark` lines were removed.

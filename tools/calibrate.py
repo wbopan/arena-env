@@ -227,7 +227,7 @@ def main():
     ap.add_argument("--base-url", default="https://openrouter.ai/api/v1")
     ap.add_argument("--model", default="qwen/qwen3.8-27b")
     ap.add_argument("--key-file", default="~/.config/openrouter/key")
-    ap.add_argument("--extra-body", default='{"reasoning":{"enabled":false},"provider":{"require_parameters":true}}')
+    ap.add_argument("--extra-body", default='{"reasoning":{"enabled":false},"provider":{"order":["DeepInfra","Cerebras"],"allow_fallbacks":false}}')
     ap.add_argument("--temperature", type=float, default=1.0)
     ap.add_argument("--tokenizer", required=True)
     ap.add_argument("--completion-budget", type=int, default=4096)

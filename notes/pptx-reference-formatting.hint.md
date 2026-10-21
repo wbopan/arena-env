@@ -1,0 +1,4 @@
+1. Use python-pptx to list each slide's shapes (name, placeholder type, position, text). The dangling titles are the non-placeholder text boxes holding paper titles.
+2. In one script, for each such box: set every run to Arial, 16pt, RGB 989596, bold=False. Collapse the text to one line, set word_wrap=False, auto_size NONE, and width = measured text width plus insets. Then center it at the bottom (`left=(W-w)/2`, `top=H-h-margin`, align CENTER).
+3. Append a "Title and Content" slide titled "Reference". Put the deduplicated titles in the body, one paragraph each, with `<a:buAutoNum type="arabicPeriod"/>` in each `pPr`.
+4. Save to /root/Awesome-Agent-Papers_processed.pptx. Reopen it and verify fonts, positions, one-line wrap, the slide count, the numbered bullets, and that there are no duplicates.

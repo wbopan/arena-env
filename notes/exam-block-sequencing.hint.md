@@ -1,0 +1,4 @@
+1. Read /root/data/README.md and inspect instance.json keys and CSV heads: slot order, per-component start masks, ordered pair/triple tables, the exact four-slot pressure definition, large_blocks/early_slots, and virtual blocks.
+2. Write one script containing a pure evaluator and validator, a simulated-annealing warm start, and a PySCIPOpt MIP: `x[b,t]` assignment, linked y/z/w variables for nonzero tuples only, minimize 1·b2b + 1·b2b + 10·triples + 10·triples + 5·pressure, time limit ~600 s.
+3. Extract the best solution, assert that the evaluator objective equals the solver objective, and write /root/output/schedule.csv (slot,block).
+4. Reload the CSV, recompute and write metrics.json with the six keys, then write formulation.md (minimize, exactly-once constraints, linearizations, status/bound/gap) and report.md from the same numbers.

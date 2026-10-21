@@ -1,0 +1,3 @@
+1. Inspect metadata with one cv2 one-liner (frame count, fps, W, H). Set step = round(fps/5); indices are positions in the sampled list (0..N-1).
+2. In one script, for each consecutive sample pair, fit goodFeaturesToTrack + LK + estimateAffinePartial2D (RANSAC) to get dx, dy, rot, scale. Label multi-label (content moving right = Pan Left, down = Tilt Up, scale>1 = Dolly In, rot>0 = Roll Right, else Stay), mode-smooth, and merge runs into half-open "s->e" keys ending at N.
+3. For masks, warp the previous frame, take absdiff on the valid region with threshold max(20, median+3·1.4826·MAD), apply open/close and an area filter. Save CSR f_{i}_data/indices/indptr plus shape [H, W] to /root/pred_dyn_masks.npz

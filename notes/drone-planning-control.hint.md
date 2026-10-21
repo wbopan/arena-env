@@ -1,0 +1,2 @@
+1. `cat /root/system_params.yaml` and `head /root/commands/*.txt`. Plan each command with a start-at-rest profile (clamped CubicSpline or quintic) starting from the command's own start point, and check it against `accel_limit_*`.
+2. Write one script (numpy/scipy `solve_ivp` RK45/matplotlib Agg) with: parser, motor allocation plus lag, ZYX dynamics, a position PID with feed-forward acc, and an attitude planner plus attit

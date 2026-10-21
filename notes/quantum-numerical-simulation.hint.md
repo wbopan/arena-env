@@ -1,0 +1,2 @@
+1. Check `qutip`/`qutip.piqs` import and `pwd`. Build the spin Liouvillian per case with `Dicke(N=4, hamiltonian=jz, dephasing=0.01, pumping/emission/collective_pumping/collective_emission=0.1).liouvillian()` in the 9-state Dicke basis.
+2. Build the full Liouvillian as `super_tensor(liouvillian(a†a,[a]), to_super(I9)) + super_tensor(to_super(I16), L_tls)` plus the coupling term from `h_int = g*tensor(a+a†, jp+jm)`

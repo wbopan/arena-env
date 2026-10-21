@@ -1,0 +1,4 @@
+1. Inspect `/app/data` (CSV columns, one codebook entry, stations format) with head and pandas one-liners only.
+2. Write one Python script: split each raw_reason_text on delimiters into exact-substring spans (`<record_id>-S<i>`), then score each span against that product's codebook entries. Use rapidfuzz/difflib plus keyword, fail_code and test_item cues, and filter by entry.stations first.
+3. Rank, apply a hashlib tie-break among near-best candidates, and output UNKNOWN/"" when the best score is low. Give confidence (4 decimals) two separated bands: UNKNOWN low, known high, varying with score and margin. Put station, fail_code, test_item and the matched token in the rationale.
+4. Write `/app/output/solution.json` with `ensure_ascii=False`, then run a validator: all records present, substrings, valid codes and labels, station scope, and confidence statistics by UNKNOWN versus known.
