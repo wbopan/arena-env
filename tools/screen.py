@@ -19,9 +19,28 @@ HERE = Path(__file__).resolve().parent
 ROOT = Path.home() / "arena"
 
 
-def variants(task: str) -> list[str]:
-    meta = json.loads((ROOT / "build" / task / "arena" / "task.json").read_text())
+GHCR = "ghcr.io/wbopan/arena-env"
+
+
+def variants(task: str, image: str | None = None) -> list[str]:
+    p = ROOT / "build" / task / "arena" / "task.json"
+    if p.exists():
+        meta = json.loads(p.read_text())
+    else:  # pulled image: read the task.json baked into it
+        out = subprocess.run(["docker", "run", "--rm", "--entrypoint", "cat", image, "/opt/arena/task/task.json"],
+                             text=True, capture_output=True, check=True).stdout
+        meta = json.loads(out)
     return [f"{task}--{v}" for v in meta["instructions"]]
+
+
+def ghcr_pull(task: str, tag: str) -> bool:
+    """Pull the task image from GHCR and tag it arena-task/<task>:local. False if it is not published yet."""
+    ref = f"{GHCR}/{task}:{tag}"
+    if subprocess.run(["docker", "pull", "-q", ref], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+        return False
+    subprocess.run(["docker", "tag", ref, f"arena-task/{task}:local"], check=True)
+    subprocess.run(["docker", "rmi", ref], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    return True
 
 
 def image_exists(task: str) -> bool:
@@ -50,20 +69,31 @@ def main():
     ap.add_argument("--parallel", type=int, default=4)
     ap.add_argument("--only", help="comma-separated task names")
     ap.add_argument("--rm-image", action="store_true", help="remove the task image after screening it (disk)")
+    ap.add_argument("--ghcr", metavar="TAG", help="pull images ghcr.io/wbopan/arena-env/<task>:TAG for the tasks in tasks.txt instead of using local builds")
     ap.add_argument("rest", nargs=argparse.REMAINDER, help="extra calibrate.py args")
     args = ap.parse_args()
     args.rest = [a for a in args.rest if a != "--"]
     out_root = ROOT / "cal" / args.run
     out_root.mkdir(parents=True, exist_ok=True)
+    rounds_without_progress = 0
     while True:
-        tasks, done = built_tasks()
+        if args.ghcr:
+            tasks = [l.strip() for l in (HERE.parent / "tasks.txt").read_text().splitlines() if l.strip() and not l.startswith("#")]
+            done = True
+        else:
+            tasks, done = built_tasks()
         if args.only:
             tasks = [t for t in tasks if t in args.only.split(",")]
-        todo = [t for t in tasks if not (out_root / t / "summary.json").exists() and image_exists(t)]
+        todo = [t for t in tasks if not (out_root / t / "summary.json").exists() and (args.ghcr or image_exists(t))]
+        progressed = False
         for task in todo:
-            if not image_exists(task):
+            if args.ghcr:
+                if not image_exists(task) and not ghcr_pull(task, args.ghcr):
+                    continue  # not published yet; retried on the next pass
+            elif not image_exists(task):
                 continue  # rebuilt or removed meanwhile; picked up on the next pass
-            ids = variants(task)
+            progressed = True
+            ids = variants(task, f"arena-task/{task}:local")
             cmd = [sys.executable, str(HERE / "calibrate.py"), "--tasks", ",".join(ids),
                    "--episodes", str(args.episodes), "--parallel", str(args.parallel),
                    "--tokenizer", str(ROOT / "tokenizer.json"), "--out", str(out_root / task)] + args.rest
@@ -80,6 +110,13 @@ def main():
                 print("  no summary (see log)", flush=True)
             if args.rm_image and s.exists():
                 subprocess.run(["docker", "rmi", f"arena-task/{task}:local"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if args.ghcr:
+            rounds_without_progress = 0 if progressed else rounds_without_progress + 1
+            if not todo or rounds_without_progress >= 30:  # ~1h with nothing new published
+                break
+            if not progressed:
+                time.sleep(120)
+            continue
         if done and not todo:
             break
         if not todo:

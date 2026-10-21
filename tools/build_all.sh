@@ -15,7 +15,7 @@ for d in "$SRC"/*/; do
   if docker image inspect "arena-task/$name:local" >/dev/null 2>&1; then
     echo -e "$name\tcached" >> build/summary.tsv; continue
   fi
-  while [ "$(df --output=avail -BG "$DOCKER_ROOT" | tail -1 | tr -dc 0-9)" -lt 12 ]; do echo "low disk, waiting" >> build/logs/disk.log; sleep 300; done
+  while [ "$(df --output=avail -BG "$DOCKER_ROOT" | tail -1 | tr -dc 0-9)" -lt "${MIN_FREE_G:-12}" ]; do echo "low disk, waiting" >> build/logs/disk.log; sleep 300; done
   t0=$(date +%s)
   extra=()
   [ -f "arena-env/notes/$name.md" ] && extra+=(--digest "arena-env/notes/$name.md")
@@ -26,6 +26,7 @@ for d in "$SRC"/*/; do
   else
     status=fail
   fi
+  docker builder prune -af >/dev/null 2>&1
   size=$(docker image inspect "arena-task/$name:local" --format '{{.Size}}' 2>/dev/null || echo 0)
   echo -e "$name\t$status\t$(( $(date +%s) - t0 ))s\t$size\t$(grep -o 'warm-up verifier exit [0-9]*, reward.txt: [^ ]*' build/logs/$name.log | tail -1)" >> build/summary.tsv
   df -h "$DOCKER_ROOT" | tail -1 | awk '{print "disk", $4}' >> build/logs/disk.log
