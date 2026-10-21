@@ -61,6 +61,8 @@ def main():
             tasks = [t for t in tasks if t in args.only.split(",")]
         todo = [t for t in tasks if not (out_root / t / "summary.json").exists() and image_exists(t)]
         for task in todo:
+            if not image_exists(task):
+                continue  # rebuilt or removed meanwhile; picked up on the next pass
             ids = variants(task)
             cmd = [sys.executable, str(HERE / "calibrate.py"), "--tasks", ",".join(ids),
                    "--episodes", str(args.episodes), "--parallel", str(args.parallel),

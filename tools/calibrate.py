@@ -66,10 +66,15 @@ def parse_lenient(text: str):
         if ch == "{":
             try:
                 obj, _ = dec.raw_decode(text[i:])
-                if isinstance(obj, dict):
-                    return obj
             except json.JSONDecodeError:
                 continue
+            if isinstance(obj, dict):
+                for key in ("function", "arguments", "parameters"):
+                    if isinstance(obj.get(key), dict) and "action_type" not in obj:
+                        obj = obj[key]
+                if isinstance(obj.get("arguments"), dict):
+                    obj = obj["arguments"]
+                return obj
     return None
 
 
@@ -114,7 +119,18 @@ class Model:
         with self._lock:
             prov = data.get("provider") or "?"
             self.usage.setdefault("providers", {})[prov] = self.usage.get("providers", {}).get(prov, 0) + 1
-        return ch["message"].get("content") or "", u.get("completion_tokens", 0), ch.get("finish_reason")
+        content = ch["message"].get("content") or ""
+        calls = ch["message"].get("tool_calls") or []
+        if calls and not content.strip():
+            # The provider parsed a <tool_call> block out of the reply. The arena would see the raw
+            # text (an invalid reply); keep it as text so strict parsing fails and lenient parsing
+            # can still recover the action from the arguments.
+            try:
+                args = calls[0]["function"]["arguments"]
+                content = "<tool_call>\n" + (args if isinstance(args, str) else json.dumps(args)) + "\n</tool_call>"
+            except (KeyError, TypeError, IndexError):
+                pass
+        return content, u.get("completion_tokens", 0), ch.get("finish_reason")
 
 
 class Container:
@@ -124,9 +140,12 @@ class Container:
         with socket.socket() as s:
             s.bind(("127.0.0.1", 0))
             self.port = s.getsockname()[1]
-        self.cid = subprocess.check_output(
+        run = subprocess.run(
             ["docker", "run", "-d", "--rm", f"--cpus={cpus}", f"--memory={memory}",
-             "-p", f"127.0.0.1:{self.port}:8000", image], text=True).strip()
+             "-p", f"127.0.0.1:{self.port}:8000", image], text=True, capture_output=True)
+        if run.returncode != 0:
+            raise RuntimeError(f"docker run failed: {run.stderr.strip()[:300]}")
+        self.cid = run.stdout.strip()
         self.url = f"http://127.0.0.1:{self.port}"
         for _ in range(120):
             try:

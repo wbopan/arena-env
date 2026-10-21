@@ -68,7 +68,7 @@ def ask(base_url: str, key: str, model: str, prompt: str) -> str:
 
 
 def split_reply(text: str) -> tuple[str, str]:
-    m = re.search(r"### NOTES\s*(.*?)### HINT\s*(.*)", text, re.S)
+    m = re.search(r"[#*\s]*NOTES[#*:\s]*\n(.*?)\n[#*\s]*HINT[#*:\s]*\n(.*)", text, re.S | re.I)
     if not m:
         raise ValueError("reply not in the expected layout")
     return m.group(1).strip(), m.group(2).strip()
