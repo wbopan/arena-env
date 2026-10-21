@@ -1,0 +1,4 @@
+1. Inspect `AppBase.java` (grep imports and datatype names), the skeleton, the pom's Flink version, the PDF schema (`pdftotext | grep`), and `zcat … | head -3`. SUBMIT=0 and FINISH=4; task col 2=jobId, col 5=type; job col 3=type; timestamps in µs.
+2. Create `TaskEvent`/`JobEvent` POJOs in `clusterdata.datatypes` with `fromString` using `split(",",-1)`. In the job, assign timestamps as `ts/1000` ms, filter SUBMIT, key by jobId, and apply `EventTimeSessionWindows.withGap(Time.minutes(10))` with a count.
+3. Connect the session counts with job FINISH events in a `KeyedCoProcessFunction` that keeps the max and emits `(jobId,max)` on a timer after finish. Write with parallelism 1 to `--output`, one `(a,b)` line each.
+4. Run `mvn package`, run the job on the sample gz files, then check the line format and compare against a Python gap-splitting reference script.

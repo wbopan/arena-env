@@ -1,0 +1,4 @@
+1. Grep pom.xml plus all `*.java` (main and test) for `javax.`, `RestTemplate`, `WebSecurityConfigurerAdapter`, `antMatchers`, `Jwts.`, `jaxb`, and check `java -version`.
+2. In pom.xml: set Boot to 3.2.0 and Java 21, drop JAXB/activation, replace jjwt 0.9.1 with jjwt-api/impl/jackson 0.12.3, and drop pinned lombok/h2 versions. Run sed `javax.(persistence|validation|servlet|annotation|transaction)` to `jakarta.` everywhere.
+3. Rewrite SecurityConfig as a `SecurityFilterChain` bean using lambda DSL, `requestMatchers` and `@EnableMethodSecurity`. Port JWT code to the 0.12 API with a key of at least 32 bytes. Replace RestTemplate with RestClient, keeping method signatures and fallbacks.
+4. Loop on `mvn clean compile`, then `mvn test`, reading only error lines and surefire reports. Finally confirm the deprecated patterns are gone with grep.

@@ -139,13 +139,22 @@ class Model:
 class Container:
     """One task image, started on a free port, removed on exit."""
 
-    def __init__(self, image: str, cpus: str = "2", memory: str = "8g"):
+    def __init__(self, image: str, cpus: str = "2", memory: str = "8g", host_net: bool = False):
         with socket.socket() as s:
             s.bind(("127.0.0.1", 0))
             self.port = s.getsockname()[1]
+        if host_net:
+            # Hosts whose bridge network has no egress: share the host's network and
+            # pick the server port ourselves.
+            net = ["--network", "host"]
+            cmd = ["/opt/arena/venv/bin/python", "-c",
+                   f"from arena_env.app import main; main(host='127.0.0.1', port={self.port})"]
+        else:
+            net = ["-p", f"127.0.0.1:{self.port}:8000"]
+            cmd = []
         run = subprocess.run(
-            ["docker", "run", "-d", "--rm", f"--cpus={cpus}", f"--memory={memory}",
-             "-p", f"127.0.0.1:{self.port}:8000", image], text=True, capture_output=True)
+            ["docker", "run", "-d", "--rm", f"--cpus={cpus}", f"--memory={memory}", *net, image, *cmd],
+            text=True, capture_output=True)
         if run.returncode != 0:
             raise RuntimeError(f"docker run failed: {run.stderr.strip()[:300]}")
         self.cid = run.stdout.strip()
@@ -257,6 +266,7 @@ def main():
     ap.add_argument("--max-calls", type=int, default=32)
     ap.add_argument("--out", required=True)
     ap.add_argument("--lenient", action="store_true", help="accept the first JSON object in a reply")
+    ap.add_argument("--host-net", action="store_true", help="run containers with --network host (no bridge egress)")
     args = ap.parse_args()
     if args.tasks.startswith("@"):
         tasks = [l.strip() for l in Path(args.tasks[1:]).read_text().splitlines() if l.strip() and not l.startswith("#")]
@@ -270,7 +280,7 @@ def main():
 
     def job(task_id):
         name = task_id.split("--")[0]
-        c = Container(f"{args.image_prefix}{name}:{args.image_tag}")
+        c = Container(f"{args.image_prefix}{name}:{args.image_tag}", host_net=args.host_net)
         try:
             with schema_lock:
                 if name not in schema_cache:
