@@ -17,7 +17,10 @@ for d in "$SRC"/*/; do
   fi
   while [ "$(df --output=avail -BG "$DOCKER_ROOT" | tail -1 | tr -dc 0-9)" -lt 12 ]; do echo "low disk, waiting" >> build/logs/disk.log; sleep 300; done
   t0=$(date +%s)
-  if python arena-env/tools/build_task.py "$d" "build/$name" > "build/logs/$name.log" 2>&1 \
+  extra=()
+  [ -f "arena-env/notes/$name.md" ] && extra+=(--digest "arena-env/notes/$name.md")
+  [ -f "arena-env/notes/$name.hint.md" ] && extra+=(--hint "arena-env/notes/$name.hint.md")
+  if python arena-env/tools/build_task.py "$d" "build/$name" "${extra[@]}" > "build/logs/$name.log" 2>&1 \
      && DOCKER_BUILDKIT=1 timeout 2400 docker build --network=host --platform linux/amd64 -t "arena-task/$name:local" "build/$name" >> "build/logs/$name.log" 2>&1; then
     status=ok
   else

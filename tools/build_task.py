@@ -27,7 +27,10 @@ PROTOCOL = (
     "You work as root in {workdir} through a terminal. Actions: exec (run a shell "
     "command), write_file (file_path, content), evaluate (grades your work and ends "
     "the episode; call it once you are done). Keep outputs short: inspect files with "
-    "head, wc, grep or small scripts instead of printing them whole."
+    "head, wc, grep or small scripts instead of printing them whole.\n"
+    "Reply with exactly one JSON object and nothing else. Inside the command string "
+    "quote with single quotes and escape every double quote and newline (\\\" and \\n); "
+    "create or overwrite files with write_file, never with heredocs."
 )
 DIGEST_MAX_CHARS = 12000
 
