@@ -31,6 +31,7 @@ def main() -> int:
     ap.add_argument("--name", default="Compact terminal tasks")
     ap.add_argument("--schema", type=Path, required=True)
     ap.add_argument("--mini-summary", type=Path)
+    ap.add_argument("--mini-summary-8k", type=Path, help="tasks screened at 8192/16384; they keep that budget")
     ap.add_argument("--mini-image", default="ghcr.io/wbopan/arena-env/mini:v1")
     ap.add_argument("--orig-dir", type=Path, help="cal/<run> with <task>/summary.json per original task")
     ap.add_argument("--orig-image-prefix", default="ghcr.io/wbopan/arena-env/")
@@ -48,6 +49,11 @@ def main() -> int:
     if args.mini_summary:
         for tid, rate in sorted(pick(args.mini_summary, args.min, args.max), key=lambda x: (-x[1], x[0])):
             tasks.append({"task_id": tid, "split": "train", "_rate": rate})
+    if args.mini_summary_8k:
+        seen = {t["task_id"] for t in tasks}
+        for tid, rate in sorted(pick(args.mini_summary_8k, args.min, args.max), key=lambda x: (-x[1], x[0])):
+            if tid not in seen:
+                tasks.append({"task_id": tid, "split": "train", "completion_tokens": 8192, "context_tokens": 16384, "_rate": rate})
     if args.orig_dir:
         for d in sorted(args.orig_dir.iterdir()):
             s = d / "summary.json"
