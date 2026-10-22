@@ -103,6 +103,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: pip install -q pyyaml
       - name: build context
         run: python tools/build_mini.py siblings build/mini --runtime "${{ needs.runtime.outputs.image }}"
       - uses: docker/setup-buildx-action@v3
