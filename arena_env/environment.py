@@ -30,6 +30,7 @@ from openenv.core.env_server.interfaces import Environment
 
 from .models import Tbench2Action, Tbench2Observation, Tbench2State
 from .seeded import RUNNER as SEEDED_RUNNER
+from .trace import Trace
 import random as _random
 import shlex
 
@@ -205,6 +206,7 @@ class ArenaEnvironment(Environment):
         self._set = bundle()
         self._task: Task = self._set.default
         self._episode: dict | None = None
+        self._trace: Trace | None = None
         self._state = Tbench2State(episode_id=None, step_count=0)
 
     # ----- OpenEnv interface -------------------------------------------------
@@ -212,8 +214,11 @@ class ArenaEnvironment(Environment):
     def reset(self, seed=None, episode_id=None, task_id=None, **kwargs) -> Tbench2Observation:
         task, variant = self._set.parse_task_id(task_id or kwargs.get("task_name"))
         self._task = task
+        if self._trace:
+            self._trace.finish("reset", None)
         with _LOCK:
-            task.restore_workdir(seed)
+            off = task.restore_workdir(seed)
+        self._trace = Trace(f"{task.name}--{variant}", seed, off)
         self._episode = {
             "task_id": f"{task.name}--{variant}",
             "variant": variant,
@@ -251,6 +256,7 @@ class ArenaEnvironment(Environment):
             return self._observation(output="Closed TB2 environment.", action_type=kind, reward=0.0, done=True)
 
         output, error, info = "", "", {}
+        status, secs = None, 0.0
         if kind == "exec":
             if not action.command.strip():
                 error = "exec needs a command"
@@ -266,6 +272,9 @@ class ArenaEnvironment(Environment):
         else:
             error = f"Unsupported action_type: {kind}"
         self._state.last_output = output
+        if self._trace:
+            self._trace.step(kind, action.command or "", action.file_path or "",
+                             len(action.content or ""), output, error, status, secs)
 
         if ep["actions"] >= MAX_ACTIONS:
             return self._finish(kind, prefix=output + f"\n[action limit of {MAX_ACTIONS} reached]")
@@ -276,6 +285,8 @@ class ArenaEnvironment(Environment):
         return self._state
 
     def close(self) -> None:
+        if self._trace:
+            self._trace.finish("close", None)
         self._episode = None
 
     # ----- helpers -------------------------------------------------------------
@@ -327,6 +338,8 @@ class ArenaEnvironment(Environment):
         ep = self._require_episode()
         reward, note = self._grade()
         ep["done"] = True
+        if self._trace:
+            self._trace.finish("limit" if prefix else kind, reward, note)
         text = (prefix + "\n" if prefix else "") + f"evaluated: reward {reward:g} ({note})"
         return self._observation(output=cap_output(text), action_type=kind, reward=reward, done=True)
 

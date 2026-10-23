@@ -36,6 +36,7 @@ RUN pip install -q {libs} pytest==8.4.1 pytest-json-ctrf==0.3.5
 COPY --from=arena_runtime /opt/arena /opt/arena
 COPY tasks /opt/arena/tasks
 RUN mkdir -p /root/work
+ENV ARENA_TRACE_URL={trace_url} ARENA_TRACE_TAG={trace_tag}
 WORKDIR /root/work
 EXPOSE 8000
 HEALTHCHECK --interval=10s --timeout=5s --start-period=20s --retries=6 CMD curl -fsS http://127.0.0.1:8000/health || exit 1
@@ -50,6 +51,8 @@ def main() -> int:
     ap.add_argument("out", type=Path)
     ap.add_argument("--runtime", default="arena-runtime:local")
     ap.add_argument("--only")
+    ap.add_argument("--trace-url", default="", help="ntfy topic URL for episode traces (arena_env/trace.py)")
+    ap.add_argument("--trace-tag", default="", help="label stored with every trace, e.g. the submission version")
     ap.add_argument("--all", action="store_true", help="include tasks without a passing check.json too")
     args = ap.parse_args()
     if args.out.exists():
@@ -78,7 +81,8 @@ def main() -> int:
             "instructions": instructions, "default_variant": "n"}, indent=1, ensure_ascii=False) + "\n")
         manifest.append({"task_id": d.name, "category": meta.get("category"), "source": meta.get("source"),
                          "variants": sorted(instructions)})
-    (args.out / "Dockerfile").write_text(DOCKERFILE.format(runtime=args.runtime, libs=LIBS))
+    (args.out / "Dockerfile").write_text(DOCKERFILE.format(runtime=args.runtime, libs=LIBS,
+                                                          trace_url=args.trace_url or '""', trace_tag=args.trace_tag or '""'))
     (args.out / "tasks.jsonl").write_text("".join(json.dumps(m) + "\n" for m in manifest))
     print(f"{len(manifest)} tasks -> {args.out}")
     return 0

@@ -1,0 +1,20 @@
+{
+ "name": "crystallographic-wyckoff-position-analysis-orbit-multiplicity",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cifs/A_monoclinic.cif": 733,
+  "cifs/B_orthorhombic.cif": 754,
+  "cifs/C_centered.cif": 936,
+  "cifs/D_cubic.cif": 4754
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}
