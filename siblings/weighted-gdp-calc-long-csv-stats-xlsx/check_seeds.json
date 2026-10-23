@@ -1,0 +1,17 @@
+{
+ "name": "weighted-gdp-calc-long-csv-stats-xlsx",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "trade_long.csv": 3891
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}

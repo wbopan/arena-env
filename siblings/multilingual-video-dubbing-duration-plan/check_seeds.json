@@ -1,0 +1,20 @@
+{
+ "name": "multilingual-video-dubbing-duration-plan",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "segments.srt": 441,
+  "target_language.txt": 3,
+  "target_text.srt": 697,
+  "tts_durations.csv": 123
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}

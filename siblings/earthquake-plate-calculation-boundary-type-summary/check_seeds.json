@@ -1,0 +1,18 @@
+{
+ "name": "earthquake-plate-calculation-boundary-type-summary",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "boundaries.geojson": 2138,
+  "earthquakes.csv": 4688
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}

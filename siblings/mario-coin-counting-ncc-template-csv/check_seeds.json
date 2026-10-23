@@ -1,0 +1,25 @@
+{
+ "name": "mario-coin-counting-ncc-template-csv",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "coin.png": 186,
+  "frames/frame_001.png": 12038,
+  "frames/frame_002.png": 12135,
+  "frames/frame_003.png": 12407,
+  "frames/frame_004.png": 12383,
+  "frames/frame_005.png": 12391,
+  "frames/frame_006.png": 12105,
+  "frames/frame_007.png": 12372,
+  "goomba.png": 156
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "name": "r2r-mpc-control-saturated-receding-horizon",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "A.csv": 689,
+  "B.csv": 342,
+  "mpc_config.json": 252
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}

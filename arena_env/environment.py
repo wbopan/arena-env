@@ -29,6 +29,9 @@ from uuid import uuid4
 from openenv.core.env_server.interfaces import Environment
 
 from .models import Tbench2Action, Tbench2Observation, Tbench2State
+from .seeded import RUNNER as SEEDED_RUNNER
+import random as _random
+import shlex
 
 ARENA_DIR = Path(os.environ.get("ARENA_DIR", "/opt/arena"))
 TASK_DIR = ARENA_DIR / "task"
@@ -79,7 +82,9 @@ class Task:
     def instruction(self, variant: str) -> str:
         return self.instructions.get(variant) or self.instructions[self.default_variant]
 
-    def restore_workdir(self) -> None:
+    def restore_workdir(self, seed: int | None = None) -> int:
+        """Reset the working directory. Generated tasks get a fresh instance per episode
+        (seed offset; ARENA_FIXED_DATA=1 keeps the original data). Returns the offset used."""
         wd = self.workdir
         for p in (VERIFIER_STAGE, LOGS_DIR):
             shutil.rmtree(p, ignore_errors=True)
@@ -94,9 +99,21 @@ class Task:
             with tarfile.open(self.snapshot) as tar:
                 tar.extractall("/", numeric_owner=True)
         elif self.gen is not None:
-            status, out, _ = run_shell(f"python3 {self.gen}", wd, GEN_TIMEOUT_S)
+            off = 0
+            if os.environ.get("ARENA_FIXED_DATA") != "1":
+                off = (seed if seed is not None else _random.SystemRandom().randrange(1, 10**6)) % 10**6 or 1
+            cmd = f"python3 -c {shlex.quote(SEEDED_RUNNER)} {shlex.quote(str(self.gen))} {off}"
+            status, out, _ = run_shell(cmd, wd, GEN_TIMEOUT_S)
+            if status != 0 and off:
+                # an instance this generator cannot build: fall back to the original data
+                for child in wd.iterdir():
+                    shutil.rmtree(child, ignore_errors=True) if child.is_dir() else child.unlink(missing_ok=True)
+                off = 0
+                status, out, _ = run_shell(f"python3 {self.gen}", wd, GEN_TIMEOUT_S)
             if status != 0:
                 raise RuntimeError(f"gen_data.py failed ({status}): {out[-500:]}")
+            return off
+        return 0
 
 
 class TaskSet:
@@ -196,7 +213,7 @@ class ArenaEnvironment(Environment):
         task, variant = self._set.parse_task_id(task_id or kwargs.get("task_name"))
         self._task = task
         with _LOCK:
-            task.restore_workdir()
+            task.restore_workdir(seed)
         self._episode = {
             "task_id": f"{task.name}--{variant}",
             "variant": variant,

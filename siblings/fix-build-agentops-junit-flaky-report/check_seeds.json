@@ -1,0 +1,22 @@
+{
+ "name": "fix-build-agentops-junit-flaky-report",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "runs/run_01.xml": 5789,
+  "runs/run_02.xml": 5558,
+  "runs/run_03.xml": 5674,
+  "runs/run_04.xml": 5540,
+  "runs/run_05.xml": 5589,
+  "runs/run_06.xml": 5613
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}

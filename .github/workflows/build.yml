@@ -117,4 +117,4 @@ jobs:
           context: build/mini
           platforms: linux/amd64
           push: true
-          tags: ${{ env.REGISTRY }}/mini:${{ github.event.inputs.tag || 'v1' }}
+          tags: ${{ env.REGISTRY }}/mini:${{ github.event.inputs.tag || 'v2' }}

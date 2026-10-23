@@ -1,0 +1,17 @@
+{
+ "name": "mars-clouds-clustering-pareto-from-counts",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "grid_counts.csv": 11784
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}

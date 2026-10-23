@@ -1,0 +1,19 @@
+{
+ "name": "manufacturing-equipment-maintenance-reflow-tal-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "mes_log.csv": 226,
+  "spec.yaml": 334,
+  "thermocouples.csv": 15169
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "11": true,
+  "23": true,
+  "37": true
+ }
+}
