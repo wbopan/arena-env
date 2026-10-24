@@ -1,0 +1,12 @@
+## Reference notes
+
+Use the Python standard library (`pathlib`, `shlex`, `re`, `fractions`, `json`, `collections`). **Work from the CIF loops directly**, not a reconstructed crystal structure: the requested count is the number of *listed* operators, and site labels, occupancies and coordinates must remain associated with their original rows.
+
+- CIF `loop_` is followed by column names beginning with `_`, then rows in that column order. Locate columns **by name**, not fixed index. Quoted symmetry strings can contain spaces; `shlex.split(line, comments=True, posix=True)` handles simple single-line rows and `#` comments. Check how rows are laid out before relying on one physical line per row. A new `loop_`, data name or data block ends the preceding loop.
+- Strip coordinate standard uncertainties before numeric conversion: `float(re.sub(r'\([^)]*\)$', '', token))` turns `0.12345(4)` into `0.12345`. Parse occupancy the same way if needed. Keep the original atom label and type symbol.
+- A symmetry string contains three comma-separated *fractional-coordinate expressions*. Parse signed `x`, `y`, `z` terms and rational constants (e.g. `1/2`) as a linear map plus translation. `fractions.Fraction` handles rational constants exactly; avoid unrestricted `eval`. Use **every listed operation**, including expanded centering translations—do not add centering operations again.
+- Compare transformed positions modulo integer lattice vectors, component by component. For positions `a` and `b`, the periodic difference in component `i` is `abs((a[i] - b[i]) - round(a[i] - b[i]))`; they match only when **all three** differences are within `0.001`. Count distinct positions for each input site separately. Do not substitute Cartesian-distance or symmetry-analysis tolerances.
+- For the reported `fract`, reduce the **original site** coordinates with `% 1`, then use `Fraction(value).limit_denominator(12)` and `str(...)` per component. Do not reduce the resulting fraction again: approximation near the upper boundary can yield the string `"1"`.
+- Accumulate `multiplicity * occupancy` by type symbol across sites, then `round(total, 3)`. Write JSON numbers for counts and contents, but strings for the three fractions.
+
+Short workflow: inspect one small file’s two loop headers and representative rows; write one script that parses each `*.cif`, builds each site’s orbit, accumulates contents and writes `json.dump(...)` keyed by `Path.name`; run it once, then inspect the JSON for missing files or sites and unexpectedly empty orbits.

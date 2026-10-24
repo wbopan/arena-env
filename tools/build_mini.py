@@ -73,6 +73,9 @@ def main() -> int:
         shutil.copy(d / "verifier" / "test_outputs.py", td / "verifier" / "test_outputs.py")
         (td / "verifier" / "test.sh").write_text(TEST_SH)
         instructions = {"n": meta["instruction"].strip() + PROTOCOL.format(workdir=workdir)}
+        skill = d / "skill.md"
+        if skill.is_file():
+            instructions["s"] = meta["instruction"].strip() + "\n\n" + skill.read_text().strip() + PROTOCOL.format(workdir=workdir)
         hint = d / "hint.md"
         if hint.is_file():
             instructions["h"] = meta["instruction"].strip() + "\n\n## Hint\n\n" + hint.read_text().strip() + PROTOCOL.format(workdir=workdir)
