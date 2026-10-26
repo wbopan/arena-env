@@ -55,6 +55,8 @@ Escape the file contents as JSON strings.
 
 
 def ask(base_url: str, key: str, model: str, prompt: str) -> str:
+    if model.startswith("chatgpt/"):  # served through the Responses API only
+        return ask_responses(base_url, key, model, prompt)
     body = {"model": model, "messages": [{"role": "user", "content": prompt}], "max_tokens": 24000, "temperature": 0.5}
     req = urllib.request.Request(base_url.rstrip("/") + "/chat/completions", data=json.dumps(body).encode(),
                                  headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
@@ -66,6 +68,18 @@ def ask(base_url: str, key: str, model: str, prompt: str) -> str:
     if not content:
         raise ValueError(f"empty reply (finish_reason {choice.get('finish_reason')!r})")
     return content
+
+
+def ask_responses(base_url: str, key: str, model: str, prompt: str) -> str:
+    req = urllib.request.Request(base_url.rstrip("/") + "/responses", data=json.dumps({"model": model, "input": prompt}).encode(),
+                                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=1800) as r:
+        d = json.load(r)
+    text = "".join(c.get("text", "") for o in d.get("output", []) if o.get("type") == "message"
+                   for c in o.get("content", []) if c.get("type") == "output_text")
+    if not text:
+        raise ValueError(f"empty reply (status {d.get('status')!r})")
+    return text
 
 
 def parse_json(text: str) -> dict:
@@ -96,6 +110,8 @@ def main() -> int:
     ap.add_argument("--parallel", type=int, default=3)
     ap.add_argument("--per-task", type=int, default=2)
     ap.add_argument("--only")
+    ap.add_argument("--more", action="store_true",
+                    help="add siblings even where some exist; the prompt lists the existing ones so the new ones differ")
     args = ap.parse_args()
     key = os.environ.get("NOTES_API_KEY")
     if not key:
@@ -107,7 +123,8 @@ def main() -> int:
         tasks = [t for t in tasks if t.name in args.only.split(",")]
 
     def job(d: Path) -> str:
-        if list(args.out.glob(f"{d.name}-*")):
+        existing = sorted(p for p in args.out.glob(f"{d.name}-*") if (p / "task.json").is_file())
+        if existing and not args.more:
             return f"{d.name}: exists"
         raw = (d / "task.md").read_text(encoding="utf-8")
         skills_dir = d / "environment" / "skills"
@@ -116,6 +133,9 @@ def main() -> int:
         verifier = ver.read_text(encoding="utf-8", errors="replace")[:4000] if ver.is_file() else "(none)"
         prompt = PROMPT.format(category=category_of(raw), per_task=args.per_task, libs=LIBS, source=d.name,
                                task=frontmatter_body(raw)[:8000], skills=skills, verifier=verifier)
+        if existing:
+            prompt += "\n=== EXISTING SIBLINGS (write different ones: other sub-skills, outputs and names) ===\n" + "\n".join(
+                f"- {p.name}: {json.loads((p / 'task.json').read_text())['instruction'][:300]}" for p in existing)
         reply = ""
         try:
             try:
@@ -133,6 +153,8 @@ def main() -> int:
             if not name.startswith(d.name):
                 name = f"{d.name}-{name}"
             sd = args.out / name
+            if sd.exists():
+                continue
             for rel, content in s["files"].items():
                 p = sd / rel
                 p.parent.mkdir(parents=True, exist_ok=True)

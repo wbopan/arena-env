@@ -1,0 +1,7 @@
+{
+ "name": "earthquake-phase-association-waveform-pulse-picks",
+ "source": "earthquake-phase-association",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "# Pick phases from short synthetic traces\n\n`/root/work/stations.csv` lists each station's `station_id` and instrument `response`. `/root/work/waveforms.csv` contains one sample per row, with columns `station_id,channel,sample,counts`. `sample` is an integer number of seconds after recording start; there is one sample per second. Channel `Z` carries P-phase candidates and channel `E` carries S-phase candidates. Traces are independent: never join runs across stations or channels.\n\nFor each waveform sample, divide the absolute value of `counts` by that station's response. A candidate run consists of consecutive samples on the same trace for which this normalized amplitude is at least 3. Retain only runs containing two or more samples. Each retained run yields exactly one pick, at its first sample. Set its `phase` to `p` for channel `Z`, or `s` for channel `E`. Its `peak_unit` is the maximum normalized amplitude anywhere in the run.\n\nWrite exactly `/root/work/picks.csv` with columns `station_id,phase,time_s,peak_unit`, in that order. Sort rows by numeric `time_s`, then `station_id`, then `phase`. Write `time_s` as an integer and `peak_unit` rounded to two decimal places. The normalized amplitude and `peak_unit` are dimensionless; `time_s` is in seconds. Include no other rows or columns."
+}

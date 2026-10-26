@@ -1,0 +1,16 @@
+{
+ "name": "threejs-structure-parser-instanced-triangles",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "instances.json": 1788
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "name": "syzkaller-ppdev-syzlang-description-audit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "dev_audit.txt": 619,
+  "dev_audit.txt.const": 146,
+  "uapi_commands.csv": 135
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

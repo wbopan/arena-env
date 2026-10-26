@@ -1,0 +1,7 @@
+{
+ "name": "lean4-proof-box-induction-obligations",
+ "source": "lean4-proof",
+ "category": "mathematics-or-formal-reasoning",
+ "workdir": "/root/work",
+ "instruction": "# Check two-variable induction obligations\n\nThe input `/root/work/recurrences.json` contains independent recurrence problems. Each problem has an `id`, an initial state `start` containing two integers, an inclusive integer box `box` containing `[xmin,xmax,ymin,ymax]`, and coefficients `a,b,c,d,e,f`. The next state is `x' = a*x + b*y + c` and `y' = d*x + e*y + f`.\n\nFor each problem, decide whether the initial state belongs to its box and whether every state in the box is mapped back into the box. These are separate obligations: a recurrence can satisfy either, both, or neither. If the box is not closed, report the lexicographically first `(x,y)` among its four corners whose next state falls outside the box. Compare corners by `x` first, then `y`.\n\nWrite exactly one output file, `/root/work/obligations.json`. It must be a JSON array in input order. Each object must have exactly the fields `id`, `base_ok`, `step_ok`, `induction_ready`, and `witness`. The three status fields are JSON booleans; `induction_ready` means both obligations hold. `witness` is `null` when `step_ok` is true, otherwise a two-element integer array containing the specified corner. Use exact integer arithmetic. An empty box does not occur in the input."
+}

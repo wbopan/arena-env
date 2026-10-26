@@ -1,0 +1,7 @@
+{
+ "name": "lean4-proof-lemma-chain-search",
+ "source": "lean4-proof",
+ "category": "mathematics-or-formal-reasoning",
+ "workdir": "/root/work",
+ "instruction": "# Find short implication chains\n\n`/root/work/lemmas.csv` lists available directed implications. Its columns are `premise,conclusion`; each row permits a proof of its conclusion when its premise has already been established. Names are opaque identifiers, not mathematical expressions. Rows may repeat and the graph may contain cycles. `/root/work/goals.csv` has columns `goal_id,known,target`; each row asks whether its target can be reached from its known fact using zero or more available implications.\n\nWrite `/root/work/chains.csv` with exactly the columns `goal_id,status,chain`, preserving the order of `goals.csv`. Set `status` to `proved` if a chain exists and `missing` otherwise. For a proved goal, `chain` lists every name on a shortest directed path, including both endpoints, joined with `>` and with no spaces. If multiple shortest paths exist, choose the lexicographically smallest sequence of names. A zero-step proof has a chain consisting only of `known`. For a missing goal, leave `chain` empty. There are no units or rounding: names and paths must match exactly. Do not treat a reversed implication as usable unless its own row appears in the input."
+}

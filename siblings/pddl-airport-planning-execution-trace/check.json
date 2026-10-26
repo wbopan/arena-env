@@ -1,0 +1,18 @@
+{
+ "name": "pddl-airport-planning-execution-trace",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "candidate.plan": 150,
+  "domain.pddl": 340,
+  "problem.pddl": 344
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,7 @@
+# Campus and Holy Site Feature-Clearing Pair
+
+Place one Campus and one Holy Site using `/root/work/pair_map.json`. The file supplies a city center, map tiles with `x`, `y`, `terrain`, and `feature`, and a separate list of permitted `[x, y]` spots for each district. Choose one spot from each list; they must be different. All listed spots are legal, within city range, and initially unoccupied. Coordinates use Civ6 odd-r hexes: odd rows shift right. Convert `(x, y)` to cube coordinates `(x - (y - (y & 1)) // 2, -x + (y - (y & 1)) // 2 - y, y)` and use half the sum of absolute cube-coordinate differences for distance.
+
+Calculate bonuses after both districts are built. Building on a tile clears its `FOREST` or `JUNGLE` feature. Each adjacent `MOUNTAIN` terrain gives either district +1. The Campus additionally gets +2 per adjacent `GEOTHERMAL` feature and +1 per complete pair of adjacent `JUNGLE` features. The Holy Site gets +1 per complete pair of adjacent `FOREST` features. Each district also gets +1 per complete pair of adjacent district tiles; the city center counts as a district tile, as does the other newly built district. Count features and district tiles separately. Adjacency means hex distance 1.
+
+Maximize the sum of the two bonuses. Break ties by the Campus spot's `(y, x)`, then the Holy Site spot's `(y, x)`. Write `/root/work/pair_answer.json` with exactly `placements` (keys `CAMPUS`, `HOLY_SITE`, each `[x, y]`), `bonuses` (the same keys, integer values), and `total` (integer).

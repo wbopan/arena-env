@@ -1,0 +1,18 @@
+{
+ "name": "glm-lake-mendota-column-heat-storage",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "bcs/hypsography.csv": 70,
+  "glm3.nml": 34,
+  "output/output.nc": 492
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

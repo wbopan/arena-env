@@ -1,0 +1,7 @@
+# Deadline-aware travel modes
+
+Compare driving and direct flights for a party of two. All inputs are in `/root/work`: `requests.csv` lists trips with columns `date`, `origin`, `destination`, and `max_minutes`; `driving.csv` lists directed routes with `origin`, `destination`, `duration`, `distance`, and `toll_usd`; `flights.csv` lists `Flight Number`, `Price`, `DepTime`, `ArrTime`, `ActualElapsedTime`, `FlightDate`, `OriginCityName`, `DestCityName`, and `Distance`. Flight Price is US dollars per traveler; ActualElapsedTime is minutes. Driving duration is `H hours M mins`, distance is `N km`, and toll is US dollars per vehicle. Treat driving as one vehicle for both travelers.
+
+For each request, consider its matching directed driving row and flights matching its date and directed city pair. A choice is eligible only if its duration is at most `max_minutes`. Flight cost is twice Price. Driving cost is `distance_km * 15 // 100 + toll_usd`, using integer floor division. Choose the eligible option with the lowest cost; break ties by shortest duration, then lexicographic `(mode, service_id)`. Modes are `drive` and `flight`; the driving service ID is `SELF_DRIVE`, while a flight uses its Flight Number. Every request has an eligible choice.
+
+Write exactly `/root/work/modes.csv`, with header `date,origin,destination,mode,service_id,cost_usd,duration_min` and one row per request in input order. Costs and durations must be whole numbers.

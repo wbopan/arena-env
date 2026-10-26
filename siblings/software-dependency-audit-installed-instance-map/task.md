@@ -1,0 +1,7 @@
+# Map findings to installed dependency instances
+
+Audit the npm v3 lockfile `/root/work/package-lock.json` against the offline Trivy-style report `/root/work/trivy_report.json`. The lockfile's `packages` object maps installation paths to objects containing `version`. Ignore its root entry with path `""`. Derive each installed package name from the portion of its path after the final `node_modules/`; this also preserves scoped names such as `@scope/name`.
+
+A scan finding applies to an installed instance only when its `PkgName` exactly matches that derived name **and** its `InstalledVersion` exactly matches the lockfile version. Consider findings from every entry in the report's `Results` array. Include only findings labeled exactly `HIGH` or `CRITICAL`; do not use CVSS scores to change the label. A finding may apply to multiple installation paths. If duplicate scan records produce the same path and `VulnerabilityID`, output that pair only once.
+
+Write exactly `/root/work/installed_findings.json` as a JSON array sorted first by `Path`, then by `CVE_ID`, both ascending. Every element must have exactly `Path`, `Package`, `Version`, `CVE_ID`, and `Fixed_Version`. Use the finding's nonempty `FixedVersion`, or `N/A` if absent or empty. Scan records without a matching installed instance must not appear.

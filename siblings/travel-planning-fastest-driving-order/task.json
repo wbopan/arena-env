@@ -1,0 +1,7 @@
+{
+ "name": "travel-planning-fastest-driving-order",
+ "source": "travel-planning",
+ "category": "mathematics-or-formal-reasoning",
+ "workdir": "/root/work",
+ "instruction": "# Fastest driving order\n\nPlan a driving-only trip through the required Ohio cities. All inputs are in `/root/work`. `cities.txt` contains tab-separated `State` and `City` entries. `trip.json` names the starting city, ending city, and required stops. `distance.csv` contains directed city-to-city records with columns `origin`, `destination`, `duration`, and `distance`. A duration is written as `H hours M mins`; a distance is written as `N km`. Treat the reverse direction as a different record.\n\nStart at `start`, visit every city in `stops` exactly once, and finish at `end`. Use one direct driving leg between each consecutive pair. All cities in the trip must appear under `Ohio` in `cities.txt`. Choose the stop order with the smallest total driving duration in minutes. Break ties by smaller total distance in kilometers, then by the lexicographically smallest list of stop names.\n\nWrite exactly one output file, `/root/work/route.json`. It must be a JSON object with `ordered_city_names` (including start and end), `legs` (objects with `origin`, `destination`, `distance_km`, and `duration_min`), `total_distance_km`, and `total_duration_min`. Distances and durations are integers. Preserve the chosen travel order in both arrays; totals are sums of the listed legs."
+}

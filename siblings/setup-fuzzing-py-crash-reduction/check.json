@@ -1,0 +1,17 @@
+{
+ "name": "setup-fuzzing-py-crash-reduction",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "crash.bin": 11,
+  "crash_rule.json": 37
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "name": "glm-lake-mendota-light-coefficient-fit",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "bcs/meteo.csv": 120,
+  "field_temp_oxy.csv": 833,
+  "glm3.nml": 87,
+  "output/output.nc": 556
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

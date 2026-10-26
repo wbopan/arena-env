@@ -1,0 +1,7 @@
+# Two-qubit evolution under local loss and dephasing
+
+Read `/root/work/qubit_runs.json`. It contains a `times` array and a `runs` array; every run has `case_id`, `omega1`, `omega2`, `exchange`, `gamma1`, `gamma2`, and `gamma_phi`. All rates and frequencies are in inverse time units, and times use the corresponding time unit. Treat runs independently.
+
+Use the ordered computational basis |00⟩, |01⟩, |10⟩, |11⟩. Initially the system is |10⟩. Define Z=diag(1,−1), X=[[0,1],[1,0]], Y=[[0,−i],[i,0]], and σ−=|0⟩⟨1|. The Hamiltonian is (omega1/2) Z⊗I + (omega2/2) I⊗Z + (exchange/2)(X⊗X+Y⊗Y). The Lindblad collapse operators are √gamma1(σ−⊗I), √gamma2(I⊗σ−), and √(gamma_phi/2)(Z⊗I). Evolve the density matrix with the time-independent master equation; include time zero without numerical propagation.
+
+Write `/root/work/qubit_dynamics.csv` with precisely the columns `case_id,time,z1,z2,purity1`. For each run in input order, output all times in input order. Here z1 and z2 are the expectations of Z on qubits one and two; purity1 is Tr(ρ1²), where ρ1 is the reduced state of qubit one. Output time and all computed quantities with at least nine decimal places, without an index column.

@@ -1,0 +1,17 @@
+{
+ "name": "pddl-airport-planning-shortest-parking-plan",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "domain.pddl": 620,
+  "problem.pddl": 619
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "name": "radar-vital-signs-cw-cardiac-harmonics",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "pulse_01.bin": 4096,
+  "pulse_01.json": 87,
+  "pulse_02.bin": 4096,
+  "pulse_02.json": 87,
+  "pulse_03.bin": 4096,
+  "pulse_03.json": 87
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

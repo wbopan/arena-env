@@ -1,0 +1,17 @@
+{
+ "name": "quantum-numerical-simulation-driven-cavity-wigner-samples",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cavity_cases.csv": 160,
+  "phase_points.csv": 274
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

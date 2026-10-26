@@ -1,0 +1,7 @@
+{
+ "name": "crystallographic-wyckoff-position-analysis-periodic-neighbors",
+ "source": "crystallographic-wyckoff-position-analysis",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "Two CIF files in /root/work/cifs describe orthogonal conventional cells. Their cell lengths are in ångströms, all three cell angles are 90 degrees, and atom-site coordinates are fractional. For every listed atom site, identify its nearest *different listed site* using the minimum-image distance: for each coordinate difference, subtract its nearest integer before multiplying by the corresponding cell length. Do not consider a site's own periodic images as candidates. The listed rows are the sites to analyze; do not create extra sites from Wyckoff multiplicities or symmetry operations.\n\nFor a site, compare all other listed sites in the same CIF, including their periodic images through the minimum-image rule. If two candidates have equal distances within 1e-9 Å, choose the one with the lexicographically smaller atom-site label. There is no comparison across files. Report the neighboring atom's listed label, not its element symbol.\n\nWrite exactly one UTF-8 JSON file at /root/work/nearest_sites.json. The top-level object maps each CIF basename, including `.cif`, to an object keyed by every atom-site label in that file. Each site value has exactly `neighbor` (a string) and `distance_angstrom` (a JSON number rounded to four decimal places). Distances must be nonnegative; JSON object key order does not matter."
+}

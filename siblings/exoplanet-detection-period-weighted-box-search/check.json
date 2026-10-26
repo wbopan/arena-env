@@ -1,0 +1,17 @@
+{
+ "name": "exoplanet-detection-period-weighted-box-search",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "lightcurve.csv": 10905,
+  "trials.csv": 71
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

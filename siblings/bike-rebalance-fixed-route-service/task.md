@@ -1,0 +1,9 @@
+# Choose service amounts on a fixed route
+
+A truck's station order is already fixed in `/root/work/data.json`. Choose an integer signed service amount at every stop to balance forecast targets against handling effort. A positive service amount picks bikes up from the station and adds them to the truck; a negative amount drops bikes off and removes them from the truck. Zero service is allowed. Every listed station is visited, even when its service is zero.
+
+The input contains `depot`, `route` (station IDs in visit order), `stations`, `vehicle_capacity`, `start_load`, `required_end_load`, and `handling_cost_per_bike`. Each station contains coordinates, `initial_bikes`, `station_capacity`, `net_rebalancing_target`, and `penalty_weight`. At every stop, both truck load and station inventory must remain within their inclusive zero-to-capacity bounds. The final truck load must equal `required_end_load`.
+
+Minimize travel distance plus the sum of station penalties `penalty_weight * abs(net_rebalancing_target - service)` plus `handling_cost_per_bike * abs(service)` at each station. Compute depot-to-depot travel using great-circle miles with Earth radius 3960.0. Do not round individual legs or costs. If total objectives tie within 1e-9, choose the lexicographically smallest signed-service sequence.
+
+Write exactly `/root/work/service.json` with fields `route`, `net_pickups`, `loads_after_stops`, `travel_distance_miles`, `unmet_penalty`, `handling_cost`, and `objective`. Route includes `"depot_start"` and `"depot_end"`; service and loads are integer bike counts. Round monetary costs and miles to six decimal places.

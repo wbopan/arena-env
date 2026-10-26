@@ -1,0 +1,17 @@
+{
+ "name": "crystallographic-wyckoff-position-analysis-periodic-neighbors",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cifs/neighbors_1.cif": 458,
+  "cifs/neighbors_2.cif": 485
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

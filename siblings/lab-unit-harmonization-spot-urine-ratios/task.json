@@ -1,0 +1,7 @@
+{
+ "name": "lab-unit-harmonization-spot-urine-ratios",
+ "source": "lab-unit-harmonization",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "# Harmonize spot-urine ratios\n\nThe input `/root/work/spot_urine.csv` contains one collection per row. Its columns are `collection_id,albumin_value,albumin_unit,protein_value,protein_unit,creatinine_value,creatinine_unit`. Numeric values may contain surrounding whitespace, a comma decimal separator, or scientific notation. An empty numeric value means that collection is incomplete.\n\nProduce `/root/work/urine_ratios.csv` with exactly these columns, in this order: `collection_id,uacr_mg_g,upcr_mg_g`. Preserve the input order, but omit every collection with an empty albumin, protein, or creatinine value. Do not omit a collection merely because a calculated ratio is high.\n\nFirst express albumin in mg/L, protein in mg/dL, and urine creatinine in mg/dL. The possible unit labels are `mg/L` and `mg/dL` for albumin and protein, and `mg/dL` and `mmol/L` for creatinine. Use 1 mg/dL = 10 mg/L and, for this exercise, 1 mmol/L urine creatinine = 11.3 mg/dL. Calculate UACR as albumin (mg/L) divided by creatinine (g/L), where creatinine (g/L) is its mg/dL value multiplied by 0.01. Calculate UPCR as 1000 times protein (mg/dL) divided by creatinine (mg/dL). Both output ratios must be plain decimal numbers with exactly two digits after the point."
+}

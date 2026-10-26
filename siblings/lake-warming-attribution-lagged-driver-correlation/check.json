@@ -1,0 +1,19 @@
+{
+ "name": "lake-warming-attribution-lagged-driver-correlation",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "climate.csv": 840,
+  "hydrology.csv": 541,
+  "land_cover.csv": 547,
+  "water_temperature.csv": 539
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

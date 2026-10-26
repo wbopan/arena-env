@@ -1,0 +1,9 @@
+# Detect the Quiet Pre-Roll
+
+`/root/work/energies.json` contains a per-second RMS energy profile of a short instructional recording. Its `energies` array is ordered: element `i` describes the half-open interval `[i, i+1)` seconds. The first portion is a quiet title card; later portions may contain brief quiet moments that are not part of the title card.
+
+Write exactly one output file, `/root/work/initial_silence.json`. Estimate a baseline as the arithmetic mean of energy values at indices 0 through 5. The threshold is twice that baseline. For each index `i`, define a trailing moving average over indices `max(0, i-2)` through `i`, inclusive; at the beginning, average only the values available.
+
+Find the smallest index `i` at least 6 for which the trailing averages at `i`, `i+1`, and `i+2` are **all strictly greater** than the threshold. The opening ends at `i` seconds. If there is no such index, the opening ends at zero seconds. Do not identify later quiet moments as additional opening segments.
+
+The output must be a JSON object with exactly `method`, `threshold`, `segments`, `total_segments`, and `total_duration_seconds`. Set `method` to `trailing_energy_transition`. Round `threshold` to three decimal places. If the opening end is positive, `segments` contains one object with integer `start`, `end`, and `duration`, representing `[0, end)`; otherwise it is empty. The two totals count and sum those segments.

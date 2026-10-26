@@ -1,0 +1,7 @@
+# Select fuzz targets from source and tests
+
+A small Python package is available under `/root/work/pkg`, with tests in `/root/work/tests`. Produce a ranked shortlist of functions that accept potentially untrusted input. Inspect the generated `.py` files rather than relying on filenames alone.
+
+Consider only top-level functions defined in `pkg/*.py` whose names do not begin with `_`. For each function, compute a score: add 3 if its name contains `parse`, `decode`, `load`, or `validate`; add 2 if any parameter is named `data`, `payload`, `text`, or `raw`; subtract 2 for each distinct test function that calls it. Name matching is case-sensitive. A test call counts only when its called name was imported directly using `from pkg.<module> import <name>` in that test file. Count a test function at most once per target, even if it makes several calls.
+
+Write exactly one file, `/root/work/target_shortlist.csv`, as UTF-8 CSV with header `qualname,score,test_functions`. Include the three highest-scoring eligible functions, ordered by descending score and then ascending qualified name. A qualified name has the form `<module>.<function>`; `test_functions` is the count used in the score. Use integer fields without extra formatting. Do not modify the package or its tests.

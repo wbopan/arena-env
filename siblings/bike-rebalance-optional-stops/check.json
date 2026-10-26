@@ -1,0 +1,16 @@
+{
+ "name": "bike-rebalance-optional-stops",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "data.json": 1235
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

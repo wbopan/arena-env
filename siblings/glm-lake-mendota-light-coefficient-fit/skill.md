@@ -1,0 +1,10 @@
+## Reference notes
+
+- **Do not run GLM.** Read the existing simulation and change only `Kw` in a copied namelist.
+- `glm3.nml` is a Fortran namelist. Read `lake_depth` and the current `Kw` from their assignments. Preserve the original text, including comments and line endings; replace only the numeric token on the `Kw = ...` line. A targeted, single-match regex is safer than rewriting the namelist.
+- For NetCDF3 files, `scipy.io.netcdf_file(path, 'r', mmap=False)` provides `nc.variables['time'][:]`, `nc.variables['z'][:]`, and `nc.variables['temp'][:]`. `scipy.io.netcdf_file` **does not read NetCDF4/HDF5**: check the file format before committing to that reader. The GLM-output skill uses `netCDF4.Dataset(path, 'r')` when that package is available.
+- `z` and `temp` are indexed `[time_index, layer_index, 0, 0]`. Exclude masked or non-finite layer values. Simulation timestamps are `pd.Timestamp('2009-01-01 12:00:00') + pd.to_timedelta(time, unit='h')`; simulated depth below the surface is **`lake_depth - z`**, not `z`.
+- The GLM-output skill rounds simulated and observed depths to integers for matching, and groups duplicate simulation `(datetime, depth)` records by mean temperature. Parse CSV datetimes with `pd.to_datetime`; join meteorology on `datetime` and observations to simulation on `(datetime, depth)`. Keep every matched observation row—do not aggregate observations.
+- For matched rows, let `s = (depth_m - 10) * shortwave_W_m2 / 200` and `r = temp_C - simulated_temp_C`. No-intercept OLS gives `delta_Kw = sum(s*r) / sum(s*s)` and `fitted_Kw = current_Kw + delta_Kw`. Check that matches exist and the denominator is nonzero. Format the replacement value with `f'{fitted_Kw:.4f}'`.
+
+Compact workflow: inspect the namelist assignments and NetCDF format; read times and valid layers; join observations and shortwave data; compute the one-coefficient fit; write the copied namelist to the specified output path; compare input and output text to confirm that only the `Kw` numeric token changed.

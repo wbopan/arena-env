@@ -1,0 +1,7 @@
+# Summarize offline scan targets
+
+The Trivy-style report `/root/work/trivy_report.json` contains a top-level `Results` array. Each result names a `Target` and contains a `Vulnerabilities` array. Create one summary row per distinct target, including targets with no HIGH or CRITICAL findings. Results with the same target belong to the same summary.
+
+Consider only records whose `Severity` is exactly `HIGH` or `CRITICAL`. Count distinct `VulnerabilityID` values separately for each severity; repeated records with the same ID and severity count once. For `Affected_Packages`, count distinct `(PkgName, InstalledVersion)` pairs among those selected records. For `Max_CVSS`, examine each selected record's CVSS v3 score using the first non-null value in source order `nvd`, `ghsa`, `redhat`. Ignore records without a v3 score when finding the maximum. Do not use v2 scores. Write `N/A` if no selected record has a v3 score.
+
+Write exactly `/root/work/target_risk.csv` as UTF-8 CSV with this header, in this order: `Target,High_CVEs,Critical_CVEs,Affected_Packages,Max_CVSS`. Sort rows by target name ascending. Counts are base-10 integers; available maximum scores are formatted with exactly one digit after the decimal point. The severity label, not CVSS magnitude, determines which records are selected.

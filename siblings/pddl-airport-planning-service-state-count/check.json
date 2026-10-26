@@ -1,0 +1,17 @@
+{
+ "name": "pddl-airport-planning-service-state-count",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "domain.pddl": 542,
+  "problem.pddl": 701
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,7 @@
+{
+ "name": "earthquake-plate-calculation-interior-clearance-ranking",
+ "source": "earthquake-plate-calculation",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "# Rank earthquakes by plate-interior clearance\n\nThe inputs are `/root/work/plates.geojson` and `/root/work/earthquakes.json`. The first is a WGS84 GeoJSON FeatureCollection of Polygon plates; each feature has a `Code` property and one exterior ring. The second is a JSON array of earthquakes with `id`, `longitude`, and `latitude` fields, also in WGS84 degrees.\n\nConsider only earthquakes strictly inside the polygon whose `Code` is `PA`. An earthquake on the polygon edge is not inside. For each eligible earthquake, calculate its shortest distance to any point on the **exterior ring** of that polygon. Do not measure distance to the other plate or merely to the ring's vertices. For this exercise, use the EPSG:4087 metric projection: `x = 6378137 × longitude × π/180` and `y = 6378137 × latitude × π/180`, with distances in metres.\n\nWrite exactly one output file, `/root/work/clearance.json`. It must be a JSON array containing the three eligible earthquakes with the greatest clearance, in descending clearance order. Each object must have exactly `id`, `plate_code`, and `clearance_km`. Set `plate_code` to `PA` and round `clearance_km` to two decimal places. Break an exact unrounded-distance tie by ascending earthquake ID."
+}

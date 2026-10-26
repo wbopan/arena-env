@@ -1,0 +1,7 @@
+{
+ "name": "syzkaller-ppdev-syzlang-description-audit",
+ "source": "syzkaller-ppdev-syzlang",
+ "category": "cybersecurity",
+ "workdir": "/root/work",
+ "instruction": "Audit a small, deliberately incomplete syzlang description against its companion constants file and a UAPI command inventory. The inputs are `/root/work/uapi_commands.csv`, `/root/work/dev_audit.txt`, and `/root/work/dev_audit.txt.const`. The CSV has `name,direction` columns and defines the authoritative pointer direction for each command. Every CSV command has one declaration in the description, written on a single line as `ioctl$NAME(fd fd_ppdev, cmd const[NAME], arg ptr[DIRECTION, int32])`. The constants file has an `arches` line followed by `NAME = DECIMAL_VALUE` lines; ignore blank lines and comments.\n\nWrite exactly `/root/work/audit.json` as a JSON object with three fields. `missing_constants` is an alphabetically sorted list of command names used by ioctl declarations but absent from the constants file. `unused_constants` is an alphabetically sorted list of constants-file names not used by any ioctl declaration; do not treat `arches` as a constant. `direction_mismatches` is a list sorted by `name` of objects with exactly `name`, `expected`, and `actual`, for declarations whose pointer direction differs from the CSV. Here `expected` is the CSV direction and `actual` is the syzlang direction. Include all three fields even if a list is empty; do not include counts or other fields."
+}

@@ -1,0 +1,17 @@
+{
+ "name": "mars-clouds-clustering-greedy-pairs",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "centroids.csv": 295,
+  "expert.csv": 316
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

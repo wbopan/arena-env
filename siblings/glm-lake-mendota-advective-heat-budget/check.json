@@ -1,0 +1,20 @@
+{
+ "name": "glm-lake-mendota-advective-heat-budget",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "bcs/outflow.csv": 110,
+  "bcs/tributary.csv": 152,
+  "bcs/yahara.csv": 156,
+  "glm3.nml": 103,
+  "output/output.nc": 484
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

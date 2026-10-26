@@ -1,0 +1,20 @@
+{
+ "name": "seismic-phase-picking-template-correlation",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "record_00.npz": 3438,
+  "record_01.npz": 3438,
+  "record_02.npz": 3438,
+  "record_03.npz": 3438,
+  "templates.npz": 1638
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

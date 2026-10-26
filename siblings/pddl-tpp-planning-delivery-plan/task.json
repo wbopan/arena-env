@@ -1,0 +1,7 @@
+{
+ "name": "pddl-tpp-planning-delivery-plan",
+ "source": "pddl-tpp-planning",
+ "category": "mathematics-or-formal-reasoning",
+ "workdir": "/root/work",
+ "instruction": "Create a sequential plan for the travelling purchase problem in `/root/work/domain.pddl` and `/root/work/problem.pddl`. The problem contains one truck, a depot, markets, goods, directed roads, and stock facts. Its goal lists the goods that must be delivered to the depot.\n\nWrite exactly one output file: `/root/work/delivery.plan`. It must contain one grounded action per line, with no headings, comments, blank lines, or surrounding PDDL parentheses. Use the format `action(argument1, argument2, ...)`, preserving the action and object names from the inputs. The available actions are `drive`, `buy`, `load`, and `unload`; their parameter order, preconditions, and effects are defined in `domain.pddl`.\n\nA plan is successful only if every action is applicable when reached and the final state satisfies every goal literal. Roads are directed: a road from one location to another does not imply a road in the reverse direction. The truck starts empty, can carry only one good at a time, and must unload goods at the depot for them to count as delivered. Stock at a market does not by itself count as a purchase. You may visit locations and purchase goods in any valid order."
+}

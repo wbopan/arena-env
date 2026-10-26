@@ -1,0 +1,7 @@
+{
+ "name": "flood-risk-analysis-nws-daily-counts",
+ "source": "flood-risk-analysis",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "Determine which gages experienced flooding from May 10 through May 15, 2025, inclusive. Both inputs are in `/root/work`. `gage_height_iv.rdb` contains USGS-style instantaneous gage-height observations: tab-separated fields, comment lines beginning with `#`, a column-name line, and then an RDB field-type line before the observations. The `00065` values are water levels in feet; blank values are missing observations. Dates and times in `datetime` are local station time, so use the calendar date shown without timezone conversion.\n\n`nws_gauges.csv` is an NWS-style threshold export keyed by `usgs id`. Its numeric `flood stage` column is in feet. Data rows contain one extra trailing field not named in the header; ignore that field. A flood stage of `-9999` means no defined threshold. Treat station IDs as text, preserving leading zeroes. Ignore observations for stations without a defined threshold.\n\nFor each station and calendar day, take the maximum available gage height. A day floods when that maximum is greater than or equal to its station's flood stage. Write `/root/work/flood_day_counts.csv` with exactly the columns `station_id,flood_days`, in that order. Include only stations with at least one flood day, sorted by station ID ascending. `flood_days` is an integer count; do not add a totals row."
+}

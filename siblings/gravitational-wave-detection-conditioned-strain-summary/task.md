@@ -1,0 +1,9 @@
+# Conditioned strain summary
+
+The file `/root/work/raw_strain.npy` contains 2048 float64 detector-strain samples recorded at 1024 samples per second. Values are in arbitrary strain units. Produce a compact summary of the strain after conditioning, rather than analyzing the unconditioned samples.
+
+Apply a fourth-order Butterworth high-pass filter with a 35 Hz cutoff. Use second-order sections and zero-phase forward-backward filtering with SciPy's default `sosfiltfilt` padding behavior. Next, resample the filtered series from 1024 Hz to 512 Hz using `scipy.signal.resample_poly` with up-factor 1, down-factor 2, and its default window and padding behavior. Finally, discard 64 samples from each end of the resampled series. Do not change the order of these operations.
+
+Divide the remaining 896 samples into four consecutive, nonoverlapping blocks of 224 samples. For each block, compute its root-mean-square amplitude as the square root of the mean squared sample value. Also find the largest absolute sample in the entire cropped series; if tied, choose the earliest sample.
+
+Write exactly one UTF-8 JSON file at `/root/work/conditioned_summary.json`. It must contain `sample_rate_hz` (512), `samples` (896), `block_rms` (an array of four amplitudes), `peak_index` (zero-based index within the cropped series), and `peak_abs` (absolute amplitude). Round amplitudes to six decimal places.

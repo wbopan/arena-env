@@ -1,0 +1,17 @@
+{
+ "name": "flood-risk-analysis-nws-daily-counts",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "gage_height_iv.rdb": 5101,
+  "nws_gauges.csv": 263
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

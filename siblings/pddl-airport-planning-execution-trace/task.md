@@ -1,0 +1,7 @@
+# Trace an airport ground-movement plan
+
+The files `/root/work/domain.pddl` and `/root/work/problem.pddl` define a small, typed STRIPS planning instance. The domain has one aircraft and a `move` action. A move requires the aircraft to be at its stated origin and a `connected` fact for its origin and destination. It removes the old `at` fact and adds the new one. Connections are directed; do not infer a reverse connection. The problem's `:init` section supplies the initial location and the available connections.
+
+`/root/work/candidate.plan` contains a proposed sequence of ground actions, one `move(aircraft, origin, destination)` per line. Execute it in order. Stop at the first action whose preconditions are false; do not execute that action or any subsequent action.
+
+Write exactly one output file, `/root/work/trace.csv`, in UTF-8. Its header must be `step,action,valid,location`. Include a row numbered 0 for the initial state, with action `INIT` and valid `true`. Then include one row for each action examined, including the first invalid action if there is one. Copy each examined action's text into the `action` column. Use lowercase `true` or `false` in `valid`. `location` is the aircraft's location after a valid action, or its unchanged location after an invalid action. Do not add columns, commentary, or rows for unexamined actions.

@@ -1,0 +1,7 @@
+{
+ "name": "pddl-tpp-planning-shortest-shopping-plan",
+ "source": "pddl-tpp-planning",
+ "category": "mathematics-or-formal-reasoning",
+ "workdir": "/root/work",
+ "instruction": "Find a shortest sequential plan for the PDDL inputs `/root/work/domain.pddl` and `/root/work/problem.pddl`. The truck begins at the depot. Directed `road` facts permit `drive` actions; `available` facts permit buying a good at a market. A good becomes owned through `buy`, and the goal is to own every listed good. The truck may own several goods simultaneously, and returning to the depot is not required unless needed to accomplish the goal.\n\nWrite one JSON file at `/root/work/shortest_plan.json`. It must be an object with exactly two fields: `minimum_steps`, a nonnegative integer, and `actions`, an array of strings. Each string must be a grounded action in the form `drive(truck, from, to)` or `buy(truck, good, market)`, with object names taken from the problem. The array must be an applicable plan that achieves the goal. `minimum_steps` must equal its number of actions, and no plan with fewer actions may achieve the goal. Count each drive or buy as one step; do not use road distance, prices, or any other cost. Road direction matters, and an available good is not owned until bought."
+}

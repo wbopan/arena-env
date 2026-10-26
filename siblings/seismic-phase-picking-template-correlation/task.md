@@ -1,0 +1,7 @@
+# P and S picks by waveform correlation
+
+The directory `/root/work` contains `templates.npz` and four files named `record_*.npz`. The template file contains `p_template` and `s_template`, each a three-component waveform of equal length, plus `channels` and `dt`. Each record contains `data` (samples by three channels), `channels`, and `dt`. Channel names are comma-separated strings; column order can differ between records and templates. All sampling intervals are in seconds.
+
+For each record and each phase, compare its template with every complete, same-length window of the record. First reorder the record's columns to the template's channel order. Flatten each window and template in row-major order. The comparison score is their dot product divided by the product of their Euclidean norms; do not subtract a mean or take an absolute value. Select the window with the highest score, breaking an exact tie in favor of the smaller starting index. The pick is that window's zero-based starting sample index, not its midpoint.
+
+Write exactly one output file, `/root/work/picks.csv`, with header `file_name,phase,pick_idx,score`. Include one P row and one S row per record. Use the record's basename, integer indices, and scores rounded to four decimal places. Order rows by filename, then P before S.

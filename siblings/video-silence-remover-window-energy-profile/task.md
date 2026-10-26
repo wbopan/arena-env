@@ -1,0 +1,7 @@
+# Half-Second Audio Energy Profile
+
+The audio from a short teaching clip is supplied as `/root/work/lecture_audio.wav`. It is mono, signed 16-bit PCM. Read its sample rate from the WAV header rather than assuming a particular rate. Produce one file, `/root/work/energies.json`, containing an energy profile that could be used to locate quiet portions of the clip.
+
+Divide the decoded samples into consecutive, non-overlapping half-second windows, starting at sample zero. Include the final window even if it contains fewer samples. For each window, calculate RMS amplitude in PCM sample units: the square root of the mean of the squared signed sample values. Convert samples to a sufficiently wide numeric type before squaring.
+
+The JSON object must have exactly these top-level fields: `sample_rate`, `window_seconds`, `total_seconds`, `energies`, and `stats`. Set `window_seconds` to `0.5`; set `total_seconds` to the number of windows multiplied by `0.5`. `energies` is the ordered list of window RMS values. `stats` has exactly `min`, `max`, `mean`, and `std`, calculated from the **unrounded** window RMS values; use population standard deviation. Round every RMS value and statistic to three decimal places. Times are in seconds and amplitudes are in PCM sample units.

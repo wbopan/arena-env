@@ -1,0 +1,18 @@
+{
+ "name": "paratransit-routing-connected-cleanup",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "candidate_routes.json": 348,
+  "requests.json": 1307,
+  "t_matrix.csv": 1225
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "name": "setup-fuzzing-py-corpus-manifest",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "seeds/binary_0.seed": 4,
+  "seeds/binary_1.seed": 5,
+  "seeds/binary_2.seed": 6,
+  "seeds/binary_3.seed": 7,
+  "seeds/binary_repeat.seed": 4,
+  "seeds/json_0_compact.seed": 25,
+  "seeds/json_0_spaced.seed": 34,
+  "seeds/json_1_compact.seed": 21,
+  "seeds/json_1_spaced.seed": 37,
+  "seeds/json_2_compact.seed": 30,
+  "seeds/json_2_spaced.seed": 52,
+  "seeds/text_0.seed": 8,
+  "seeds/text_1.seed": 9,
+  "seeds/text_2.seed": 8,
+  "seeds/text_3.seed": 9,
+  "seeds/text_repeat.seed": 8
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

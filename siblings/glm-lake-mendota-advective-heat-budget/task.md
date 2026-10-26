@@ -1,0 +1,9 @@
+# Daily advective heat budget
+
+Calculate the heat carried into and out of a small Lake Mendota GLM run. This is a boundary-flux calculation, not a request to run or calibrate GLM.
+
+Inputs under `/root/work` are `glm3.nml`, the CSV files listed by `inflow_fl` and `outflow_fl` in its `&inflow` and `&outflow` sections, and `output/output.nc`. Paths in the namelist are relative to `/root/work`; `inflow_fl` lists two quoted paths. Each inflow CSV has `date,flow_m3_s,temp_C`; the outflow CSV has `date,flow_m3_s`. All files contain the same dates, with one row per date.
+
+The NetCDF file has `time` in hours since 2009-01-01 12:00:00, and `z` and `temp` of shape `(time, layer, 1, 1)`. Each timestamp falls on a date in the CSV files. For outflow temperature, use the temperature of the layer with the greatest height `z` at that timestamp. Positive heat flux is into the lake; use 0 °C as the energy reference. For each date, compute inflow and outflow volumes as flow times 86,400 seconds, and net heat in MJ as `4.186 * (sum(inflow_volume_m3 * inflow_temp_C) - outflow_volume_m3 * surface_temp_C)`.
+
+Write only `/root/work/advective_budget.csv`, with header `date,inflow_m3,outflow_m3,net_heat_MJ`. Include every date in ascending order and format all three numeric columns to three decimal places.

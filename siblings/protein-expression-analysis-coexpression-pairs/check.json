@@ -1,0 +1,16 @@
+{
+ "name": "protein-expression-analysis-coexpression-pairs",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "coexpression_panel.xlsx": 5986
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

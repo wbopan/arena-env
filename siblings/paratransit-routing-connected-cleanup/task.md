@@ -1,0 +1,7 @@
+# Clean up incomplete connected requests
+
+The proposed two-vehicle plan in `/root/work/candidate_routes.json` may contain only part of a connected passenger request. Each route is an ordered list of node IDs beginning and ending at `DEP`. In `/root/work/requests.json`, every group has a `group_id` and two trips; each trip specifies a pickup node and a dropoff node. All trips in a group must be served together, although its trips may use different vehicles. The headerless integer matrix `/root/work/t_matrix.csv` gives travel minutes in the order `DEP`, then each trip’s pickup and dropoff nodes in group and trip order as listed in `requests.json`.
+
+A group is complete only if, for every one of its trips, its pickup and dropoff each occur exactly once in the entire candidate plan, occur on the same route, and the pickup precedes the dropoff. Otherwise remove every service node belonging to that group. Preserve the original order of retained nodes within each route and keep both depot endpoints. Calculate travel afresh across the resulting arcs, including an empty route’s direct depot-to-depot arc. Service time, windows, and vehicle capacity do not apply.
+
+Write exactly one JSON object to `/root/work/cleaned_plan.json` with keys `complete_group_ids`, `cleaned_routes`, and `total_travel_min`. The first is an alphabetically sorted list of IDs; the second is a list of route node lists in original vehicle order; the last is an integer number of travel minutes. Do not include other fields.

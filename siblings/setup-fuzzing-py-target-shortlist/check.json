@@ -1,0 +1,26 @@
+{
+ "name": "setup-fuzzing-py-target-shortlist",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "pkg/__init__.py": 0,
+  "pkg/records.py": 270,
+  "pkg/wire.py": 273,
+  "tests/test_records_1_0.py": 124,
+  "tests/test_records_1_1.py": 124,
+  "tests/test_records_2_0.py": 127,
+  "tests/test_records_2_1.py": 127,
+  "tests/test_wire_1_0.py": 124,
+  "tests/test_wire_1_1.py": 124,
+  "tests/test_wire_2_0.py": 121,
+  "tests/test_wire_2_1.py": 121
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

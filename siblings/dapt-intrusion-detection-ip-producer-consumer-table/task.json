@@ -1,0 +1,7 @@
+{
+ "name": "dapt-intrusion-detection-ip-producer-consumer-table",
+ "source": "dapt-intrusion-detection",
+ "category": "cybersecurity",
+ "workdir": "/root/work",
+ "instruction": "# IP producer/consumer table\n\nAnalyze `/root/work/traffic.csv`, a packet log with columns `ts,src_ip,dst_ip,src_port,dst_port,proto,length`. `length` is the captured packet size in bytes. Rows are not necessarily in timestamp order. An ARP row has empty IP and port fields; exclude it from this analysis. All other rows represent IP packets, including rows without transport ports.\n\nProduce exactly one output file: `/root/work/ip_roles.csv`. Its header must be `ip,bytes_sent,bytes_recv,pcr,outdegree,indegree,role`. Include one row for every IP occurring as either a source or destination of an IP packet, sorted by IP address as text. `bytes_sent` and `bytes_recv` are sums of `length` for packets sourced from and destined to that IP, respectively. Compute `pcr = (bytes_sent - bytes_recv) / (bytes_sent + bytes_recv)` and write it with exactly six digits after the decimal point.\n\nFor directed graph degrees, an edge is a distinct source-IP-to-destination-IP pair, regardless of packet count, ports or protocol. `outdegree` and `indegree` count distinct neighboring IPs. Set `role` to `producer` when the unrounded PCR is strictly greater than 0.2, `consumer` when it is strictly less than -0.2, and `balanced` otherwise. Do not include an index column or summary row."
+}

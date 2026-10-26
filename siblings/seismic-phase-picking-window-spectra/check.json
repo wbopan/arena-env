@@ -1,0 +1,20 @@
+{
+ "name": "seismic-phase-picking-window-spectra",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "station_00.npz": 4398,
+  "station_01.npz": 4398,
+  "station_02.npz": 4398,
+  "station_03.npz": 4398,
+  "windows.csv": 239
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

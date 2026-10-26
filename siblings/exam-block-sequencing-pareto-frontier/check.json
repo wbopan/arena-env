@@ -1,0 +1,18 @@
+{
+ "name": "exam-block-sequencing-pareto-frontier",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "instance.json": 319,
+  "pair_counts.csv": 405,
+  "triple_counts.csv": 2546
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "name": "mario-coin-counting-sprite-localization",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "coin.png": 148,
+  "enemy.png": 146,
+  "frames/frame_001.png": 499,
+  "frames/frame_002.png": 533,
+  "turtle.png": 146
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

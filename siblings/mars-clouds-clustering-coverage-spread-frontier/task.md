@@ -1,0 +1,9 @@
+# Coverage–Spread Frontier for Mars Cloud Clusters
+
+`/root/work/citsci.csv` contains cloud annotations with columns `file_rad,x,y`, where coordinates are pixels. Evaluate each image independently with DBSCAN. Search every combination of `epsilon` in `{2,3,4}`, `min_samples` in `{2,3}`, and `shape_weight` in `{0.7,1.0,1.3}`. The clustering distance is `sqrt((shape_weight*dx)^2+((2-shape_weight)*dy)^2)`; a point is its own neighbor. Process points in CSV order, expanding through core points. If a border point touches multiple clusters, assign it to the first cluster discovered. Noise is unassigned.
+
+For each configuration, pool all images. Define `coverage` as assigned points divided by all input points. Define `spread_px` as the mean standard Euclidean distance from each assigned point to its own cluster's arithmetic centroid, computed in original coordinates. Discard configurations with coverage below 0.4 or with no assigned points.
+
+Keep every non-dominated configuration: another configuration dominates it only if it has at least as much coverage and no greater spread, with at least one strict improvement. Compare unrounded quantities when determining dominance, and retain distinct configurations with identical objectives.
+
+Write `/root/work/frontier.json` as a JSON array sorted by `epsilon`, `min_samples`, then `shape_weight`. Each object has exactly `epsilon`, `min_samples`, `shape_weight`, `coverage`, `spread_px`. Integers remain integers; round the other three fields to five decimal places.

@@ -1,0 +1,7 @@
+# Find a shortest conflict-free parking plan
+
+The PDDL files `/root/work/domain.pddl` and `/root/work/problem.pddl` specify two aircraft on a directed airport ground network. The domain provides `move` and `park` actions. A move requires an `edge` from its origin to its destination, the aircraft at the origin, and a `clear` destination. It makes the origin clear and the destination occupied. A park action requires the aircraft at a node designated by its `target` fact; it removes the aircraft's `at` fact, makes that node clear, and marks the aircraft `parked`. Parked aircraft cannot move. Treat all actions as unit-cost and sequential: no two actions happen simultaneously.
+
+Find a plan that reaches the problem's conjunctive goal with the fewest possible actions. The node names and extra taxiway edges are generated for this instance, so use the PDDL facts rather than assuming a fixed layout. Directed edges do not imply reverse edges unless both facts appear.
+
+Write exactly one output file, `/root/work/parking.plan`. It must be UTF-8 text containing one grounded action per line, in execution order, with no numbering, comments, or blank lines. Use either `move(aircraft, origin, destination)` or `park(aircraft, node)` syntax, using object names exactly as declared in the problem. A valid plan need not have a particular ordering among equally short solutions.

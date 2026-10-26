@@ -1,0 +1,7 @@
+{
+ "name": "crystallographic-wyckoff-position-analysis-representative-fractions",
+ "source": "crystallographic-wyckoff-position-analysis",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "Three small CIF files are in /root/work/cifs. Their atom-site loops contain labels, Wyckoff letters, multiplicities, and fractional x, y, z coordinates. Treat the listed Wyckoff letters and multiplicities as authoritative; do not infer a space group. Rows are deliberately not sorted by letter.\n\nFor each CIF and each Wyckoff letter present, select the first atom-site row with that letter in file order. Report its listed multiplicity and its three fractional coordinates. First reduce each coordinate modulo 1 into [0, 1), then approximate it by the nearest rational with denominator at most 12. Write fractions as reduced strings: use `0` for zero and omit `/1` for integers. Small decimal perturbations in the inputs are measurement noise. Atom-site rows have full occupancy; occupancy is irrelevant here. If several rows share a letter, do not average their coordinates or add their multiplicities.\n\nWrite exactly one UTF-8 JSON file at /root/work/representatives.json. Its top-level keys are the CIF basenames, including `.cif`. Each value maps every letter in that file to an object with exactly two fields: `multiplicity`, an integer, and `first_fractional`, an array of three strings in x, y, z order. JSON object key order is immaterial; array order is not."
+}

@@ -1,0 +1,16 @@
+{
+ "name": "software-dependency-audit-cvss-provenance",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "trivy_report.json": 3978
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "name": "radar-vital-signs-cw-phase-motion",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "motion_01.bin": 4800,
+  "motion_01.json": 119,
+  "motion_02.bin": 4800,
+  "motion_02.json": 119,
+  "motion_03.bin": 4800,
+  "motion_03.json": 119
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

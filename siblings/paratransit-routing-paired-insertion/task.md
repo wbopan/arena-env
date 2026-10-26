@@ -1,0 +1,7 @@
+# Find the cheapest feasible paired insertion
+
+One vehicle already has a fixed service-stop sequence in `/root/work/base_route.json`. Insert the pickup and dropoff of the new trip from `/root/work/requests.json` into that sequence without reordering existing stops. The file also describes the existing trips: each trip has a passenger load and inclusive pickup and dropoff service-start windows, all measured in integer minutes after midnight. The headerless travel matrix `/root/work/t_matrix.csv` uses row and column order `DEP,P0,D0,P1,D1,P2,D2`, where trip 2 is the new trip.
+
+The vehicle leaves `DEP` at the `start_min` in `base_route.json`. Arrival at a stop is previous service start plus that stop’s service duration plus travel time. Service starts at the later of arrival and the window lower bound, and must not exceed the upper bound. Every pickup adds its load and every dropoff subtracts it; load must stay between zero and the stated capacity. The vehicle must reach the final depot no later than `end_limit_min`. Depot service duration is zero.
+
+Among feasible insertions, minimize total route travel minutes minus the original route’s travel minutes. Break ties by the smallest pickup index, then smallest dropoff index, where indices are zero-based positions in the final six-element service-stop list, excluding depots. Write `/root/work/insertion.json` as one JSON object with exactly `pickup_index`, `dropoff_index`, `added_travel_min`, and `service_starts_min`. The last field lists the six integer service-start times in final stop order. Do not round.

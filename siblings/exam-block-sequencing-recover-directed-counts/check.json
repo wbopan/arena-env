@@ -1,0 +1,19 @@
+{
+ "name": "exam-block-sequencing-recover-directed-counts",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "instance.json": 106,
+  "missing_pairs.csv": 42,
+  "observations.csv": 295,
+  "pair_counts.csv": 254
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

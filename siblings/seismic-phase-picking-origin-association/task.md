@@ -1,0 +1,7 @@
+# Associate candidate picks with one event
+
+Two CSV files are provided in `/root/work`. `stations.csv` has columns `station,distance_km`; `candidates.csv` has columns `station,phase,pick_idx`. Candidate indices are zero-based samples on a common timeline with a 0.1-second sampling interval. Each station has multiple candidate picks for each of P and S, but all stations recorded the same event. Distances are source-to-station distances in kilometres.
+
+Assume constant P velocity of 6 km/s and S velocity of 3 km/s. For every integer origin index from 0 through 60 inclusive, calculate each station's predicted P and S arrival index: origin index plus travel time divided by 0.1 seconds. These predicted indices are integers for the supplied distances. For each station and phase, select the candidate whose absolute index difference from the prediction is smallest; break a tie by choosing the smaller candidate index. Sum those absolute differences across all station-phase pairs.
+
+Choose the origin index with the smallest sum, breaking an origin tie toward the smaller index. Write `/root/work/association.json` as one JSON object with integer fields `origin_idx` and `total_residual_samples`, and a `picks` array. Each pick must have `station`, `phase`, and integer `pick_idx`. Include every station-phase pair exactly once, sorted by station name and then P before S. Index differences and the total are measured in samples.

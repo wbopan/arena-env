@@ -1,0 +1,23 @@
+{
+ "name": "mario-coin-counting-scene-change-montage",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "frames/frame_000.png": 115,
+  "frames/frame_001.png": 114,
+  "frames/frame_002.png": 115,
+  "frames/frame_003.png": 118,
+  "frames/frame_004.png": 119,
+  "frames/frame_005.png": 119,
+  "frames/frame_006.png": 118,
+  "frames/frame_007.png": 119
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

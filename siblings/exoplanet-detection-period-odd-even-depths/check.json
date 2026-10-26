@@ -1,0 +1,17 @@
+{
+ "name": "exoplanet-detection-period-odd-even-depths",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "candidates.csv": 77,
+  "photometry.csv": 15377
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

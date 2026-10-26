@@ -1,0 +1,7 @@
+{
+ "name": "radar-vital-signs-cw-phase-motion",
+ "source": "radar-vital-signs",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "Three short continuous-wave radar captures are in `/root/work`, as `motion_01.bin` through `motion_03.bin`, each with a matching `.json` sidecar. The sidecar specifies the carrier frequency, sample rate, sample count, and binary layout. Each binary file contains consecutive I/Q pairs, with I first. Use the sidecar rather than assuming a sample rate or carrier frequency.\n\nFor each capture, remove static clutter by subtracting the mean complex sample. Unwrap the angle of the resulting complex signal. Remove its best-fit linear trend: fit phase against sample time with ordinary least squares, then subtract the fitted line. Convert the residual phase to radial displacement in millimetres using `displacement_mm = phase_rad * (299792458 / carrier_frequency_hz) * 1000 / (4*pi)`. The phase-to-displacement convention is round-trip radar propagation; do not double the displacement.\n\nWrite exactly one file, `/root/work/motion_summary.json`. It must be a JSON array ordered by capture number. Each object must have exactly `capture_id`, `rms_displacement_mm`, and `peak_to_peak_mm`. RMS means the square root of the mean squared residual displacement; peak-to-peak means maximum minus minimum. Round both measurements to three decimal places. Use capture IDs `motion_01`, `motion_02`, and `motion_03`."
+}

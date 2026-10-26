@@ -1,0 +1,7 @@
+# Weighted Mars Cloud Centroids
+
+The files `/root/work/citsci.csv` and `/root/work/expert.csv` contain citizen-science and expert cloud positions. Both have columns `file_rad,x,y`; coordinates are in pixels. Use `citsci.csv` for this task. The expert file provides context only and must not affect the result.
+
+For each `file_rad` independently, run DBSCAN with `epsilon=2.5`, `min_samples=3`, and distance `sqrt((1.5*dx)^2+(0.5*dy)^2)`. A point counts itself among its neighbors. Visit points in CSV order. Expand a cluster through core points; a non-core point within range of multiple clusters belongs to the cluster first encountered by this visit order. Noise does not belong to any cluster.
+
+Write `/root/work/centroids.csv` with exactly these columns: `file_rad,cluster_id,n_points,centroid_x,centroid_y`. Number clusters from zero in discovery order within each image. `n_points` includes assigned non-core points. Centroids are arithmetic means of the original, unweighted pixel coordinates of all assigned points. Round centroid coordinates to four decimal places; write counts and IDs as integers. Include no rows for noise or images without clusters. Sort output rows by `file_rad`, then `cluster_id`.

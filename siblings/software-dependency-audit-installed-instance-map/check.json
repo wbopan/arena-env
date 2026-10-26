@@ -1,0 +1,17 @@
+{
+ "name": "software-dependency-audit-installed-instance-map",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "package-lock.json": 602,
+  "trivy_report.json": 1998
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

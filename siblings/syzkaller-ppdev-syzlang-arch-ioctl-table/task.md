@@ -1,0 +1,5 @@
+Compute architecture-specific Linux ioctl request numbers for the synthetic ppdev commands in `/root/work/ioctl_layout.csv`. This is a compact constants-extraction exercise: the CSV supplies the ioctl type and number as hexadecimal integers, its direction as `IO`, `IOR`, `IOW`, or `IOWR`, and the encoded argument size separately for 386 and amd64. The input columns are `name,type,nr,direction,size_386,size_amd64`. Sizes are decimal byte counts, not C type names.
+
+Use the Linux ioctl encoding `request = (direction_code << 30) | (size << 16) | (type << 8) | nr`, with direction codes `IO=0`, `IOW=1`, `IOR=2`, and `IOWR=3`. No other architecture-dependent changes apply. Calculate each request twice, using the corresponding size column. Output unsigned decimal integers, not hexadecimal or signed representations.
+
+Write exactly `/root/work/ioctl_numbers.csv`, with the header `name,386,amd64` and one row per input command in input order. Preserve command names exactly. Do not include an index, units, comments, or additional columns. Every input row must appear once, even when its two calculated numbers are equal.

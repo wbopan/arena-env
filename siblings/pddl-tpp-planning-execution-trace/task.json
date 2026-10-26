@@ -1,0 +1,7 @@
+{
+ "name": "pddl-tpp-planning-execution-trace",
+ "source": "pddl-tpp-planning",
+ "category": "mathematics-or-formal-reasoning",
+ "workdir": "/root/work",
+ "instruction": "Audit the proposed travelling-purchase plan in `/root/work/candidate.plan` against `/root/work/domain.pddl` and `/root/work/problem.pddl`. The candidate contains one grounded action per line. Execute its lines in order, starting from the PDDL initial state. For each line, determine whether that action's preconditions hold immediately before it executes. Apply the effects of applicable actions. An inapplicable action has no effect, but processing continues with the next line.\n\nWrite exactly `/root/work/execution_trace.csv` as UTF-8 CSV with the header `step,action,applicable,location,cargo,delivered,goal_after`. Include one row for each candidate line and no initial-state row. `step` is the one-based line number; `action` reproduces the candidate line exactly. After processing that line, report the truck's `location`, its carried good as `cargo` or `-` if empty, and `delivered` as alphabetically sorted good names joined by semicolons or `-` if none. Use `1` or `0` for `applicable` and `goal_after`; the latter says whether all PDDL goal goods are delivered after that line. Roads are directed. Buying establishes a purchased fact, loading requires an empty truck, and unloading requires the truck to be at the depot. Do not stop at the first invalid action or when the goal becomes true."
+}

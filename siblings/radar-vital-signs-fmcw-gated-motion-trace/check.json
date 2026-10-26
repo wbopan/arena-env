@@ -1,0 +1,19 @@
+{
+ "name": "radar-vital-signs-fmcw-gated-motion-trace",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "sweep_01.bin": 16384,
+  "sweep_01.json": 160,
+  "sweep_02.bin": 16384,
+  "sweep_02.json": 160
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "name": "multilingual-video-dubbing-bilingual-captions",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "source_text.srt": 196,
+  "target_language.txt": 3,
+  "target_text.srt": 199,
+  "windows.srt": 164
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

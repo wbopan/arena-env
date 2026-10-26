@@ -1,0 +1,9 @@
+# Exam-burden trade-off frontier
+
+The registrar wants to compare two kinds of student burden rather than combine them into a single weighted score. Enumerate the attainable nondominated cost pairs for feasible schedules of seven blocks. A schedule is a permutation: every block appears once and every slot receives one block.
+
+Inputs in `/root/work` are `instance.json`, `pair_counts.csv`, and `triple_counts.csv`. The JSON contains `slot_order` in chronological order, `blocks`, `large_blocks`, and `early_slots`. Every large block must be assigned to a slot in `early_slots`. The pair CSV has columns `first,second,count`; the triple CSV has `first,second,third,count`. Both contain all ordered tuples of distinct blocks. Direction matters, so never sort a tuple before looking up its count.
+
+For a feasible schedule, `pair_cost` is the sum over all six adjacent two-slot windows. `triple_cost` is the sum over all five adjacent three-slot windows. Windows do not wrap around. A cost pair is nondominated if no feasible schedule has both costs no greater and at least one strictly smaller. For each nondominated pair, `multiplicity` is the number of feasible schedules attaining that exact pair, including schedules that differ only in block order.
+
+Write exactly `/root/work/frontier.json`: a JSON object with one field, `frontier`, containing objects with integer fields `pair_cost`, `triple_cost`, and `multiplicity`. Include each nondominated pair once, sorted by increasing `pair_cost`.

@@ -1,0 +1,18 @@
+{
+ "name": "travel-planning-fastest-driving-order",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cities.txt": 97,
+  "distance.csv": 1249,
+  "trip.json": 95
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "name": "crystallographic-wyckoff-position-analysis-representative-fractions",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cifs/sample_1.cif": 479,
+  "cifs/sample_2.cif": 480,
+  "cifs/sample_3.cif": 478
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

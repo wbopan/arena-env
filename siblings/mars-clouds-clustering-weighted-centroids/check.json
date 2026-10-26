@@ -1,0 +1,17 @@
+{
+ "name": "mars-clouds-clustering-weighted-centroids",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "citsci.csv": 871,
+  "expert.csv": 107
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

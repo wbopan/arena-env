@@ -1,0 +1,7 @@
+{
+ "name": "suricata-custom-exfil-pcap-request-inventory",
+ "source": "suricata-custom-exfil",
+ "category": "cybersecurity",
+ "workdir": "/root/work",
+ "instruction": "Prepare a request inventory from a small packet capture before writing an HTTP detection rule. This task is extraction, not alert classification: include requests whether or not their body resembles exfiltration.\n\nInput: `/root/work/telemetry.pcap`, a classic little-endian libpcap with Ethernet link type. Frames contain unfragmented IPv4/TCP traffic. Each client connection has a unique TCP source port, begins with a SYN, and contains one HTTP/1.1 request to destination port 80. Request bytes can span several TCP segments, and segments within a connection are not necessarily stored in TCP sequence order. There are no retransmissions or TCP sequence-number wraps. Ignore packets without a TCP payload, and do not treat server-to-client traffic as requests.\n\nWrite `/root/work/request_inventory.json` as a JSON array sorted by ascending numeric `src_port`. Include every captured request. Each object must have exactly these fields: `src_ip` (string), `src_port` (integer), `method` (string), `uri` (string), `body_bytes` (integer), and `body_sha256` (lowercase hexadecimal SHA-256 of the body bytes). The method and URI come from the request line. The body begins immediately after the CRLF-CRLF header terminator; its length is the request's `Content-Length`. Hash only those body bytes, not headers or later traffic. An empty body has the standard SHA-256 digest of zero bytes."
+}

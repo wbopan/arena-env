@@ -1,0 +1,7 @@
+{
+ "name": "threejs-structure-parser-instanced-triangles",
+ "source": "threejs-structure-parser",
+ "category": "media-content-production",
+ "workdir": "/root/work",
+ "instruction": "# Expand an instanced mesh to OBJ\n\n`/root/work/instances.json` describes one Three.js-style InstancedMesh. `geometry.positions` is a flat list of local XYZ vertex coordinates, and `geometry.indices` is a flat list of zero-based triangle indices. `mesh_matrix` is the mesh's world transform. `instance_matrices` contains one local instance transform per copy, in the order to export. Every matrix is a 16-number column-major affine matrix, as in Three.js; a vertex is transformed by `mesh_matrix * instance_matrix`. All faces use the original index order, and all matrix products use column vectors.\n\nCreate exactly one output file, `/root/work/expanded.obj`, as UTF-8 Wavefront OBJ. For each instance in input order, write one `v x y z` line for every geometry vertex in input order, using world coordinates rounded to six decimal places. Then write one `f a b c` line for every geometry triangle in input order. OBJ face indices are one-based and refer to that instance's vertex block. Repeat this vertex-then-face block for each instance. Do not deduplicate vertices, reverse winding, convert axes, or emit normals. Blank lines and comment lines are permitted, but no other OBJ record types are needed."
+}

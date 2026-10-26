@@ -1,0 +1,7 @@
+{
+ "name": "protein-expression-analysis-paired-response",
+ "source": "protein-expression-analysis",
+ "category": "natural-science",
+ "workdir": "/root/work",
+ "instruction": "# Paired protein response\n\nThe workbook `/root/work/paired_expression.xlsx` contains log2 protein-expression measurements. The `Data` sheet has a `Protein_ID` column followed by sample columns. Protein rows and sample columns are not necessarily in the order used elsewhere in the workbook. The `Pairs` sheet lists matched control and treated samples in columns `Pair_ID`, `Control_Sample`, and `Treated_Sample`. The `Targets` sheet lists the proteins to report in its `Protein_ID` column.\n\nCreate exactly one output file, `/root/work/paired_response.csv`. Use this header and column order: `protein_id,n_pairs,mean_log2_delta,sd_log2_delta,geometric_fold_change`. Write one row per target protein, in `Targets` sheet order. For each protein and each listed pair, subtract the control log2 expression from the treated log2 expression. `n_pairs` is the number of listed pairs; `mean_log2_delta` is the arithmetic mean of their differences; and `sd_log2_delta` is their sample standard deviation, using denominator n−1. `geometric_fold_change` is 2 raised to the unrounded mean log2 difference.\n\nMatch protein IDs and full sample names exactly. All listed measurements are present. Write numerical results to four decimal places, with ordinary CSV quoting and no extra rows or columns."
+}

@@ -1,0 +1,17 @@
+{
+ "name": "crystallographic-wyckoff-position-analysis-occupancy-composition",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "cifs/cell_1.cif": 635,
+  "cifs/cell_2.cif": 639
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}

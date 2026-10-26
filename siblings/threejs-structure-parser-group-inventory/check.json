@@ -1,0 +1,16 @@
+{
+ "name": "threejs-structure-parser-group-inventory",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "scene.json": 2383
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1,
+ "seeds": {
+  "0": true,
+  "1": true,
+  "2": true
+ }
+}
