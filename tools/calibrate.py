@@ -21,6 +21,7 @@ Usage:
 
 import argparse
 import json
+import os
 import re
 import random
 import socket
@@ -138,12 +139,16 @@ class Model:
                     data = json.load(r)
                 break
             except urllib.error.HTTPError as exc:
+                text = exc.read().decode(errors="replace")
+                if "budget_exceeded" in text:  # retrying cannot help: stop the whole run
+                    print(f"inference budget exhausted, stopping: {text[:200]}", file=sys.stderr, flush=True)
+                    os._exit(3)
                 if exc.code in (429, 500, 502, 503, 504) and attempt < 7:
                     with self._lock:
                         self.usage["retries"] += 1
                     time.sleep(min(60, 2 ** attempt * 2) + random.random())
                     continue
-                raise RuntimeError(f"inference HTTP {exc.code}: {exc.read().decode()[:200]}") from None
+                raise RuntimeError(f"inference HTTP {exc.code}: {text[:200]}") from None
             except (urllib.error.URLError, TimeoutError):
                 if attempt < 7:
                     time.sleep(2 ** attempt)
