@@ -1,0 +1,5 @@
+# Convert subtitles to a new frame rate
+
+`/root/work/input.srt` was timed against a 23.976 fps master. The new master is the same picture played at 25 fps, so every moment comes earlier by the factor 24000/25025. `/root/work/job.json` also gives `offset_ms`, a shift in milliseconds applied after the conversion (it can be negative). The input cues are not all in index order: process them by their cue index.
+
+Write `/root/work/output.srt`. For every timestamp t (in milliseconds) of the input: new = t x 24000 / 25025 rounded to the nearest millisecond (halves round up), then plus `offset_ms`. Convert each timestamp from its original value, never from an earlier result. A cue whose new end is at or before zero is removed; a negative new start becomes 00:00:00,000. Keep the text lines unchanged. Number the remaining cues 1, 2, 3, ... by original index order. Format `HH:MM:SS,mmm --> HH:MM:SS,mmm`, one blank line between cues.

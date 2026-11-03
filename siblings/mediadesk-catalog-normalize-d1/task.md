@@ -1,0 +1,5 @@
+# Normalise a media catalogue
+
+`/root/work/library.csv` has columns `asset_id, title, duration, updated_at`. Durations come in mixed forms: `H:MM:SS`, `M:SS`, `<n>s` and `<h>h<m>m<s>s` with any part omitted (for example `1h5s`, `42m`). Asset ids are case-insensitive. Every id occurs once.
+
+Write `/root/work/catalog.json` as `{"items": [...]}` with one item per asset, sorted by upper-case id: `{"asset_id": upper-case id, "title": title with surrounding spaces removed and inner runs of spaces collapsed to one, "duration": ISO 8601 duration, "duration_sec": integer seconds}`. The ISO form is `PT` followed by hours `H`, minutes `M` and seconds `S`, leaving out zero parts (`PT1H5S`, `PT42M`); zero is `PT0S`.

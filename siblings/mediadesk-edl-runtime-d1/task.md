@@ -1,0 +1,5 @@
+# Edit list runtime
+
+`/root/work/edl.csv` lists the clips of an edit with source timecodes `src_in` and `src_out` (SMPTE `HH:MM:SS:FF`). `/root/work/job.json` gives the frame rate `fps` (non-drop). `src_out` is exclusive: a clip from 00:00:01:00 to 00:00:02:00 at 25 fps is 25 frames.
+
+Write `/root/work/runtime.json` as `{"clips": [{"clip_id": ..., "frames": ...}, ...], "total_frames": N, "total_timecode": "HH:MM:SS:FF"}`: clips in file order with their length in frames (integers), the sum of all lengths, and that sum as a timecode at the same rate counted from 00:00:00:00.

@@ -1,0 +1,13 @@
+{
+ "name": "mediadesk-edl-runtime-d3",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "runtime.json": 410,
+  "job.json": 31,
+  "edl.csv": 378
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

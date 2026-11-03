@@ -1,0 +1,13 @@
+{
+ "name": "mediadesk-catalog-normalize-d1",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "catalog.json": 1605,
+  "job.json": 2,
+  "library.csv": 761
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

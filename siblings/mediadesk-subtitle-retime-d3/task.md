@@ -1,0 +1,9 @@
+# Conform subtitles to a new master
+
+`/root/work/input.srt` was timed against a 23.976 fps master; the new master is the same picture at 25 fps, so every moment comes earlier by the factor 24000/25025. `/root/work/job.json` gives `offset_ms` (applied after the conversion, can be negative) and `min_gap_ms`. The input cues are not all in index order: process them by cue index.
+
+Write `/root/work/output.srt`:
+1. For every timestamp t in milliseconds: new = t x 24000 / 25025 rounded to the nearest millisecond (halves round up), plus `offset_ms`. Always convert from the original value.
+2. Remove cues whose new end is at or before zero; a negative new start becomes 0.
+3. Then, going through the remaining cues in index order, if the next cue starts less than `min_gap_ms` after a cue ends, move that cue's end earlier to exactly `min_gap_ms` before the next cue's start. Starts never move.
+4. Number the cues 1, 2, 3, ...; keep text lines unchanged. Format `HH:MM:SS,mmm --> HH:MM:SS,mmm`, one blank line between cues.

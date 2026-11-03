@@ -1,0 +1,13 @@
+{
+ "name": "mediadesk-subtitle-retime-d1",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "output.srt": 875,
+  "input.srt": 939,
+  "job.json": 23
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}

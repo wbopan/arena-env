@@ -1,0 +1,5 @@
+# Drop-frame edit list runtime
+
+`/root/work/edl.csv` lists clips with source timecodes `src_in` and `src_out` in 29.97 fps drop-frame SMPTE timecode (`HH:MM:SS;FF`), and a `status`; `skip` clips are not in the cut. `src_out` is exclusive. Drop-frame numbering skips frame labels 00 and 01 at the start of every minute except minutes divisible by 10 (no frames are actually dropped), so the frame count between two labels is not the naive difference.
+
+Write `/root/work/runtime.json` as `{"clips": [{"clip_id": ..., "frames": ...}, ...], "total_frames": N, "total_timecode": "HH:MM:SS;FF"}`: the clips in the cut in file order with their true lengths in frames, the sum, and the sum as a drop-frame timecode counted from 00:00:00;00.

@@ -1,0 +1,13 @@
+{
+ "name": "mediadesk-reframe-crops-d1",
+ "ok": true,
+ "gen": 0,
+ "inputs": {
+  "crops.csv": 670,
+  "sources.csv": 86,
+  "platforms.json": 269
+ },
+ "blank_reward": 0,
+ "oracle_exit": 0,
+ "oracle_reward": 1
+}
